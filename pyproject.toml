@@ -1,0 +1,17 @@
+[tool.poetry]
+authors = ["A. Taqi"]
+description = "Compute aquifier-storage-and-recovery (ASR) efficiencies"
+license = "CC0-1.0"
+name = "asr-inject"
+readme = "README.md"
+repository = "https://github.com/alitaqiEngOx/asr-inject.git"
+version = "0.1.0"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.poetry.scripts]
+asr-inject = "asr_inject.apps.cli:main"
+
+[tool.poetry.dependencies]
