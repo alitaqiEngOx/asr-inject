@@ -5,12 +5,21 @@ import argparse
 import sys
 from pathlib import Path
 
+from asr_inject.utils import outtree
+
+
 def main() -> int:
     """
     Pipeline entry point.
     """
     # parse input CLI arguments
     args = parse_args()
+
+    # make outputs' directory
+    outdir_name = outtree.make_global_outdir(
+        Path(args.config).parent,
+        return_name=True
+    )
 
 def parse_args() -> argparse.Namespace:
     """
