@@ -36,6 +36,12 @@ def main() -> int:
     )
     logger.info("All Rights Reserved\n  |")
 
+    log_handler.exit_pipeline(
+        logger, success=True
+    )
+
+    return 0
+
 def parse_args() -> argparse.Namespace:
     """
     """
