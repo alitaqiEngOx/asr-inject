@@ -11,3 +11,9 @@ def read_yaml(dir: Path) -> dict[str, Any]:
     """
     with open(f"{dir}", 'r') as file:
         return yaml.safe_load(file)
+
+def run(config: Path, *, outdir: Path) -> None:
+    """
+    """
+    # read `.yml`
+    config_dict = read_yaml(config)
