@@ -5,6 +5,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from asr_inject.operations import pipeline
 from asr_inject.utils import log_handler, outtree
 
 
@@ -36,6 +37,13 @@ def main() -> int:
     )
     logger.info("All Rights Reserved\n  |")
 
+    # run pipeline
+    pipeline.run(
+        Path(args.config), 
+        outdir=Path(args.config).parent / outdir_name
+    )
+
+    # exit pipeline
     log_handler.exit_pipeline(
         logger, success=True
     )
