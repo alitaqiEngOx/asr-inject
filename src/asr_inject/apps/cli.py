@@ -29,6 +29,13 @@ def main() -> int:
         )
     )
 
+    logger.info("Welcome to ASR INJECT")
+    logger.info(
+        "Author: A. Taqi; "
+        "alitaqi94.developer@gmail.com"
+    )
+    logger.info("All Rights Reserved\n  |")
+
 def parse_args() -> argparse.Namespace:
     """
     """
