@@ -5,7 +5,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from asr_inject.utils import outtree
+from asr_inject.utils import log_handler, outtree
 
 
 def main() -> int:
@@ -19,6 +19,14 @@ def main() -> int:
     outdir_name = outtree.make_global_outdir(
         Path(args.config).parent,
         return_name=True
+    )
+
+    # generate main logger object & log basic info
+    logger = log_handler.generate(
+        "ASR-inject",
+        dir_name=(
+            Path(args.config).parent / outdir_name
+        )
     )
 
 def parse_args() -> argparse.Namespace:
