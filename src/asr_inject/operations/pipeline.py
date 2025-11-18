@@ -17,3 +17,5 @@ def run(config: Path, *, outdir: Path) -> None:
     """
     # read `.yml`
     config_dict = read_yaml(config)
+
+    print(config_dict)

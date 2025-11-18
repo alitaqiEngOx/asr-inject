@@ -1,2 +1,13 @@
 ### Licensed under the same terms as described in the main 
 # licensing script of this repository. ###
+
+reservoir_dimensions:
+  length: 10.0 # m
+  width: 10.0 # m
+  height: 10.0 # m
+  depth: 100.0 # m
+
+reservoir_conditions:
+  temperature: 50.0 # degC
+  pressure: 10.0 # bara
+  saline_volume_fraction: 0.5
