@@ -37,3 +37,9 @@ class Segment:
             raise TypeError(
                 f"unknown segment type {type}"
             )
+
+    @property
+    def cs_area(self) -> float:
+        """
+        """
+        return self.length * self.width
