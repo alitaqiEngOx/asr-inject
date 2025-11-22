@@ -10,5 +10,10 @@ reservoir_dimensions:
 reservoir_conditions:
   temperature: 50.0 # degC
   pressure: 10.0 # bara
-  saline_volume_fraction: 0.5
-  saline_mole_fraction: 0.01
+
+fresh_segment:
+  volume_fraction: 0.5
+  salt_mole_fraction: 0.0
+
+saline_segment:
+  salt_mole_fraction: 0.01
