@@ -1,6 +1,18 @@
 ### Licensed under the same terms as described in the main 
 # licensing script of this repository. ###
 
+# ------------------------------
+# ---------- FITTINGS ----------
+# ------------------------------
+water_density:
+# - [degC, barrer]
+  - []
+  - []
+  - []
+
+# ------------------------------
+# ---------- ANALYSES ----------
+# ------------------------------
 reservoir_dimensions:
   length: 10.0 # m
   width: 10.0 # m
