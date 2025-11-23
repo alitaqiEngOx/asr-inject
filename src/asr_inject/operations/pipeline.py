@@ -30,6 +30,3 @@ def run(config: Path, *, outdir: Path) -> None:
         density_input["fitting_degree"],
         outdir=outdir
     )
-
-    print(config_dict)
-    print(density_coefficients)
