@@ -15,5 +15,6 @@ requires = ["poetry-core>=1.0.0"]
 asr-inject = "asr_inject.apps.cli:main"
 
 [tool.poetry.dependencies]
+numpy = "^2.3.0"
 python = ">=3.11, <3.13"
 PyYAML = "^6.0.1"
