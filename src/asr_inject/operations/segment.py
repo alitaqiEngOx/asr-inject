@@ -13,25 +13,31 @@ class Segment:
     ) -> None:
         """
         """
+        self.type = type
+
         self.length = config["reservoir_dimensions"][
             "length"
         ]
         self.width = config["reservoir_dimensions"][
             "width"
         ]
-        self.height = config["reservoir_dimensions"][
+        self._height = config["reservoir_dimensions"][
             "height"
         ]
 
-        if type == "fresh":
-            self.height *= config["fresh_segment"][
-                "volume_fraction"
-            ]
+        self._volume_fraction = config["fresh_segment"][
+            "volume_fraction"
+        ]
 
-        elif type == "fresh":
-            self.height *= 1. - config["fresh_segment"][
-                "volume_fraction"
-            ]
+    @property
+    def volume_fraction(self) -> float:
+        """
+        """
+        if self.type == "fresh":
+            return self._volume_fraction
+
+        elif self.type == "saline":
+            return 1. - self._volume_fraction
 
         else:
             raise TypeError(
@@ -39,7 +45,7 @@ class Segment:
             )
 
     @property
-    def cs_area(self) -> float:
+    def height(self) -> float:
         """
         """
-        return self.length * self.width
+        return self._height * self.volume_fraction
