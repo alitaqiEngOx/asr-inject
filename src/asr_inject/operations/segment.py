@@ -4,6 +4,8 @@ licensing script of this repository. """
 from typing import Any
 
 
+CELSIUS_TO_KELVIN = 273.15
+
 class Segment:
     """"""
 
@@ -18,15 +20,25 @@ class Segment:
         self.length = config["reservoir_dimensions"][
             "length"
         ]
+
         self.width = config["reservoir_dimensions"][
             "width"
         ]
+
         self._height = config["reservoir_dimensions"][
             "height"
         ]
 
         self._volume_fraction = config["fresh_segment"][
             "volume_fraction"
+        ]
+
+        self.temperature = config["reservoir_conditions"][
+            "temperature"
+        ] + CELSIUS_TO_KELVIN
+
+        self.pressure = config["reservoir_conditions"][
+            "pressure"
         ]
 
     @property
