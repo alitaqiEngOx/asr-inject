@@ -10,12 +10,14 @@ class Segment:
     """"""
 
     def __init__(
-            self, config: dict[str, Any], *,
-            type: str
+            self, *, config: dict[str, Any],
+            fitting: dict[str, Any], type: str
     ) -> None:
         """
         """
         self.type = type
+
+        self.fitting = fitting
 
         self.length = config["reservoir_dimensions"][
             "length"
@@ -61,3 +63,20 @@ class Segment:
         """
         """
         return self._height * self.volume_fraction
+
+    @property
+    def density(self) -> float:
+        """
+        """
+        output = 0.
+        for idx, coeff in enumerate(self.fitting):
+            output += coeff * self.temperature**idx
+
+        return output
+
+    @property
+    def specific_volume(self) -> float:
+        """
+        """
+        return 1. / self.density
+
