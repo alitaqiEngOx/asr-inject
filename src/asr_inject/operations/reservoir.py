@@ -6,7 +6,7 @@ from typing import Any
 
 CELSIUS_TO_KELVIN = 273.15
 
-class Segment:
+class Reservoir:
     """"""
 
     def __init__(
