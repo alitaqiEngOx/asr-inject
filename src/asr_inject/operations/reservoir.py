@@ -5,6 +5,7 @@ from typing import Any
 
 
 CELSIUS_TO_KELVIN = 273.15
+BAR_TO_PA = 10.**5.
 
 class Reservoir:
     """"""
@@ -16,6 +17,23 @@ class Reservoir:
         """
         """
         self.fitting = fitting
+
+        self.Mr_water = fitting[
+            "solution_characteristics"
+        ]["Mr_water"]
+
+        self.Mr_solute = fitting[
+            "solution_characteristics"
+        ]["Mr_solute"]
+
+        self.solubility_coefficients = [
+            self.fitting[
+                "solution_characteristics"
+            ]["A0"],
+            self.fitting[
+                "solution_characteristics"
+            ]["A1"]
+        ]
 
         self.length = config["reservoir_dimensions"][
             "length"
@@ -35,18 +53,18 @@ class Reservoir:
 
         self.pressure = config["reservoir_conditions"][
             "pressure"
-        ]
+        ] * BAR_TO_PA
 
         self.fresh_volume_fraction = config["fresh_segment"][
             "volume_fraction"
         ]
 
-        self.temperature = config["reservoir_conditions"][
-            "temperature"
-        ] + CELSIUS_TO_KELVIN
+        self.fresh_mole_fraction = config["fresh_segment"][
+            "solute_mole_fraction"
+        ]
 
-        self.pressure = config["reservoir_conditions"][
-            "pressure"
+        self.saline_mole_fraction = config["saline_segment"][
+            "solute_mole_fraction"
         ]
 
     @property
@@ -74,7 +92,7 @@ class Reservoir:
         return self.volume * self.saline_volume_fraction
 
     @property
-    def density(self) -> float:
+    def pure_water_density(self) -> float:
         """
         """
         output = 0.
@@ -84,8 +102,41 @@ class Reservoir:
         return output
 
     @property
-    def specific_volume(self) -> float:
+    def fresh_density(self) -> float:
         """
         """
-        return 1. / self.density
+        solubility = self.fresh_mole_fraction / (
+            1. - self.fresh_mole_fraction
+        )
 
+        solubility *= (self.Mr_solute / self.Mr_water)
+
+        d_rho = solubility * (
+            self.solubility_coefficients[0] +
+            (
+                self.temperature *
+                self.solubility_coefficients[1]
+            )
+        )
+
+        return self.pure_water_density + d_rho
+
+    @property
+    def saline_density(self) -> float:
+        """
+        """
+        solubility = self.saline_mole_fraction / (
+            1. - self.saline_mole_fraction
+        )
+
+        solubility *= (self.Mr_solute / self.Mr_water)
+
+        d_rho = solubility * (
+            self.solubility_coefficients[0] +
+            (
+                self.temperature *
+                self.solubility_coefficients[1]
+            )
+        )
+
+        return self.pure_water_density + d_rho

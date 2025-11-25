@@ -34,7 +34,6 @@ water_density:
 solution_characteristics:
   Mr_water: 18.02 # g/mol
   Mr_solute: 58.44 # g/mol
-
   salinity_density_fitting:
     A0: 1296.3 # kg/m^3
     A1: -2.0 # kg/(m^3.K)
@@ -56,7 +55,7 @@ reservoir_conditions:
 
 fresh_segment:
   volume_fraction: 0.5
-  salt_mole_fraction: 0.0
+  solute_mole_fraction: 0.0
 
 saline_segment:
-  salt_mole_fraction: 0.01
+  solute_mole_fraction: 0.01
