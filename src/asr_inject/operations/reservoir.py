@@ -11,12 +11,10 @@ class Reservoir:
 
     def __init__(
             self, *, config: dict[str, Any],
-            fitting: dict[str, Any], type: str
+            fitting: dict[str, Any]
     ) -> None:
         """
         """
-        self.type = type
-
         self.fitting = fitting
 
         self.length = config["reservoir_dimensions"][
@@ -27,11 +25,19 @@ class Reservoir:
             "width"
         ]
 
-        self._height = config["reservoir_dimensions"][
+        self.height = config["reservoir_dimensions"][
             "height"
         ]
 
-        self._volume_fraction = config["fresh_segment"][
+        self.temperature = config["reservoir_conditions"][
+            "temperature"
+        ] + CELSIUS_TO_KELVIN
+
+        self.pressure = config["reservoir_conditions"][
+            "pressure"
+        ]
+
+        self.fresh_volume_fraction = config["fresh_segment"][
             "volume_fraction"
         ]
 
@@ -44,25 +50,28 @@ class Reservoir:
         ]
 
     @property
-    def volume_fraction(self) -> float:
+    def volume(self) -> float:
         """
         """
-        if self.type == "fresh":
-            return self._volume_fraction
-
-        elif self.type == "saline":
-            return 1. - self._volume_fraction
-
-        else:
-            raise TypeError(
-                f"unknown segment type {type}"
-            )
+        return self.length * self.width * self.height
 
     @property
-    def height(self) -> float:
+    def saline_volume_fraction(self) -> float:
         """
         """
-        return self._height * self.volume_fraction
+        return 1. - self.fresh_volume_fraction
+
+    @property
+    def fresh_volume(self) -> float:
+        """
+        """
+        return self.volume * self.fresh_volume_fraction
+
+    @property
+    def saline_volume(self) -> float:
+        """
+        """
+        return self.volume * self.saline_volume_fraction
 
     @property
     def density(self) -> float:
