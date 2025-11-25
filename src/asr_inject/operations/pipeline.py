@@ -25,8 +25,13 @@ def run(config: Path, *, outdir: Path) -> None:
     # fit water density
     density_input = config_dict.pop("water_density")
 
+    solution_characteristics = config_dict.pop(
+        "solution_characteristics"
+    )
+
     density_coefficients = fit_density(
         np.asarray(density_input["data"]),
         density_input["fitting_degree"],
+        solution_characteristics=solution_characteristics,
         outdir=outdir
     )
