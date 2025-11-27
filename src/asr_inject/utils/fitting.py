@@ -83,7 +83,7 @@ def density_fit(
             filename = f"density_fit"
 
         plt.legend(loc="best")
-        plt.title("density-temperature data fit")
+        plt.title(f"{filename}")
         plt.xlabel("T (degC)")
         plt.ylabel("dens (kg/m^3)")
         plt.savefig(str(saving_dir / f"{filename}.png"))
@@ -126,7 +126,7 @@ def arrhenius_fit(
             filename="arrhenius_fit"
 
         plt.legend(loc="best")
-        plt.title("permeability-temperature data fit")
+        plt.title(f"{filename}")
         plt.xlabel("1/T (K^-1)")
         plt.ylabel("ln(diff)")
         plt.savefig(str(saving_dir / f"{filename}.png"))
