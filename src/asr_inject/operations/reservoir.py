@@ -1,9 +1,10 @@
 """ Licensed under the same terms as described in the main 
 licensing script of this repository. """
 
-from typing import Any
+from typing import Any, Optional
 
 import numpy as np
+from numpy.typing import NDArray
 
 
 R = 8.314 # J/(mol.K)
@@ -136,3 +137,11 @@ class Reservoir:
         d_rho = solubility * (A0 + (self.temperature * A1))
 
         return self.density_pure + d_rho
+
+    def predict(
+            self, *, n_steps: int, step_size: float,
+            hmax: Optional[float]=None
+    ) -> dict[str, NDArray]:
+        """
+        """
+        raise NotImplementedError
