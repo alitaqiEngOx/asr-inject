@@ -100,7 +100,12 @@ class Reservoir:
     def solute_diffusivity(self) -> float:
         """
         """
-        raise NotImplementedError
+        base = self.fitting["solute_diffusivity"][0]
+        energy = self.fitting["solute_diffusivity"][1]
+
+        exp_term = -energy / (R * self.temperature)
+
+        return base * np.exp(exp_term)
 
     @property
     def density_pure(self) -> float:
