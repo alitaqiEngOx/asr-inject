@@ -4,8 +4,13 @@
 # ------------------------------
 # ---------- FITTINGS ----------
 # ------------------------------
+solution_characteristics:
+  Mr_water: 18.02 # g/mol
+  Mr_solute: 58.44 # g/mol
+
 density:
   data:
+  # -> NIST webpage, accessed: Nov 2025
   # - [degC, kg/m^3]
     - [0.0, 999.840]
     - [1.0, 999.900]
@@ -37,10 +42,21 @@ density:
     A1: -2.0 # kg/(m^3.K)
 # rho(T, S) = rho(T) + S(A0 + T.A1)
 
-solution_characteristics:
-  Mr_water: 18.02 # g/mol
-  Mr_solute: 58.44 # g/mol
-  
+water_diffusivity:
+# -> Easteal, 1989, J. Chem. Soc., Faraday Trans. 1, 85
+# - [degC, m^2/s]
+  - [0.0, 1.118e-9]
+  - [10.0, 1.520e-9]
+  - [20.0, 2.001e-9]
+  - [25.0, 2.272e-9]
+  - [30.0, 2.563e-9]
+  - [40.0, 3.206e-9]
+  - [50.0, 3.927e-9]
+  - [60.0, 4.722e-9]
+  - [70.0, 5.587e-9]
+  - [80.0, 6.514e-9]
+  - [90.0, 7.499e-9]
+  - [100.0, 8.533e-9]
 
 
 # ------------------------------

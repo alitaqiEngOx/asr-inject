@@ -2,7 +2,7 @@
 licensing script of this repository. """
 
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -10,12 +10,14 @@ from numpy.polynomial.polynomial import polyfit
 from numpy.typing import NDArray
 
 
+R = 8.314462618  # J/(molK)
 CELSIUS_TO_KELVIN = 273.15
 
-def fit_density(
+def density_fit(
         *, density_data: dict[str, Any],
         solution_characteristics: dict[str, Any],
-        outdir: Optional[Path]=None
+        outdir: Optional[Path]=None,
+        filename: Optional[str]=None
 ) -> NDArray:
     """
     """
@@ -77,12 +79,57 @@ def fit_density(
                 label=f"mol%={mole_fraction*100.}"
             )
 
-        filename = f"water_density_fitting.png"
+        if not filename:
+            filename = f"density_fit"
+
         plt.legend(loc="best")
         plt.title("density-temperature data fit")
         plt.xlabel("T (degC)")
         plt.ylabel("dens (kg/m^3)")
-        plt.savefig(str(saving_dir / filename))
+        plt.savefig(str(saving_dir / f"{filename}.png"))
         plt.close()
 
     return np.asarray(coefficients)
+
+def arrhenius_fit(
+        data: NDArray, *, outdir: Optional[Path]=None,
+        filename: Optional[str]=None
+) -> Tuple[float, float]:
+    """
+    """
+    x_axis = 1. / (data[:, 0] + CELSIUS_TO_KELVIN)
+    y_axis = np.log(data[:, 1])
+
+    # least-squares' fitting
+    slope, intercept = np.polyfit(x_axis, y_axis, 1)
+
+    # plots
+    if outdir:
+        saving_dir = outdir / "fitting"
+        saving_dir.mkdir(parents=True, exist_ok=True)
+
+        plt.scatter(
+            x_axis, y_axis,
+            marker='x', c="red", label="real data"
+        )
+
+        plt.plot(
+            np.asarray([x_axis[0], x_axis[-1]]),
+            np.asarray([
+                intercept + slope * x_axis[0],
+                intercept + slope * x_axis[-1]
+            ]),
+            label="linear fit"
+        )
+
+        if not filename:
+            filename="arrhenius_fit"
+
+        plt.legend(loc="best")
+        plt.title("permeability-temperature data fit")
+        plt.xlabel("1/T (K^-1)")
+        plt.ylabel("ln(diff)")
+        plt.savefig(str(saving_dir / f"{filename}.png"))
+        plt.close()
+
+    return np.exp(intercept), -R * slope
