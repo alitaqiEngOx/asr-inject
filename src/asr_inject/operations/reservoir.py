@@ -50,11 +50,11 @@ class Reservoir:
             "volume_fraction"
         ]
 
-        self.solute_mole_fraction_fresh = config[
+        self.initial_solute_mole_fraction_fresh = config[
             "fresh_segment"
         ]["solute_mole_fraction"]
 
-        self.solute_mole_fraction_saline = config[
+        self.initial_solute_mole_fraction_saline = config[
             "saline_segment"
         ]["solute_mole_fraction"]
 
@@ -92,34 +92,12 @@ class Reservoir:
 
         return output
 
-    @property
-    def density_fresh(self) -> float:
+    def density_solution(
+            self, mole_fraction: float
+    ) -> float:
         """
         """
-        solubility = self.solute_mole_fraction_fresh / (
-            1. - self.solute_mole_fraction_fresh
-        )
-
-        solubility *= (self.Mr_solute / self.Mr_water)
-
-        A0 = self.fitting["density"][
-            "salinity_fitting"
-        ]["A0"]
-        A1 = self.fitting["density"][
-            "salinity_fitting"
-        ]["A1"]
-
-        d_rho = solubility * (A0 + (self.temperature * A1))
-
-        return self.density_pure + d_rho
-
-    @property
-    def density_saline(self) -> float:
-        """
-        """
-        solubility = self.solute_mole_fraction_saline / (
-            1. - self.solute_mole_fraction_saline
-        )
+        solubility = mole_fraction / (1. - mole_fraction)
 
         solubility *= (self.Mr_solute / self.Mr_water)
 
