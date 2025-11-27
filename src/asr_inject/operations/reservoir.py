@@ -3,7 +3,10 @@ licensing script of this repository. """
 
 from typing import Any
 
+import numpy as np
 
+
+R = 8.314 # J/(mol.K)
 CELSIUS_TO_KELVIN = 273.15
 BAR_TO_PA = 10.**5.
 
@@ -81,13 +84,18 @@ class Reservoir:
         """
         """
         return self.volume * self.volume_fraction_saline
-    
+
     @property
     def water_diffusivity(self) -> float:
         """
         """
-        raise NotImplementedError
-    
+        base = self.fitting["water_diffusivity"][0]
+        energy = self.fitting["water_diffusivity"][1]
+
+        exp_term = -energy / (R * self.temperature)
+
+        return base * np.exp(exp_term)
+
     @property
     def solute_diffusivity(self) -> float:
         """
