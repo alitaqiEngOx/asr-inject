@@ -86,7 +86,7 @@ class Reservoir:
         return self.volume * self.volume_fraction_saline
 
     @property
-    def water_diffusivity(self) -> float:
+    def diffusivity_water(self) -> float:
         """
         """
         base = self.fitting["water_diffusivity"][0]
@@ -97,7 +97,7 @@ class Reservoir:
         return base * np.exp(exp_term)
 
     @property
-    def solute_diffusivity(self) -> float:
+    def diffusivity_solute(self) -> float:
         """
         """
         base = self.fitting["solute_diffusivity"][0]
@@ -117,7 +117,7 @@ class Reservoir:
 
         return output
 
-    def density_solution(
+    def compute_density_solution(
             self, mole_fraction: float
     ) -> float:
         """
