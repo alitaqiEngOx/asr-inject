@@ -144,4 +144,28 @@ class Reservoir:
     ) -> dict[str, NDArray]:
         """
         """
-        raise NotImplementedError
+        def differential(
+                moles: NDArray, t: float
+        ) -> NDArray:
+            """
+            """
+            water_moles = moles[:2]
+            solute_moles = moles[2:]
+
+            water_fraction_fresh = (
+                water_moles[0] / (
+                    water_moles[0] + solute_moles[0]
+                )
+            )
+            solute_fraction_fresh = (
+                1. - water_fraction_fresh
+            )
+
+            water_fraction_saline = (
+                water_moles[1] / (
+                    water_moles[1] + solute_moles[1]
+                )
+            )
+            solute_fraction_saline = (
+                1. - water_fraction_saline
+            )
