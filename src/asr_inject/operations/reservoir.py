@@ -18,21 +18,17 @@ class Reservoir:
         """
         self.fitting = fitting
 
-        self.Mr_water = fitting[
+        self.Mr_water = config[
             "solution_characteristics"
         ]["Mr_water"]
 
-        self.Mr_solute = fitting[
+        self.Mr_solute = config[
             "solution_characteristics"
         ]["Mr_solute"]
 
         self.solubility_coefficients = [
-            self.fitting[
-                "solution_characteristics"
-            ]["A0"],
-            self.fitting[
-                "solution_characteristics"
-            ]["A1"]
+            config["salinity_fitting"]["A0"],
+            config["salinity_fitting"]["A1"]
         ]
 
         self.length = config["reservoir_dimensions"][
