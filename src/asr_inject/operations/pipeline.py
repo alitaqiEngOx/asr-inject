@@ -62,3 +62,13 @@ def run(config: Path, *, outdir: Path) -> None:
             outdir / "fitting" / "solute_diffusivity.png"
         )
     )
+
+    # run simulation
+    fitting = {
+        "density": {
+            "temperature": density_coefficients,
+            "salinity": density_data["salinity_fitting"]
+        },
+        "water_diffusivity": water_diffusivity_coefficients,
+        "solute_diffusivity": solute_diffusivity_coefficients
+    }

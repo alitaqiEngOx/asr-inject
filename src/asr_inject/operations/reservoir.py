@@ -26,11 +26,6 @@ class Reservoir:
             "solution_characteristics"
         ]["Mr_solute"]
 
-        self.solubility_coefficients = [
-            config["salinity_fitting"]["A0"],
-            config["salinity_fitting"]["A1"]
-        ]
-
         self.length = config["reservoir_dimensions"][
             "length"
         ]
@@ -64,16 +59,16 @@ class Reservoir:
         ]
 
     @property
-    def volume(self) -> float:
-        """
-        """
-        return self.length * self.width * self.height
-
-    @property
     def saline_volume_fraction(self) -> float:
         """
         """
         return 1. - self.fresh_volume_fraction
+
+    @property
+    def volume(self) -> float:
+        """
+        """
+        return self.length * self.width * self.height
 
     @property
     def fresh_volume(self) -> float:
@@ -107,13 +102,14 @@ class Reservoir:
 
         solubility *= (self.Mr_solute / self.Mr_water)
 
-        d_rho = solubility * (
-            self.solubility_coefficients[0] +
-            (
-                self.temperature *
-                self.solubility_coefficients[1]
-            )
-        )
+        A0 = self.fitting["density"][
+            "salinity_fitting"
+        ]["A0"]
+        A1 = self.fitting["density"][
+            "salinity_fitting"
+        ]["A1"]
+
+        d_rho = solubility * (A0 + (self.temperature * A1))
 
         return self.pure_water_density + d_rho
 
@@ -127,12 +123,13 @@ class Reservoir:
 
         solubility *= (self.Mr_solute / self.Mr_water)
 
-        d_rho = solubility * (
-            self.solubility_coefficients[0] +
-            (
-                self.temperature *
-                self.solubility_coefficients[1]
-            )
-        )
+        A0 = self.fitting["density"][
+            "salinity_fitting"
+        ]["A0"]
+        A1 = self.fitting["density"][
+            "salinity_fitting"
+        ]["A1"]
+
+        d_rho = solubility * (A0 + (self.temperature * A1))
 
         return self.pure_water_density + d_rho
