@@ -13,18 +13,27 @@ from numpy.typing import NDArray
 CELSIUS_TO_KELVIN = 273.15
 
 def fit_density(
-        data: NDArray, degree: int, *,
-        solution_characteristics:
-        Optional[dict[str, Any]]=None,
+        *, density_data: dict[str, Any],
+        solution_characteristics: dict[str, Any],
         outdir: Optional[Path]=None
 ) -> NDArray:
     """
     """
+    data = np.asarray(density_data["data"])
+    degree = density_data["temperature_fitting_degree"]
+    A0 = density_data["salinity_fitting"]["A0"]
+    A1 = density_data["salinity_fitting"]["A1"]
+
+    Mr_water = solution_characteristics["Mr_water"]
+    Mr_solute = solution_characteristics["Mr_solute"]
+
+    # temperature fitting
     coefficients, stats = polyfit(
         data[:, 0] + CELSIUS_TO_KELVIN, data[:, 1],
         degree, full=True
     )
 
+    # plots
     if outdir:
         saving_dir = outdir / "fitting"
         saving_dir.mkdir(parents=True, exist_ok=True)
@@ -47,37 +56,26 @@ def fit_density(
         plt.plot(temp, dens, label="polynomial fit")
 
         # impure water
-        if solution_characteristics:
-            Mr_water = solution_characteristics["Mr_water"]
-            Mr_solute = solution_characteristics["Mr_solute"]
+        for mole_fraction in [0.0025, 0.005]:
+            molar_solubility = (
+                mole_fraction / (1. - mole_fraction)
+            )
 
-            A0 = solution_characteristics[
-                "salinity_density_fitting"
-            ]["A0"]
-            A1 = solution_characteristics[
-                "salinity_density_fitting"
-            ]["A1"]
+            solubility = molar_solubility * (
+                Mr_solute / Mr_water
+            )
 
-            for mole_fraction in [0.0025, 0.005]:
-                molar_solubility = (
-                    mole_fraction / (1. - mole_fraction)
-                )
+            d_rho = solubility * (
+                A0 + 
+                (temp + CELSIUS_TO_KELVIN) * A1
+            )
 
-                solubility = molar_solubility * (
-                    Mr_solute / Mr_water
-                )
+            dens_impure = dens + d_rho
 
-                d_rho = solubility * (
-                    A0 + 
-                    (temp + CELSIUS_TO_KELVIN) * A1
-                )
-
-                dens_impure = dens + d_rho
-
-                plt.plot(
-                    temp, dens_impure,
-                    label=f"mol%={mole_fraction*100.}"
-                )
+            plt.plot(
+                temp, dens_impure,
+                label=f"mol%={mole_fraction*100.}"
+            )
 
         filename = f"water_density_fitting.png"
         plt.legend(loc="best")

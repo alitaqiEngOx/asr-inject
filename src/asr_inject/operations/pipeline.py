@@ -5,8 +5,6 @@ import yaml
 from pathlib import Path
 from typing import Any
 
-import numpy as np
-
 from asr_inject.utils.fitting import fit_density
 
 
@@ -23,15 +21,14 @@ def run(config: Path, *, outdir: Path) -> None:
     config_dict = read_yaml(config)
 
     # fit water density
-    density_input = config_dict.pop("water_density")
+    density_data = config_dict.pop("density")
 
     solution_characteristics = config_dict.pop(
         "solution_characteristics"
     )
 
     density_coefficients = fit_density(
-        np.asarray(density_input["data"]),
-        density_input["fitting_degree"],
+        density_data=density_data,
         solution_characteristics=solution_characteristics,
         outdir=outdir
     )
