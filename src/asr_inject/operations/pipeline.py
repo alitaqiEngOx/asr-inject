@@ -7,6 +7,7 @@ from typing import Any
 
 import numpy as np
 
+from asr_inject.operations.reservoir import Reservoir
 from asr_inject.utils.fitting import (
     arrhenius_fit, density_fit
 )
@@ -27,13 +28,11 @@ def run(config: Path, *, outdir: Path) -> None:
     # fit density
     density_data = config_dict.pop("density")
 
-    solution_characteristics = config_dict.pop(
-        "solution_characteristics"
-    )
-
     density_coefficients = density_fit(
         density_data=density_data,
-        solution_characteristics=solution_characteristics,
+        solution_characteristics=(
+            config_dict["solution_characteristics"]
+        ),
         outfile=(
             outdir / "fitting" / "density.png"
         )
@@ -72,3 +71,7 @@ def run(config: Path, *, outdir: Path) -> None:
         "water_diffusivity": water_diffusivity_coefficients,
         "solute_diffusivity": solute_diffusivity_coefficients
     }
+
+    res = Reservoir(
+        config=config_dict, fitting=fitting
+    )
