@@ -34,7 +34,9 @@ def run(config: Path, *, outdir: Path) -> None:
     density_coefficients = density_fit(
         density_data=density_data,
         solution_characteristics=solution_characteristics,
-        outdir=outdir, filename="density_fit"
+        outfile=(
+            outdir / "fitting" / "density.png"
+        )
     )
 
     # fit water diffusivity
@@ -44,5 +46,7 @@ def run(config: Path, *, outdir: Path) -> None:
 
     water_diffusivity_coefficients = arrhenius_fit(
         np.asarray(water_diffusivity_data),
-        outdir=outdir, filename="water_diffusivity_fit"
+        outfile=(
+            outdir / "fitting" / "water_diffusivity.png"
+        )
     )

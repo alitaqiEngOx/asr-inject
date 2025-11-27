@@ -16,8 +16,7 @@ CELSIUS_TO_KELVIN = 273.15
 def density_fit(
         *, density_data: dict[str, Any],
         solution_characteristics: dict[str, Any],
-        outdir: Optional[Path]=None,
-        filename: Optional[str]=None
+        outfile: Optional[str]=None
 ) -> NDArray:
     """
     """
@@ -36,9 +35,8 @@ def density_fit(
     )
 
     # plots
-    if outdir:
-        saving_dir = outdir / "fitting"
-        saving_dir.mkdir(parents=True, exist_ok=True)
+    if outfile:
+        outfile.parent.mkdir(parents=True, exist_ok=True)
 
         temp = np.arange(data[0, 0], data[-1, 0], 0.01)
         dens = np.zeros(len(temp))
@@ -79,21 +77,18 @@ def density_fit(
                 label=f"mol%={mole_fraction*100.}"
             )
 
-        if not filename:
-            filename = f"density_fit"
-
         plt.legend(loc="best")
-        plt.title(f"{filename}")
+        plt.title(str(outfile.stem))
         plt.xlabel("T (degC)")
         plt.ylabel("dens (kg/m^3)")
-        plt.savefig(str(saving_dir / f"{filename}.png"))
+        plt.savefig(str(outfile))
         plt.close()
 
     return np.asarray(coefficients)
 
 def arrhenius_fit(
         data: NDArray, *, outdir: Optional[Path]=None,
-        filename: Optional[str]=None
+        outfile: Optional[str]=None
 ) -> Tuple[float, float]:
     """
     """
@@ -104,9 +99,8 @@ def arrhenius_fit(
     slope, intercept = np.polyfit(x_axis, y_axis, 1)
 
     # plots
-    if outdir:
-        saving_dir = outdir / "fitting"
-        saving_dir.mkdir(parents=True, exist_ok=True)
+    if outfile:
+        outfile.parent.mkdir(parents=True, exist_ok=True)
 
         plt.scatter(
             x_axis, y_axis,
@@ -122,14 +116,11 @@ def arrhenius_fit(
             label="linear fit"
         )
 
-        if not filename:
-            filename="arrhenius_fit"
-
         plt.legend(loc="best")
-        plt.title(f"{filename}")
+        plt.title(str(outfile.stem))
         plt.xlabel("1/T (K^-1)")
         plt.ylabel("ln(diff)")
-        plt.savefig(str(saving_dir / f"{filename}.png"))
+        plt.savefig(str(outfile))
         plt.close()
 
     return np.exp(intercept), -R * slope
