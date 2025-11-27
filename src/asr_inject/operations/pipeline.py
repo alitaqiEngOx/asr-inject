@@ -50,3 +50,15 @@ def run(config: Path, *, outdir: Path) -> None:
             outdir / "fitting" / "water_diffusivity.png"
         )
     )
+
+    # fit solute diffusivity
+    solute_diffusivity_data = config_dict.pop(
+        "solute_diffusivity"
+    )
+
+    solute_diffusivity_coefficients = arrhenius_fit(
+        np.asarray(solute_diffusivity_data),
+        outfile=(
+            outdir / "fitting" / "solute_diffusivity.png"
+        )
+    )

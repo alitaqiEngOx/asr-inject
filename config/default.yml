@@ -36,6 +36,7 @@ density:
   temperature_fitting_degree: 10 
 # rho(T) = C0 + C1.T^1 + C2.T^2 + ... + Cn.T^n
 # where n = temperature_fitting_degree
+# effect of solute concentration on density is neglected
 
   salinity_fitting:
     A0: 1296.3 # kg/m^3
@@ -57,6 +58,17 @@ water_diffusivity:
   - [80.0, 6.514e-9]
   - [90.0, 7.499e-9]
   - [100.0, 8.533e-9]
+# effect of solute concentration on diffusivity is neglected
+
+solute_diffusivity:
+# ->
+# [degC, m^2/s]
+- [5.0, 7.27e-10]
+- [25.0, 1.33e-9]
+- [45.0, 2.30e-9]
+# where D(T) = D(298.15) * (T / 298.15) * (n(285.15) / n(T))
+# and n = viscosity
+# effect of solute concentration on diffusivity is neglected
 
 
 # ------------------------------
