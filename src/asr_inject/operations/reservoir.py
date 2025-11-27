@@ -81,6 +81,18 @@ class Reservoir:
         """
         """
         return self.volume * self.volume_fraction_saline
+    
+    @property
+    def water_diffusivity(self) -> float:
+        """
+        """
+        raise NotImplementedError
+    
+    @property
+    def solute_diffusivity(self) -> float:
+        """
+        """
+        raise NotImplementedError
 
     @property
     def density_pure(self) -> float:
