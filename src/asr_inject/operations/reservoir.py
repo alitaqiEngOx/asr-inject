@@ -65,6 +65,26 @@ class Reservoir:
         ]["solute_mole_fraction"]
 
     @property
+    def cs_area(self) -> float:
+        """
+        """
+        return self.length * self.width
+
+    @property
+    def numerical_separation(self) -> float:
+        """
+        """
+        height_fresh = (
+            self.height * self.volume_fraction_fresh
+        )
+
+        height_saline = (
+            self.height * self.volume_fraction_saline
+        )
+
+        return 0.5 * (height_fresh + height_saline)
+
+    @property
     def volume_fraction_saline(self) -> float:
         """
         """
@@ -225,15 +245,15 @@ class Reservoir:
             )
 
             # average diffusion coefficients
-            water_concentration_mean = 0.5 * (
-                water_concentration_fresh +
+            water_concentration_mean = np.mean([
+                water_concentration_fresh,
                 water_concentration_saline
-            )
+            ])
 
-            solute_concentration_mean = 0.5 * (
-                solute_concentration_fresh +
+            solute_concentration_mean = np.mean([
+                solute_concentration_fresh,
                 solute_concentration_saline
-            )
+            ])
 
             water_diffusion_coefficient_average = (
                 self.diffusivity_water *
