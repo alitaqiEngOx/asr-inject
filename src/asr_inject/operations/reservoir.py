@@ -157,6 +157,42 @@ class Reservoir:
         )
 
     @property
+    def moles_water_fresh_initial(self) -> float:
+        """
+        """
+        return (
+            self.mass_water_fresh_initial /
+            self.Mr_water
+        )
+
+    @property
+    def moles_water_saline_initial(self) -> float:
+        """
+        """
+        return (
+            self.mass_water_saline_initial /
+            self.Mr_water
+        )
+
+    @property
+    def moles_solute_fresh_initial(self) -> float:
+        """
+        """
+        return (
+            self.mass_solute_fresh_initial /
+            self.Mr_solute
+        )
+
+    @property
+    def moles_solute_saline_initial(self) -> float:
+        """
+        """
+        return (
+            self.mass_solute_saline_initial /
+            self.Mr_solute
+        )
+
+    @property
     def diffusivity_water(self) -> float:
         """
         """
