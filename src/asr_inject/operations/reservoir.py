@@ -297,3 +297,26 @@ class Reservoir:
                     temperature=self.temperature
                 )
             )
+
+            # fluxes
+            J_w_sf = (
+                -1. *
+                water_diffusion_coefficient_average *
+                self.cs_area * (
+                    (
+                        water_potential_saline -
+                        water_potential_fresh
+                    ) / self.numerical_separation
+                )
+            )
+
+            J_s_sf = (
+                -1. *
+                solute_diffusion_coefficient_average *
+                self.cs_area * (
+                    (
+                        solute_potential_saline -
+                        solute_potential_fresh
+                    ) / self.numerical_separation
+                )
+            )
