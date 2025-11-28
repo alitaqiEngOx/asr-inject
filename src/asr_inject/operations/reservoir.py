@@ -5,6 +5,7 @@ from typing import Any, Optional
 
 import numpy as np
 from numpy.typing import NDArray
+from scipy.integrate import odeint
 
 from asr_inject.operations import chemical_potential
 
@@ -218,8 +219,12 @@ class Reservoir:
     def density_pure(self) -> float:
         """
         """
+        coefficients = self.fitting["density"][
+            "temperature"
+        ]
+
         output = 0.
-        for idx, coeff in enumerate(self.fitting):
+        for idx, coeff in enumerate(coefficients):
             output += coeff * self.temperature**idx
 
         return output
@@ -406,3 +411,24 @@ class Reservoir:
             return np.asarray([
                 -J_w_sf, J_w_sf, -J_s_sf, J_s_sf
             ])
+
+        # initial condition
+        initial_moles = np.asarray([
+            self.moles_water_fresh_initial,
+            self.moles_water_saline_initial,
+            self.moles_solute_fresh_initial,
+            self.moles_solute_saline_initial
+        ])
+
+        # numerical solution
+        result = odeint(
+            differential, initial_moles,
+            np.arange(n_steps) * step_size,
+            hmax=(
+                hmax if hmax else 0
+            )
+        )
+
+        return {
+            "moles": result
+        }

@@ -90,3 +90,10 @@ fresh_segment:
 
 saline_segment:
   solute_mass_fraction: 0.01
+
+
+# ------------------------------
+# ---------- NUMERICS ----------
+# ------------------------------
+n_steps: 100000
+step_size: 0.01
