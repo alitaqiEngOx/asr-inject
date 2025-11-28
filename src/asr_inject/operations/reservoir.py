@@ -152,20 +152,72 @@ class Reservoir:
             water_moles = moles[:2]
             solute_moles = moles[2:]
 
+            # fresh segment
             water_fraction_fresh = (
                 water_moles[0] / (
                     water_moles[0] + solute_moles[0]
                 )
             )
+
             solute_fraction_fresh = (
                 1. - water_fraction_fresh
             )
 
+            water_mass_fraction_fresh = (
+                (water_fraction_fresh * self.Mr_water) /
+                (
+                    water_fraction_fresh * self.Mr_water +
+                    solute_fraction_fresh * self.Mr_solute
+                )
+            )
+
+            solute_mass_fraction_fresh = (
+                1. - water_mass_fraction_fresh
+            )
+
+            water_concentration_fresh = (
+                self.density_pure *
+                water_mass_fraction_fresh *
+                (1000. / self.Mr_water)
+            )
+
+            solute_concentration_fresh = (
+                self.density_pure *
+                solute_mass_fraction_fresh *
+                (1000. / self.Mr_solute)
+            )
+
+            # saline segment
             water_fraction_saline = (
                 water_moles[1] / (
                     water_moles[1] + solute_moles[1]
                 )
             )
+
             solute_fraction_saline = (
                 1. - water_fraction_saline
+            )
+
+            water_mass_fraction_saline = (
+                (water_fraction_saline * self.Mr_water) /
+                (
+                    water_fraction_saline * self.Mr_water +
+                    solute_fraction_saline * self.Mr_solute
+                )
+            )
+
+            solute_mass_fraction_saline = (
+                1. - water_mass_fraction_saline
+            )
+
+            water_concentration_saline = (
+                self.density_pure *
+                water_mass_fraction_saline *
+                (1000. / self.Mr_water)
+            )
+
+            solute_concentration_saline = (
+                self.density_pure *
+                solute_mass_fraction_saline *
+                (1000. / self.Mr_solute)
             )
