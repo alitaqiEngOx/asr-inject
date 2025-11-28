@@ -221,3 +221,30 @@ class Reservoir:
                 solute_mass_fraction_saline *
                 (1000. / self.Mr_solute)
             )
+
+            # average diffusion coefficients
+            water_concentration_mean = 0.5 * (
+                water_concentration_fresh +
+                water_concentration_saline
+            )
+
+            solute_concentration_mean = 0.5 * (
+                solute_concentration_fresh +
+                solute_concentration_saline
+            )
+
+            water_diffusion_coefficient_average = (
+                self.diffusivity_water *
+                water_concentration_mean / (
+                    R * self.temperature
+                )
+            )
+
+            solute_diffusion_coefficient_average = (
+                self.diffusivity_solute *
+                solute_concentration_mean / (
+                    R * self.temperature
+                )
+            )
+
+            # chemical potentials
