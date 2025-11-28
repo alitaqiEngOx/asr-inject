@@ -4,15 +4,16 @@ licensing script of this repository. """
 import numpy as np
 
 
+R = 8.314 # J/(mol.K)
+a_0 = 1. # i.e., pure component
 mu_0 = 0. # J/mol; pure at operating T & p
 
 def compute(
-        *, activity: float, diffusivity: float,
-        concentration: float
+        *, activity: float, temperature: float
 ) -> float:
     """
     """
     return (
-        diffusivity * concentration * np.log(activity) +
-        mu_0
+        mu_0 +
+        R * temperature * np.log(activity / a_0)
     )
