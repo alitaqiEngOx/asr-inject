@@ -320,3 +320,7 @@ class Reservoir:
                     ) / self.numerical_separation
                 )
             )
+
+            return np.asarray([
+                -J_w_sf, J_w_sf, -J_s_sf, J_s_sf
+            ])
