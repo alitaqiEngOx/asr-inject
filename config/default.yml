@@ -86,10 +86,10 @@ reservoir_conditions:
 
 fresh_segment:
   volume_fraction: 0.5
-  solute_mass_fraction: 0.0
+  solute_mass_fraction: 0.0001
 
 saline_segment:
-  solute_mass_fraction: 0.01
+  solute_mass_fraction: 0.05
 
 
 # ------------------------------
