@@ -56,13 +56,25 @@ class Reservoir:
             "volume_fraction"
         ]
 
-        self.initial_solute_mole_fraction_fresh = config[
+        self.mass_fraction_solute_fresh_initial = config[
             "fresh_segment"
-        ]["solute_mole_fraction"]
+        ]["solute_mass_fraction"]
 
-        self.initial_solute_mole_fraction_saline = config[
+        self.mass_fraction_solute_saline_initial = config[
             "saline_segment"
-        ]["solute_mole_fraction"]
+        ]["solute_mass_fraction"]
+
+    @property
+    def mass_fraction_water_fresh_initial(self) -> float:
+        """
+        """
+        return 1. - self.mass_fraction_solute_fresh_initial
+
+    @property
+    def mass_fraction_water_saline_initial(self) -> float:
+        """
+        """
+        return 1. - self.mass_fraction_solute_saline_initial
 
     @property
     def cs_area(self) -> float:
@@ -109,6 +121,42 @@ class Reservoir:
         return self.volume * self.volume_fraction_saline
 
     @property
+    def mass_water_fresh_initial(self) -> float:
+        """
+        """
+        return (
+            self.density_pure * self.volume_fresh *
+            self.mass_fraction_water_fresh_initial
+        )
+
+    @property
+    def mass_water_saline_initial(self) -> float:
+        """
+        """
+        return (
+            self.density_pure * self.volume_saline *
+            self.mass_fraction_water_saline_initial
+        )
+
+    @property
+    def mass_solute_fresh_initial(self) -> float:
+        """
+        """
+        return (
+            self.density_pure * self.volume_fresh *
+            self.mass_fraction_solute_fresh_initial
+        )
+
+    @property
+    def mass_solute_saline_initial(self) -> float:
+        """
+        """
+        return (
+            self.density_pure * self.volume_saline *
+            self.mass_fraction_solute_saline_initial
+        )
+
+    @property
     def diffusivity_water(self) -> float:
         """
         """
@@ -141,13 +189,11 @@ class Reservoir:
         return output
 
     def compute_density_solution(
-            self, mole_fraction: float
+            self, mass_fraction: float
     ) -> float:
         """
         """
-        solubility = mole_fraction / (1. - mole_fraction)
-
-        solubility *= (self.Mr_solute / self.Mr_water)
+        solubility = mass_fraction / (1. - mass_fraction)
 
         A0 = self.fitting["density"][
             "salinity_fitting"

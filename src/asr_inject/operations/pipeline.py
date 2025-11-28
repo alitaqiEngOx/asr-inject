@@ -69,6 +69,6 @@ def run(config: Path, *, outdir: Path) -> None:
         "solute_diffusivity": solute_diffusivity_coefficients
     }
 
-    #res = Reservoir(
-    #    config=config_dict, fitting=fitting
-    #)
+    res = Reservoir(
+        config=config_dict, fitting=fitting
+    )
