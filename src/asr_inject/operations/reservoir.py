@@ -6,6 +6,8 @@ from typing import Any, Optional
 import numpy as np
 from numpy.typing import NDArray
 
+from asr_inject.operations import chemical_potential
+
 
 R = 8.314 # J/(mol.K)
 CELSIUS_TO_KELVIN = 273.15
@@ -248,3 +250,30 @@ class Reservoir:
             )
 
             # chemical potentials
+            water_potential_fresh = (
+                chemical_potential.compute(
+                    activity=water_fraction_fresh,
+                    temperature=self.temperature
+                )
+            )
+
+            water_potential_saline = (
+                chemical_potential.compute(
+                    activity=water_fraction_saline,
+                    temperature=self.temperature
+                )
+            )
+
+            solute_potential_fresh = (
+                chemical_potential.compute(
+                    activity=solute_fraction_fresh,
+                    temperature=self.temperature
+                )
+            )
+
+            solute_potential_saline = (
+                chemical_potential.compute(
+                    activity=solute_fraction_saline,
+                    temperature=self.temperature
+                )
+            )
