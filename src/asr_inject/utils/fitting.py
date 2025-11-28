@@ -14,8 +14,7 @@ R = 8.314462618  # J/(molK)
 CELSIUS_TO_KELVIN = 273.15
 
 def density_fit(
-        *, density_data: dict[str, Any],
-        solution_characteristics: dict[str, Any],
+        density_data: dict[str, Any], *,
         outfile: Optional[str]=None
 ) -> NDArray:
     """
@@ -24,9 +23,6 @@ def density_fit(
     degree = density_data["temperature_fitting_degree"]
     A0 = density_data["salinity_fitting"]["A0"]
     A1 = density_data["salinity_fitting"]["A1"]
-
-    Mr_water = solution_characteristics["Mr_water"]
-    Mr_solute = solution_characteristics["Mr_solute"]
 
     # temperature fitting
     coefficients, stats = polyfit(
@@ -56,13 +52,9 @@ def density_fit(
         plt.plot(temp, dens, label="polynomial fit")
 
         # impure water
-        for mole_fraction in [0.0025, 0.005]:
-            molar_solubility = (
-                mole_fraction / (1. - mole_fraction)
-            )
-
-            solubility = molar_solubility * (
-                Mr_solute / Mr_water
+        for mass_fraction in [0.0025, 0.005]:
+            solubility = (
+                mass_fraction / (1. - mass_fraction)
             )
 
             d_rho = solubility * (
@@ -74,7 +66,7 @@ def density_fit(
 
             plt.plot(
                 temp, dens_impure,
-                label=f"mol%={mole_fraction*100.}"
+                label=f"mass%={mass_fraction*100.}"
             )
 
         plt.legend(loc="best")
