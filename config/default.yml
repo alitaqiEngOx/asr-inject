@@ -75,9 +75,9 @@ solute_diffusivity:
 # ---------- ANALYSES ----------
 # ------------------------------
 reservoir_dimensions:
-  length: 10.0 # m
-  width: 10.0 # m
-  height: 10.0 # m
+  length: 5.0 # m
+  width: 5.0 # m
+  height: 5.0 # m
   depth: 100.0 # m
 
 reservoir_conditions:
@@ -95,5 +95,5 @@ saline_segment:
 # ------------------------------
 # ---------- NUMERICS ----------
 # ------------------------------
-n_steps: 100000
-step_size: 0.01
+n_steps: 10000000
+step_size: 0.5

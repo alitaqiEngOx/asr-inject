@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 
 from asr_inject.operations.reservoir import Reservoir
+from asr_inject.operations.visualise import plot_2d
 from asr_inject.utils.fitting import (
     arrhenius_fit, density_fit
 )
@@ -76,4 +77,11 @@ def run(config: Path, *, outdir: Path) -> None:
     output = res.predict(
         n_steps=config_dict["n_steps"],
         step_size=config_dict["step_size"]
+    )
+
+    plot_2d(
+        output, config=config_dict,
+        outfile=(
+            outdir / "results" / "water_moles.png"
+        )
     )
