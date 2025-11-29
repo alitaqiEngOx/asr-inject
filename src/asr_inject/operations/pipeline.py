@@ -73,7 +73,7 @@ def run(config: Path, *, outdir: Path) -> None:
         config=config_dict, fitting=fitting
     )
 
-    reservoir_output = res.predict(
+    output = res.predict(
         n_steps=config_dict["n_steps"],
         step_size=config_dict["step_size"]
     )
