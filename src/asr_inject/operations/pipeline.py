@@ -81,7 +81,5 @@ def run(config: Path, *, outdir: Path) -> None:
 
     plot_2d(
         output, config=config_dict,
-        outfile=(
-            outdir / "results" / "water_moles.png"
-        )
+        outdir=(outdir / "results")
     )

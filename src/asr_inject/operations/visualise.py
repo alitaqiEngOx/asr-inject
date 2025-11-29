@@ -10,25 +10,29 @@ from numpy.typing import NDArray
 
 
 DAY_TO_SEC = 86400.
+k_TO_SI = 1000.
 
 def plot_2d(
         results: dict[str, NDArray], *,
-        config: dict[str, Any], outfile: Path
+        config: dict[str, Any], outdir: Path
 ) -> None:
     """
     """
     # make outdir
-    outfile.parent.mkdir(parents=True, exist_ok=True)
+    outdir.mkdir(parents=True, exist_ok=True)
 
     # water
-    water_moles = results["moles"][:, :2]
+    water_mass = results["moles"][:, :2] * (
+        config["solution_characteristics"]["Mr_water"] /
+        k_TO_SI
+    )
 
     plt.plot(
         (
             np.arange(config["n_steps"]) *
             config["step_size"] / DAY_TO_SEC
         ),
-        water_moles[:, 0],
+        water_mass[:, 0],
         label="fresh segment"
     )
 
@@ -37,13 +41,14 @@ def plot_2d(
             np.arange(config["n_steps"]) *
             config["step_size"] / DAY_TO_SEC
         ),
-        water_moles[:, 1],
+        water_mass[:, 1],
         label="saline segment"
     )
 
+    filename = "water_moles"
     plt.legend(loc="best")
-    plt.title(str(outfile.stem))
+    plt.title(filename)
     plt.xlabel("time (days)")
-    plt.ylabel("moles (mol)")
-    plt.savefig(str(outfile))
-    plt.close()   
+    plt.ylabel("mass (kg)")
+    plt.savefig(f"{outdir / f"{filename}.png"}")
+    plt.close()
