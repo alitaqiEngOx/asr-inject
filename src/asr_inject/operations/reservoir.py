@@ -1,7 +1,7 @@
 """ Licensed under the same terms as described in the main 
 licensing script of this repository. """
 
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 import numpy as np
 from numpy.typing import NDArray
@@ -230,18 +230,17 @@ class Reservoir:
         return output
 
     def compute_density_solution(
-            self, mass_fraction: float
-    ) -> float:
+            self,
+            mass_fraction_solute: Union[float, NDArray]
+    ) -> Union[float, NDArray]:
         """
         """
-        solubility = mass_fraction / (1. - mass_fraction)
+        solubility = mass_fraction_solute / (
+            1. - mass_fraction_solute
+        )
 
-        A0 = self.fitting["density"][
-            "salinity_fitting"
-        ]["A0"]
-        A1 = self.fitting["density"][
-            "salinity_fitting"
-        ]["A1"]
+        A0 = self.fitting["density"]["salinity"]["A0"]
+        A1 = self.fitting["density"]["salinity"]["A1"]
 
         d_rho = solubility * (A0 + (self.temperature * A1))
 
@@ -429,6 +428,18 @@ class Reservoir:
             )
         )
 
+        mass_fraction_solute_fresh = result[:, 2] / (
+            result[:, 0] + result[:, 2]
+        )
+
+        density_fresh = self.compute_density_solution(
+            mass_fraction_solute_fresh
+        )
+
         return {
-            "moles": result
+            "moles": result,
+            "mass_fraction_solute_fresh": (
+                mass_fraction_solute_fresh
+            ),
+            "density_fresh": density_fresh
         }
