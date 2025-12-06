@@ -441,5 +441,8 @@ class Reservoir:
             "mass_fraction_solute_fresh": (
                 mass_fraction_solute_fresh
             ),
-            "density_fresh": density_fresh
+            "density_fresh": density_fresh,
+            "asr-efficiency": (
+                self.density_pure / density_fresh
+            )
         }
