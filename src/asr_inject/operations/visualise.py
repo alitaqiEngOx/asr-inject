@@ -21,7 +21,7 @@ def plot_2d(
     # make outdir
     outdir.mkdir(parents=True, exist_ok=True)
 
-    # water
+    # water moles
     water_mass = results["moles"][:, :2] * (
         config["solution_characteristics"]["Mr_water"] /
         k_TO_SI
@@ -53,7 +53,7 @@ def plot_2d(
     plt.savefig(f"{outdir / f"{filename}.png"}")
     plt.close()
 
-    # solute
+    # solute moles
     solute_mass = results["moles"][:, 2:] * (
         config["solution_characteristics"]["Mr_solute"] /
         k_TO_SI
@@ -82,5 +82,23 @@ def plot_2d(
     plt.title(filename)
     plt.xlabel("time (days)")
     plt.ylabel("mass (kg)")
+    plt.savefig(f"{outdir / f"{filename}.png"}")
+    plt.close()
+
+    # asr efficiency
+    efficiency = results["asr-efficiency"] * 100.
+
+    plt.plot(
+        (
+            np.arange(config["n_steps"]) *
+            config["step_size"] / DAY_TO_SEC
+        ),
+        efficiency
+    )
+
+    filename = "asr_efficiency"
+    plt.title(filename)
+    plt.xlabel("time (days)")
+    plt.ylabel("efficiency (%)")
     plt.savefig(f"{outdir / f"{filename}.png"}")
     plt.close()
