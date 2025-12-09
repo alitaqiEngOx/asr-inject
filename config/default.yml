@@ -93,6 +93,7 @@ saline_segment:
 
 recovery:
   flow_rate: 0. # kg/s
+  threshold_solute_mass_fraction: 0.
 
 
 # ------------------------------

@@ -65,7 +65,11 @@ class Reservoir:
             "saline_segment"
         ]["solute_mass_fraction"]
 
-        self.reconery_rate = config["recovery"]["flow_rate"]
+        self.recovery_rate = config["recovery"]["flow_rate"]
+
+        self.max_solute_fraction = config[
+            "recovery"
+        ]["threshold_solute_mass_fraction"]
 
     @property
     def mass_fraction_water_fresh_initial(self) -> float:
@@ -410,7 +414,29 @@ class Reservoir:
             )
 
             J_w_fr = (
-                None
+                -1. *
+                np.heaviside(
+                    (
+                        water_mass_fraction_fresh -
+                        (1. - self.max_solute_fraction)
+                    ), 0.
+                ) *
+                self.recovery_rate *
+                water_mass_fraction_fresh /
+                self.Mr_water
+            )
+
+            J_s_fr = (
+                -1. *
+                np.heaviside(
+                    (
+                        self.max_solute_fraction -
+                        solute_mass_fraction_fresh
+                    ), 0.
+                ) *
+                self.recovery_rate *
+                solute_mass_fraction_fresh /
+                self.Mr_solute
             )
 
             return np.asarray([
