@@ -65,6 +65,8 @@ class Reservoir:
             "saline_segment"
         ]["solute_mass_fraction"]
 
+        self.reconery_rate = config["recovery"]["flow_rate"]
+
     @property
     def mass_fraction_water_fresh_initial(self) -> float:
         """
@@ -257,8 +259,8 @@ class Reservoir:
         ) -> NDArray:
             """
             """
-            water_moles = moles[:2]
-            solute_moles = moles[2:]
+            water_moles = moles[:3]
+            solute_moles = moles[3:]
 
             # fresh segment
             water_fraction_fresh = (
@@ -405,6 +407,10 @@ class Reservoir:
                         solute_potential_fresh
                     ) / self.numerical_separation
                 )
+            )
+
+            J_w_fr = (
+                None
             )
 
             return np.asarray([
