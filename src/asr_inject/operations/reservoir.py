@@ -484,6 +484,13 @@ class Reservoir:
             (result[:, 3] * self.Mr_solute)
         )
 
+        efficiency = (
+            (
+                result[:, 2] * self.Mr_water +
+                result[:, -1] * self.Mr_solute
+            ) / self.density_pure
+        ) / self.volume_fresh
+
         if (
             np.max(mass_fraction_solute_fresh) <
             self.max_solute_fraction
