@@ -191,26 +191,3 @@ def plot_2d(
     plt.ylabel("solute mass fraction in fresh segment")
     plt.savefig(f"{outdir / f"{filename}.png"}")
     plt.close()
-    
-    
-    
-    
-    
-    
-    # asr efficiency
-    #efficiency = results["asr-efficiency"] * 100.
-
-    #plt.plot(
-    #    (
-    #        np.arange(config["n_steps"]) *
-    #        config["step_size"] / DAY_TO_SEC
-    #    ),
-    #    efficiency
-    #)
-
-    #filename = "asr_efficiency"
-    #plt.title(filename)
-    #plt.xlabel("time (days)")
-    #plt.ylabel("efficiency (%)")
-    #plt.savefig(f"{outdir / f"{filename}.png"}")
-    #plt.close()

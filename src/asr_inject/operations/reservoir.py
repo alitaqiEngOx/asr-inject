@@ -497,18 +497,10 @@ class Reservoir:
                 np.arange(n_steps) * step_size,
             )
 
-        #density_fresh = self.compute_density_solution(
-        #    mass_fraction_solute_fresh
-        #)
-
         return {
             "moles": result,
             "mass_fraction_solute_fresh": (
                 mass_fraction_solute_fresh
             ),
             "time_to_recovery_limit": time_at_limit
-            #"density_fresh": density_fresh,
-            #"asr-efficiency": (
-            #    self.density_pure / density_fresh
-            #)
         }
