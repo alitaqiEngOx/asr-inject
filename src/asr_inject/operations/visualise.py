@@ -54,6 +54,25 @@ def plot_2d(
         label="recovered"
     )
 
+    if results["time_to_recovery_limit"]:
+        plt.plot(
+            np.asarray([
+                (
+                    results["time_to_recovery_limit"] /
+                    DAY_TO_SEC
+                ),
+                (
+                    results["time_to_recovery_limit"] /
+                    DAY_TO_SEC
+                )
+            ]),
+            np.asarray([
+                np.min(water_mass), np.max(water_mass)
+            ]),
+            "k--",
+            label="recovery limit"
+        )
+
     filename = "water_mass"
     plt.legend(loc="best")
     plt.title(filename)
@@ -94,6 +113,25 @@ def plot_2d(
         solute_mass[:, 2],
         label="recovered"
     )
+
+    if results["time_to_recovery_limit"]:
+        plt.plot(
+            np.asarray([
+                (
+                    results["time_to_recovery_limit"] /
+                    DAY_TO_SEC
+                ),
+                (
+                    results["time_to_recovery_limit"] /
+                    DAY_TO_SEC
+                )
+            ]),
+            np.asarray([
+                np.min(solute_mass), np.max(solute_mass)
+            ]),
+            "k--",
+            label="recovery limit"
+        )
 
     filename = "solute_mass"
     plt.legend(loc="best")
