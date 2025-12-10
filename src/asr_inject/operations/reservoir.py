@@ -477,14 +477,25 @@ class Reservoir:
             )
         )
 
-        
-        
-        
-        
-        
-        #mass_fraction_solute_fresh = result[:, 3] / (
-        #    result[:, 0] + result[:, 3]
-        #)
+        mass_fraction_solute_fresh = (
+            (result[:, 3] * self.Mr_solute)
+        ) / (
+            (result[:, 0] * self.Mr_water) +
+            (result[:, 3] * self.Mr_solute)
+        )
+
+        if (
+            np.max(mass_fraction_solute_fresh) <
+            self.max_solute_fraction
+        ):
+            time_at_limit = None
+
+        else:
+            time_at_limit = np.interp(
+                self.max_solute_fraction,
+                mass_fraction_solute_fresh,
+                np.arange(n_steps) * step_size,
+            )
 
         #density_fresh = self.compute_density_solution(
         #    mass_fraction_solute_fresh
@@ -492,9 +503,10 @@ class Reservoir:
 
         return {
             "moles": result,
-            #"mass_fraction_solute_fresh": (
-            #    mass_fraction_solute_fresh
-            #),
+            "mass_fraction_solute_fresh": (
+                mass_fraction_solute_fresh
+            ),
+            "time_to_recovery_limit": time_at_limit
             #"density_fresh": density_fresh,
             #"asr-efficiency": (
             #    self.density_pure / density_fresh
