@@ -421,6 +421,9 @@ class Reservoir:
                         (1. - self.max_solute_fraction)
                     ), 0.
                 ) *
+                np.heaviside(
+                    water_moles[0] + solute_moles[0], 0.
+                ) *
                 self.recovery_rate *
                 water_mass_fraction_fresh /
                 self.Mr_water
@@ -434,21 +437,27 @@ class Reservoir:
                         solute_mass_fraction_fresh
                     ), 0.
                 ) *
+                np.heaviside(
+                    water_moles[0] + solute_moles[0], 0.
+                ) *
                 self.recovery_rate *
                 solute_mass_fraction_fresh /
                 self.Mr_solute
             )
 
             return np.asarray([
-                -J_w_sf, J_w_sf, -J_s_sf, J_s_sf
+                -J_w_sf + J_w_fr, J_w_sf, -J_w_fr,
+                -J_s_sf + J_s_fr, J_s_sf, -J_s_fr
             ])
 
         # initial condition
         initial_moles = np.asarray([
             self.moles_water_fresh_initial,
             self.moles_water_saline_initial,
+            0.,
             self.moles_solute_fresh_initial,
-            self.moles_solute_saline_initial
+            self.moles_solute_saline_initial,
+            0.
         ])
 
         # numerical solution
@@ -460,8 +469,8 @@ class Reservoir:
             )
         )
 
-        mass_fraction_solute_fresh = result[:, 2] / (
-            result[:, 0] + result[:, 2]
+        mass_fraction_solute_fresh = result[:, 3] / (
+            result[:, 0] + result[:, 3]
         )
 
         density_fresh = self.compute_density_solution(

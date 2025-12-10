@@ -22,7 +22,7 @@ def plot_2d(
     outdir.mkdir(parents=True, exist_ok=True)
 
     # water moles
-    water_mass = results["moles"][:, :2] * (
+    water_mass = results["moles"][:, :3] * (
         config["solution_characteristics"]["Mr_water"] /
         k_TO_SI
     )
@@ -45,7 +45,16 @@ def plot_2d(
         label="saline segment"
     )
 
-    filename = "water_moles"
+    plt.plot(
+        (
+            np.arange(config["n_steps"]) *
+            config["step_size"] / DAY_TO_SEC
+        ),
+        water_mass[:, 2],
+        label="recovered"
+    )
+
+    filename = "water_mass"
     plt.legend(loc="best")
     plt.title(filename)
     plt.xlabel("time (days)")
@@ -54,7 +63,7 @@ def plot_2d(
     plt.close()
 
     # solute moles
-    solute_mass = results["moles"][:, 2:] * (
+    solute_mass = results["moles"][:, 3:] * (
         config["solution_characteristics"]["Mr_solute"] /
         k_TO_SI
     )
@@ -77,7 +86,16 @@ def plot_2d(
         label="saline segment"
     )
 
-    filename = "solute_moles"
+    plt.plot(
+        (
+            np.arange(config["n_steps"]) *
+            config["step_size"] / DAY_TO_SEC
+        ),
+        solute_mass[:, 2],
+        label="recovered"
+    )
+
+    filename = "solute_mass"
     plt.legend(loc="best")
     plt.title(filename)
     plt.xlabel("time (days)")
