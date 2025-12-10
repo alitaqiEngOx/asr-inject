@@ -509,5 +509,6 @@ class Reservoir:
             "mass_fraction_solute_fresh": (
                 mass_fraction_solute_fresh
             ),
-            "time_to_recovery_limit": time_at_limit
+            "time_to_recovery_limit": time_at_limit,
+            "asr_efficiency": efficiency
         }

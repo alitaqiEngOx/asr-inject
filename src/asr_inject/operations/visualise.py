@@ -191,3 +191,38 @@ def plot_2d(
     plt.ylabel("solute mass fraction in fresh segment")
     plt.savefig(f"{outdir / f"{filename}.png"}")
     plt.close()
+
+    # asr efficiency
+    plt.plot(
+        (
+            np.arange(config["n_steps"]) *
+            config["step_size"] / DAY_TO_SEC
+        ),
+        results["asr_efficiency"] * 100.,
+    )
+
+    if results["time_to_recovery_limit"]:
+        plt.plot(
+            np.asarray([
+                (
+                    results["time_to_recovery_limit"] /
+                    DAY_TO_SEC
+                ),
+                (
+                    results["time_to_recovery_limit"] /
+                    DAY_TO_SEC
+                )
+            ]),
+            np.asarray([0., 100.]),
+            "k--",
+            label="recovery limit"
+        )
+
+    filename = "asr_efficiency"
+    plt.legend(loc="best")
+    plt.title(filename)
+    plt.xlabel("time (days)")
+    plt.ylabel("efficiency (%)")
+    plt.ylim(-5., 105.)
+    plt.savefig(f"{outdir / f"{filename}.png"}")
+    plt.close()
