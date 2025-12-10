@@ -289,14 +289,18 @@ class Reservoir:
                 1. - water_mass_fraction_fresh
             )
 
+            density_solution = self.compute_density_solution(
+                solute_mass_fraction_fresh
+            )
+
             water_concentration_fresh = (
-                self.density_pure *
+                density_solution *
                 water_mass_fraction_fresh *
                 (1000. / self.Mr_water)
             )
 
             solute_concentration_fresh = (
-                self.density_pure *
+                density_solution *
                 solute_mass_fraction_fresh *
                 (1000. / self.Mr_solute)
             )
@@ -324,14 +328,18 @@ class Reservoir:
                 1. - water_mass_fraction_saline
             )
 
+            density_solution = self.compute_density_solution(
+                solute_mass_fraction_saline
+            )
+
             water_concentration_saline = (
-                self.density_pure *
+                density_solution *
                 water_mass_fraction_saline *
                 (1000. / self.Mr_water)
             )
 
             solute_concentration_saline = (
-                self.density_pure *
+                density_solution *
                 solute_mass_fraction_saline *
                 (1000. / self.Mr_solute)
             )
@@ -469,6 +477,11 @@ class Reservoir:
             )
         )
 
+        
+        
+        
+        
+        
         #mass_fraction_solute_fresh = result[:, 3] / (
         #    result[:, 0] + result[:, 3]
         #)
