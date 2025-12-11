@@ -93,11 +93,12 @@ saline_segment:
 
 recovery:
   flow_rate: 0.05 # kg/s
-  threshold_solute_mass_fraction: 0.06
+  threshold_solute_mass_fraction: 0.05
 
 
 # ------------------------------
 # ---------- NUMERICS ----------
 # ------------------------------
 n_steps: 10000000
-step_size: 0.15
+step_size: 0.1
+hmax: null

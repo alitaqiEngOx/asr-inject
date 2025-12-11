@@ -76,7 +76,12 @@ def run(config: Path, *, outdir: Path) -> None:
 
     output = res.predict(
         n_steps=config_dict["n_steps"],
-        step_size=config_dict["step_size"]
+        step_size=config_dict["step_size"],
+        hmax=(
+            config_dict["hmax"]
+            if "hmax" in config_dict.keys()
+            else None
+        )
     )
 
     plot_2d(
