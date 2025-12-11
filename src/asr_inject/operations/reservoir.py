@@ -429,9 +429,7 @@ class Reservoir:
                         (1. - self.max_solute_fraction)
                     ), 0.
                 ) *
-                np.heaviside(
-                    water_moles[0] + solute_moles[0], 0.
-                ) *
+                np.heaviside(water_moles[0], 0.) *
                 self.recovery_rate *
                 water_mass_fraction_fresh /
                 self.Mr_water
@@ -445,9 +443,7 @@ class Reservoir:
                         solute_mass_fraction_fresh
                     ), 0.
                 ) *
-                np.heaviside(
-                    water_moles[0] + solute_moles[0], 0.
-                ) *
+                np.heaviside(solute_moles[0], 0.) *
                 self.recovery_rate *
                 solute_mass_fraction_fresh /
                 self.Mr_solute
