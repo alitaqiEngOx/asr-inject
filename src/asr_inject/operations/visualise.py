@@ -185,7 +185,10 @@ def plot_2d(
         )
 
     filename = "recovery_purity"
-    plt.legend(loc="best")
+
+    if results["time_to_recovery_limit"]:
+        plt.legend(loc="best")
+
     plt.title(filename)
     plt.xlabel("time (days)")
     plt.ylabel("solute mass fraction in fresh segment")
@@ -219,7 +222,10 @@ def plot_2d(
         )
 
     filename = "asr_efficiency"
-    plt.legend(loc="best")
+
+    if results["time_to_recovery_limit"]:
+        plt.legend(loc="best")
+
     plt.title(filename)
     plt.xlabel("time (days)")
     plt.ylabel("efficiency (%)")
