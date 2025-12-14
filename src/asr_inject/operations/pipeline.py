@@ -42,7 +42,7 @@ def run(config: Path, *, outdir: Path) -> None:
     )
 
     water_diffusivity_coefficients = arrhenius_fit(
-        np.asarray(water_diffusivity_data),
+        np.asarray(water_diffusivity_data, dtype=np.float64),
         outfile=(
             outdir / "fitting" / "water_diffusivity.png"
         )
@@ -54,7 +54,7 @@ def run(config: Path, *, outdir: Path) -> None:
     )
 
     solute_diffusivity_coefficients = arrhenius_fit(
-        np.asarray(solute_diffusivity_data),
+        np.asarray(solute_diffusivity_data, dtype=np.float64),
         outfile=(
             outdir / "fitting" / "solute_diffusivity.png"
         )

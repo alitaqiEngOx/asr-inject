@@ -62,10 +62,10 @@ water_diffusivity:
 
 solute_diffusivity:
 # ->
-# [degC, m^2/s]
-- [5.0, 7.27e-10]
-- [25.0, 1.33e-9]
-- [45.0, 2.30e-9]
+# - [degC, m^2/s]
+  - [5.0, 7.27e-10]
+  - [25.0, 1.33e-9]
+  - [45.0, 2.30e-9]
 # where D(T) = D(298.15) * (T / 298.15) * (n(285.15) / n(T))
 # and n = viscosity
 # effect of solute concentration on diffusivity is neglected

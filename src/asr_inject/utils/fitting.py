@@ -1,7 +1,6 @@
 """ Licensed under the same terms as described in the main 
 licensing script of this repository. """
 
-from pathlib import Path
 from typing import Any, Optional, Tuple
 
 import matplotlib.pyplot as plt
@@ -79,8 +78,7 @@ def density_fit(
     return np.asarray(coefficients)
 
 def arrhenius_fit(
-        data: NDArray, *, outdir: Optional[Path]=None,
-        outfile: Optional[str]=None
+        data: NDArray, *, outfile: Optional[str]=None
 ) -> Tuple[float, float]:
     """
     """
