@@ -88,3 +88,14 @@ def run(config: Path, *, outdir: Path) -> None:
         output, config=config_dict,
         outdir=(outdir / "results")
     )
+
+    # temporary prints
+    print(
+        "final efficiency: "
+        f"{output['asr_efficiency'][-1]}"
+    )
+
+    print(
+        "time to recovery limit: "
+        f"{output['time_to_recovery_limit'] / 86400.}"
+    )
