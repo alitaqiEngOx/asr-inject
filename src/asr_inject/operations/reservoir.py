@@ -402,7 +402,9 @@ class Reservoir:
 
             # fluxes
             self.recovery_gate *= (
-                np.heaviside(water_moles[0] + solute_moles[0] - 0.01, 0.0)
+                np.heaviside(
+                    water_moles[0] + solute_moles[0] - 0.01, 0.
+                )
             )
 
             J_w_sf = (

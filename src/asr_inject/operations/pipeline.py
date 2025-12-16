@@ -95,7 +95,16 @@ def run(config: Path, *, outdir: Path) -> None:
         f"{output['asr_efficiency'][-1]}"
     )
 
-    print(
-        "time to recovery limit: "
-        f"{output['time_to_recovery_limit'] / 86400.}"
-    )
+    if output['time_to_recovery_limit']:
+        print(
+            "time to recovery limit: "
+            f"{output['time_to_recovery_limit'] / 86400.} "
+            "days"
+        )
+
+    else:
+        print(
+            "time to full recovery: "
+            f"{output['time_to_full_recovery'] / 86400.} "
+            "days"
+        )
