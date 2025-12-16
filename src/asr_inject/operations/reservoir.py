@@ -390,7 +390,9 @@ class Reservoir:
                     temperature=self.temperature
                 )
             )
-
+            print("........")
+            print(solute_moles[0])
+            print(solute_fraction_fresh)
             solute_potential_saline = (
                 chemical_potential.compute(
                     activity=solute_fraction_saline,
@@ -429,7 +431,7 @@ class Reservoir:
                         (1. - self.max_solute_fraction)
                     ), 0.
                 ) *
-                np.heaviside(water_moles[0], 0.) *
+                np.heaviside(water_moles[0]-0., 0.) *
                 self.recovery_rate *
                 water_mass_fraction_fresh /
                 self.Mr_water
@@ -443,12 +445,13 @@ class Reservoir:
                         solute_mass_fraction_fresh
                     ), 0.
                 ) *
-                np.heaviside(solute_moles[0], 0.) *
+                np.heaviside(solute_moles[0]-0., 0.) *
                 self.recovery_rate *
                 solute_mass_fraction_fresh /
                 self.Mr_solute
             )
-
+            print(J_s_fr)
+            print("..........")
             return np.asarray([
                 -J_w_sf + J_w_fr, J_w_sf, -J_w_fr,
                 -J_s_sf + J_s_fr, J_s_sf, -J_s_fr
@@ -470,7 +473,8 @@ class Reservoir:
             np.arange(n_steps) * step_size,
             hmax=(
                 hmax if hmax else 0
-            )
+            ),
+            #hmin=1.e-6
         )
 
         mass_fraction_solute_fresh = (

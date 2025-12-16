@@ -1,0 +1,112 @@
+### Licensed under the same terms as described in the main 
+# licensing script of this repository. ###
+
+# ------------------------------
+# ---------- FITTINGS ----------
+# ------------------------------
+solution_characteristics:
+  Mr_water: 18.02 # g/mol
+  Mr_solute: 58.44 # g/mol
+
+density:
+  data:
+  # -> NIST webpage, accessed: Nov 2025
+  # - [degC, kg/m^3]
+    - [0.0, 1000.0]
+    - [100.0, 1000.0]
+    #- [0.0, 999.840]
+    #- [1.0, 999.900]
+    #- [2.0, 999.940]
+    #- [3.0, 999.970]
+    #- [4.0, 999.970]
+    #- [5.0, 999.970]
+    #- [6.0, 999.940]
+    #- [7.0, 999.900]
+    #- [8.0, 999.850]
+    #- [9.0, 999.780]
+    #- [10.0, 999.700]
+    #- [20.0, 998.210]
+    #- [30.0, 995.650]
+    #- [40.0, 992.210]
+    #- [50.0, 988.030]
+    #- [60.0, 983.190]
+    #- [70.0, 977.760]
+    #- [80.0, 971.780]
+    #- [90.0, 965.300]
+    #- [100.0, 958.370]
+
+  temperature_fitting_degree: 1 
+# rho(T) = C0 + C1.T^1 + C2.T^2 + ... + Cn.T^n
+# where n = temperature_fitting_degree
+# effect of solute concentration on density is neglected
+
+  salinity_fitting:
+    A0: 0.0
+    A1: 0.0
+    #A0: 1296.3 # kg/m^3
+    #A1: -2.0 # kg/(m^3.K)
+# rho(T, S) = rho(T) + S(A0 + T.A1)
+
+water_diffusivity:
+# -> Easteal, 1989, J. Chem. Soc., Faraday Trans. 1, 85
+# - [degC, m^2/s]
+  - [0.0, 1.0e-9]
+  - [100.0, 1.0e-9]
+  #- [0.0, 1.118e-9]
+  #- [10.0, 1.520e-9]
+  #- [20.0, 2.001e-9]
+  #- [25.0, 2.272e-9]
+  #- [30.0, 2.563e-9]
+  #- [40.0, 3.206e-9]
+  #- [50.0, 3.927e-9]
+  #- [60.0, 4.722e-9]
+  #- [70.0, 5.587e-9]
+  #- [80.0, 6.514e-9]
+  #- [90.0, 7.499e-9]
+  #- [100.0, 8.533e-9]
+# effect of solute concentration on diffusivity is neglected
+
+solute_diffusivity:
+# ->
+# - [degC, m^2/s]
+  - [0.0, 1e-9]
+  - [100.0, 1e-9]
+  #- [5.0, 7.27e-10]
+  #- [25.0, 1.33e-9]
+  #- [45.0, 2.30e-9]
+# where D(T) = D(298.15) * (T / 298.15) * (n(285.15) / n(T))
+# and n = viscosity
+# effect of solute concentration on diffusivity is neglected
+
+
+# ------------------------------
+# ---------- ANALYSES ----------
+# ------------------------------
+reservoir_dimensions:
+  length: 5.0 # m
+  width: 5.0 # m
+  height: 5.0 # m
+  depth: 100.0 # m
+
+reservoir_conditions:
+  temperature: 50.0 # degC
+  pressure: 10.0 # bara
+
+fresh_segment:
+  volume_fraction: 0.5
+  solute_mass_fraction: 0.0001
+
+saline_segment:
+  solute_mass_fraction: 0.01
+
+recovery:
+  flow_rate: 0.04 # kg/s
+  threshold_solute_mass_fraction: 0.025
+
+
+# ------------------------------
+# ---------- NUMERICS ----------
+# ------------------------------
+n_steps: 8000000
+step_size: 0.2
+hmax: null
