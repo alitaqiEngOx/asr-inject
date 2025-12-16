@@ -476,8 +476,7 @@ class Reservoir:
             np.arange(n_steps) * step_size,
             hmax=(
                 hmax if hmax else 0
-            ),
-            #hmin=1.e-6
+            )
         )
 
         mass_fraction_solute_fresh = (
@@ -500,6 +499,17 @@ class Reservoir:
         ):
             time_at_limit = None
 
+            idx = 0
+            while (
+                efficiency[-1] - efficiency[idx]
+                >= 0.0001
+            ):
+                idx += 1
+
+            time_to_full_recovery = (
+                np.arange(n_steps) * step_size
+            )[idx]
+
         else:
             time_at_limit = np.interp(
                 self.max_solute_fraction,
@@ -507,11 +517,16 @@ class Reservoir:
                 np.arange(n_steps) * step_size,
             )
 
+            time_to_full_recovery = None
+
         return {
             "moles": result,
             "mass_fraction_solute_fresh": (
                 mass_fraction_solute_fresh
             ),
+            "asr_efficiency": efficiency,
             "time_to_recovery_limit": time_at_limit,
-            "asr_efficiency": efficiency
-        }
+            "time_to_full_recovery": (
+                time_to_full_recovery
+            )
+        }    

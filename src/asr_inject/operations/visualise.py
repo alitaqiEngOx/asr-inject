@@ -27,6 +27,16 @@ def plot_2d(
         k_TO_SI
     )
 
+    if results["time_to_recovery_limit"]:
+        limiting = (
+            results["time_to_recovery_limit"] / DAY_TO_SEC
+        )
+
+    else:
+        limiting = (
+            results["time_to_full_recovery"] / DAY_TO_SEC
+        )
+
     plt.plot(
         (
             np.arange(config["n_steps"]) *
@@ -54,24 +64,14 @@ def plot_2d(
         label="recovered"
     )
 
-    if results["time_to_recovery_limit"]:
-        plt.plot(
-            np.asarray([
-                (
-                    results["time_to_recovery_limit"] /
-                    DAY_TO_SEC
-                ),
-                (
-                    results["time_to_recovery_limit"] /
-                    DAY_TO_SEC
-                )
-            ]),
-            np.asarray([
-                np.min(water_mass), np.max(water_mass)
-            ]),
-            "k--",
-            label="recovery limit"
-        )
+    plt.plot(
+        np.asarray([limiting, limiting]),
+        np.asarray([
+            np.min(water_mass), np.max(water_mass)
+        ]),
+        "k--",
+        label="recovery limit"
+    )
 
     filename = "water_mass"
     plt.legend(loc="best")
@@ -114,24 +114,14 @@ def plot_2d(
         label="recovered"
     )
 
-    if results["time_to_recovery_limit"]:
-        plt.plot(
-            np.asarray([
-                (
-                    results["time_to_recovery_limit"] /
-                    DAY_TO_SEC
-                ),
-                (
-                    results["time_to_recovery_limit"] /
-                    DAY_TO_SEC
-                )
-            ]),
-            np.asarray([
-                np.min(solute_mass), np.max(solute_mass)
-            ]),
-            "k--",
-            label="recovery limit"
-        )
+    plt.plot(
+        np.asarray([limiting, limiting]),
+        np.asarray([
+            np.min(solute_mass), np.max(solute_mass)
+        ]),
+        "k--",
+        label="recovery limit"
+    )
 
     filename = "solute_mass"
     plt.legend(loc="best")
@@ -151,6 +141,15 @@ def plot_2d(
         mass_fraction
     )
 
+    plt.plot(
+        np.asarray([limiting, limiting]),
+        np.asarray([
+            mass_fraction[0], mass_fraction[-1]
+        ]),
+        "k--",
+        label="recovery limit"
+    )
+
     if results["time_to_recovery_limit"]:
         plt.plot(
             (
@@ -166,23 +165,7 @@ def plot_2d(
             "k--"
         )
 
-        plt.plot(
-            np.asarray([
-                (
-                    results["time_to_recovery_limit"] /
-                    DAY_TO_SEC
-                ),
-                (
-                    results["time_to_recovery_limit"] /
-                    DAY_TO_SEC
-                )
-            ]),
-            np.asarray([
-                mass_fraction[0], mass_fraction[-1]
-            ]),
-            "k--",
-            label="recovery limit"
-        )
+        
 
     filename = "recovery_purity"
 
