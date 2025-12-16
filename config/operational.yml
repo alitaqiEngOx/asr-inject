@@ -35,8 +35,8 @@ water_diffusivity:
 solute_diffusivity:
 # ->
 # - [degC, m^2/s]
-  - [0.0, 1e-9]
-  - [100.0, 1e-9]
+  - [0.0, 5.0e-8]
+  - [100.0, 5.0e-8]
 # where D(T) = D(298.15) * (T / 298.15) * (n(285.15) / n(T))
 # and n = viscosity
 # effect of solute concentration on diffusivity is neglected
@@ -60,10 +60,10 @@ fresh_segment:
   solute_mass_fraction: 0.0001
 
 saline_segment:
-  solute_mass_fraction: 0.01
+  solute_mass_fraction: 0.05
 
 recovery:
-  flow_rate: 0.04 # kg/s
+  flow_rate: 0.03 # kg/s
   threshold_solute_mass_fraction: 0.025
 
 
@@ -71,5 +71,5 @@ recovery:
 # ---------- NUMERICS ----------
 # ------------------------------
 n_steps: 8000000
-step_size: 0.2
+step_size: 0.5
 hmax: null
