@@ -31,11 +31,13 @@ def plot_2d(
         limiting = (
             results["time_to_recovery_limit"] / DAY_TO_SEC
         )
+        limit_label = "recovery limit"
 
     else:
         limiting = (
             results["time_to_full_recovery"] / DAY_TO_SEC
         )
+        limit_label = "full recovery"
 
     plt.plot(
         (
@@ -70,7 +72,7 @@ def plot_2d(
             np.min(water_mass), np.max(water_mass)
         ]),
         "k--",
-        label="recovery limit"
+        label=limit_label
     )
 
     filename = "water_mass"
@@ -120,7 +122,7 @@ def plot_2d(
             np.min(solute_mass), np.max(solute_mass)
         ]),
         "k--",
-        label="recovery limit"
+        label=limit_label
     )
 
     filename = "solute_mass"
@@ -147,7 +149,7 @@ def plot_2d(
             mass_fraction[0], mass_fraction[-1]
         ]),
         "k--",
-        label="recovery limit"
+        label=limit_label
     )
 
     if results["time_to_recovery_limit"]:
@@ -165,13 +167,9 @@ def plot_2d(
             "k--"
         )
 
-        
-
     filename = "recovery_purity"
 
-    if results["time_to_recovery_limit"]:
-        plt.legend(loc="best")
-
+    plt.legend(loc="best")
     plt.title(filename)
     plt.xlabel("time (days)")
     plt.ylabel("solute mass fraction in fresh segment")
@@ -184,31 +182,19 @@ def plot_2d(
             np.arange(config["n_steps"]) *
             config["step_size"] / DAY_TO_SEC
         ),
-        results["asr_efficiency"] * 100.,
+        results["asr_efficiency"] * 100.
     )
 
-    if results["time_to_recovery_limit"]:
-        plt.plot(
-            np.asarray([
-                (
-                    results["time_to_recovery_limit"] /
-                    DAY_TO_SEC
-                ),
-                (
-                    results["time_to_recovery_limit"] /
-                    DAY_TO_SEC
-                )
-            ]),
-            np.asarray([0., 100.]),
-            "k--",
-            label="recovery limit"
-        )
+    plt.plot(
+        np.asarray([limiting, limiting]),
+        np.asarray([0., 100.]),
+        "k--",
+        label=limit_label
+    )
 
     filename = "asr_efficiency"
 
-    if results["time_to_recovery_limit"]:
-        plt.legend(loc="best")
-
+    plt.legend(loc="best")
     plt.title(filename)
     plt.xlabel("time (days)")
     plt.ylabel("efficiency (%)")
