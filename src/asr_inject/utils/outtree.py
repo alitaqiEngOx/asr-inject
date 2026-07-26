@@ -3,7 +3,6 @@ licensing script of this repository. """
 
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 
 def make_global_outdir(
