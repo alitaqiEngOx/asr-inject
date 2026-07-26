@@ -243,6 +243,22 @@ class Reservoir:
 
 
     @property
+    def diffusivity_water_saline_segment(self) -> float:
+        """
+        """
+        base = self.fitting[
+            "water_diff_saline_segment"
+        ][0]
+        energy = self.fitting[
+            "water_diff_saline_segment"
+        ][1]
+
+        exp_term = -energy / (R * self.temperature)
+
+        return base * np.exp(exp_term)
+
+
+    @property
     def diffusivity_solute(self) -> float:
         """
         """
