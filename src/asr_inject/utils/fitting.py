@@ -1,7 +1,7 @@
 """ Licensed under the same terms as described in the main 
 licensing script of this repository. """
 
-from typing import Any, Optional, Tuple
+from typing import Any
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,7 +14,7 @@ CELSIUS_TO_KELVIN = 273.15
 
 def density_fit(
         density_data: dict[str, Any], *,
-        outfile: Optional[str]=None
+        outfile: str | None=None
 ) -> NDArray:
     """
     """
@@ -78,8 +78,8 @@ def density_fit(
     return np.asarray(coefficients)
 
 def arrhenius_fit(
-        data: NDArray, *, outfile: Optional[str]=None
-) -> Tuple[float, float]:
+        data: NDArray, *, outfile: str | None=None
+) -> tuple[float, float]:
     """
     """
     x_axis = 1. / (data[:, 0] + CELSIUS_TO_KELVIN)
@@ -89,7 +89,7 @@ def arrhenius_fit(
     slope, intercept = np.polyfit(x_axis, y_axis, 1)
 
     # plots
-    if outfile:
+    if outfile is not None:
         outfile.parent.mkdir(parents=True, exist_ok=True)
 
         plt.scatter(

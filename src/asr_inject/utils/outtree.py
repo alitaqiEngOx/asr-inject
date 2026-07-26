@@ -9,7 +9,7 @@ from typing import Optional
 def make_global_outdir(
         parent_dir: Path, *, 
         return_name: bool=False
-) -> Optional[str]:
+) -> str | None:
     """
     """
     outdir = parent_dir / (
