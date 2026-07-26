@@ -101,7 +101,7 @@ class Reservoir:
 
 
     @property
-    def numerical_separation(self) -> float:
+    def numerical_separation(self) -> list[float]:
         """
         """
         height_fresh = (
@@ -113,8 +113,7 @@ class Reservoir:
         )
 
         return [
-            0.5 * height_fresh,
-            self.interlayer_thickness,
+            0.5 * height_fresh, self.interlayer_thickness,
             0.5 * height_saline
         ]
 
@@ -228,11 +227,15 @@ class Reservoir:
 
 
     @property
-    def diffusivity_water(self) -> float:
+    def diffusivity_water_fresh_segment(self) -> float:
         """
         """
-        base = self.fitting["water_diffusivity"][0]
-        energy = self.fitting["water_diffusivity"][1]
+        base = self.fitting[
+            "water_diff_fresh_segment"
+        ][0]
+        energy = self.fitting[
+            "water_diff_fresh_segment"
+        ][1]
 
         exp_term = -energy / (R * self.temperature)
 
