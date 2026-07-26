@@ -96,8 +96,10 @@ def run(config: Path, *, outdir: Path) -> None:
             "temperature": density_coefficients,
             "salinity": density_data["salinity_fitting"]
         },
-        "water_diffusivity": water_diffusivity_coefficients,
-        "solute_diffusivity": solute_diffusivity_coefficients
+        "water_diff_fresh_segment": water_diff_coeff_fresh_segment,
+        "water_diff_saline_segment": water_diff_coeff_saline_segment,
+        "solute_diff_fresh_segment": solute_diff_coeff_fresh_segment,
+        "solute_diff_saline_segment": solute_diff_coeff_saline_segment,
     }
 
     res = Reservoir(
