@@ -1,7 +1,7 @@
 """ Licensed under the same terms as described in the main 
 licensing script of this repository. """
 
-from typing import Any, Optional, Union
+from typing import Any
 
 import numpy as np
 from numpy.typing import NDArray
@@ -268,8 +268,8 @@ class Reservoir:
 
     def compute_density_solution(
             self,
-            mass_fraction_solute: Union[float, NDArray]
-    ) -> Union[float, NDArray]:
+            mass_fraction_solute: float | NDArray
+    ) -> float | NDArray:
         """
         """
         solubility = mass_fraction_solute / (
@@ -286,7 +286,7 @@ class Reservoir:
 
     def predict(
             self, *, n_steps: int, step_size: float,
-            hmax: Optional[float]=None
+            hmax: float | None=None
     ) -> dict[str, NDArray]:
         """
         """
