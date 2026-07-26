@@ -273,13 +273,16 @@ class Reservoir:
 
         return base * np.exp(exp_term)
 
-
     @property
-    def diffusivity_solute(self) -> float:
+    def diffusivity_solute_saline_segment(self) -> float:
         """
         """
-        base = self.fitting["solute_diffusivity"][0]
-        energy = self.fitting["solute_diffusivity"][1]
+        base = self.fitting[
+            "solute_diff_saline_segment"
+        ][0]
+        energy = self.fitting[
+            "solute_diff_saline_segment"
+        ][1]
 
         exp_term = -energy / (R * self.temperature)
 
