@@ -17,6 +17,7 @@ BAR_TO_PA = 10.**5.
 class Reservoir:
     """"""
 
+
     def __init__(
             self, *, config: dict[str, Any],
             fitting: dict[str, Any]
@@ -44,6 +45,10 @@ class Reservoir:
         self.height = config["reservoir_dimensions"][
             "height"
         ]
+
+        self.interlayer_thickness = config[
+            "reservoir_dimensions"
+        ]["interlayer_thickness"]
 
         self.temperature = config["reservoir_conditions"][
             "temperature"
@@ -73,11 +78,13 @@ class Reservoir:
 
         self.recovery_gate = 1.
 
+
     @property
     def mass_fraction_water_fresh_initial(self) -> float:
         """
         """
         return 1. - self.mass_fraction_solute_fresh_initial
+
 
     @property
     def mass_fraction_water_saline_initial(self) -> float:
@@ -85,11 +92,13 @@ class Reservoir:
         """
         return 1. - self.mass_fraction_solute_saline_initial
 
+
     @property
     def cs_area(self) -> float:
         """
         """
         return self.length * self.width
+
 
     @property
     def numerical_separation(self) -> float:
@@ -103,7 +112,12 @@ class Reservoir:
             self.height * self.volume_fraction_saline
         )
 
-        return 0.5 * (height_fresh + height_saline)
+        return [
+            0.5 * height_fresh,
+            self.interlayer_thickness,
+            0.5 * height_saline
+        ]
+
 
     @property
     def volume_fraction_saline(self) -> float:
@@ -111,11 +125,13 @@ class Reservoir:
         """
         return 1. - self.volume_fraction_fresh
 
+
     @property
     def volume(self) -> float:
         """
         """
         return self.length * self.width * self.height
+
 
     @property
     def volume_fresh(self) -> float:
@@ -123,11 +139,13 @@ class Reservoir:
         """
         return self.volume * self.volume_fraction_fresh
 
+
     @property
     def volume_saline(self) -> float:
         """
         """
         return self.volume * self.volume_fraction_saline
+
 
     @property
     def mass_water_fresh_initial(self) -> float:
@@ -138,6 +156,7 @@ class Reservoir:
             self.mass_fraction_water_fresh_initial
         )
 
+
     @property
     def mass_water_saline_initial(self) -> float:
         """
@@ -146,6 +165,7 @@ class Reservoir:
             self.density_pure * self.volume_saline *
             self.mass_fraction_water_saline_initial
         )
+
 
     @property
     def mass_solute_fresh_initial(self) -> float:
@@ -156,6 +176,7 @@ class Reservoir:
             self.mass_fraction_solute_fresh_initial
         )
 
+
     @property
     def mass_solute_saline_initial(self) -> float:
         """
@@ -164,6 +185,7 @@ class Reservoir:
             self.density_pure * self.volume_saline *
             self.mass_fraction_solute_saline_initial
         )
+
 
     @property
     def moles_water_fresh_initial(self) -> float:
@@ -174,6 +196,7 @@ class Reservoir:
             self.Mr_water
         )
 
+
     @property
     def moles_water_saline_initial(self) -> float:
         """
@@ -182,6 +205,7 @@ class Reservoir:
             self.mass_water_saline_initial /
             self.Mr_water
         )
+
 
     @property
     def moles_solute_fresh_initial(self) -> float:
@@ -192,6 +216,7 @@ class Reservoir:
             self.Mr_solute
         )
 
+
     @property
     def moles_solute_saline_initial(self) -> float:
         """
@@ -200,6 +225,7 @@ class Reservoir:
             self.mass_solute_saline_initial /
             self.Mr_solute
         )
+
 
     @property
     def diffusivity_water(self) -> float:
@@ -212,6 +238,7 @@ class Reservoir:
 
         return base * np.exp(exp_term)
 
+
     @property
     def diffusivity_solute(self) -> float:
         """
@@ -222,6 +249,7 @@ class Reservoir:
         exp_term = -energy / (R * self.temperature)
 
         return base * np.exp(exp_term)
+
 
     @property
     def density_pure(self) -> float:
@@ -236,6 +264,7 @@ class Reservoir:
             output += coeff * self.temperature**idx
 
         return output
+
 
     def compute_density_solution(
             self,
@@ -253,6 +282,7 @@ class Reservoir:
         d_rho = solubility * (A0 + (self.temperature * A1))
 
         return self.density_pure + d_rho
+
 
     def predict(
             self, *, n_steps: int, step_size: float,

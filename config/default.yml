@@ -100,6 +100,7 @@ reservoir_dimensions:
   length: 5.0 # m
   width: 5.0 # m
   height: 5.0 # m
+  interlayer_thickness: 0.1 # m
   depth: 100.0 # m
 
 reservoir_conditions:
