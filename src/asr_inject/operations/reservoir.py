@@ -259,6 +259,22 @@ class Reservoir:
 
 
     @property
+    def diffusivity_solute_fresh_segment(self) -> float:
+        """
+        """
+        base = self.fitting[
+            "solute_diff_fresh_segment"
+        ][0]
+        energy = self.fitting[
+            "solute_diff_fresh_segment"
+        ][1]
+
+        exp_term = -energy / (R * self.temperature)
+
+        return base * np.exp(exp_term)
+
+
+    @property
     def diffusivity_solute(self) -> float:
         """
         """
