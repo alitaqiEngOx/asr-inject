@@ -68,12 +68,27 @@ def run(config: Path, *, outdir: Path) -> None:
         "solute_diffusivity"
     )
 
-    solute_diffusivity_coefficients = arrhenius_fit(
-        np.asarray(solute_diffusivity_data, dtype=np.float64),
+    solute_diff_coeff_fresh_segment = arrhenius_fit(
+        np.asarray(
+            solute_diffusivity_data["fresh_segment"],
+            dtype=np.float64
+        ),
         outfile=(
-            outdir / "fitting" / "solute_diffusivity.png"
+            outdir / "fitting" /
+            "solute_diffusivity_fresh_segment.png"
         )
     )
+
+    solute_diff_coeff_saline_segment = arrhenius_fit(
+            np.asarray(
+                solute_diffusivity_data["saline_segment"],
+                dtype=np.float64
+            ),
+            outfile=(
+                outdir / "fitting" /
+                "solute_diffusivity_saline_segment.png"
+            )
+        )
 
     # run simulation
     fitting = {
