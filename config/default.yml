@@ -45,7 +45,7 @@ density:
 
 water_diffusivity:
 # -> Easteal, 1989, J. Chem. Soc., Faraday Trans. 1, 85
-fresh_segment:
+  fresh_segment:
   # - [degC, m^2/s]
     - [0.0, 1.118e-9]
     - [10.0, 1.520e-9]
@@ -60,7 +60,7 @@ fresh_segment:
     - [90.0, 7.499e-9]
     - [100.0, 8.533e-9]
 
-saline_segment:
+  saline_segment:
   # - [degC, m^2/s]
     - [0.0, 1.118e-9]
     - [10.0, 1.520e-9]

@@ -41,10 +41,14 @@ def run(config: Path, *, outdir: Path) -> None:
         "water_diffusivity"
     )
 
-    water_diffusivity_coefficients = arrhenius_fit(
-        np.asarray(water_diffusivity_data, dtype=np.float64),
+    water_diffusivity_coeff_fresh_segment = arrhenius_fit(
+        np.asarray(
+            water_diffusivity_data["fresh_segment"],
+            dtype=np.float64
+        ),
         outfile=(
-            outdir / "fitting" / "water_diffusivity.png"
+            outdir / "fitting" /
+            "water_diffusivity_fresh_segment.png"
         )
     )
 
