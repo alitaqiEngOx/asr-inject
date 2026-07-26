@@ -27,16 +27,27 @@ density:
 # rho(T, S) = rho(T) + S(A0 + T.A1)
 
 water_diffusivity:
-# - [degC, m^2/s]
-  - [0.0, 1.0e-9]
-  - [100.0, 1.0e-9]
-# effect of solute concentration on diffusivity is neglected
+  fresh_segment:
+  # - [degC, m^2/s]
+    - [0.0, 1.0e-9]
+    - [100.0, 1.0e-9]
+
+  saline_segment:
+  # - [degC, m^2/s]
+    - [0.0, 1.0e-9]
+    - [100.0, 1.0e-9]
+  # effect of solute concentration on diffusivity is neglected
 
 solute_diffusivity:
-# ->
-# - [degC, m^2/s]
-  - [0.0, 5.0e-8]
-  - [100.0, 5.0e-8]
+  fresh_segment:
+  # - [degC, m^2/s]
+    - [0.0, 5.0e-8]
+    - [100.0, 5.0e-8]
+
+  saline_segment:
+  # - [degC, m^2/s]
+    - [0.0, 5.0e-8]
+    - [100.0, 5.0e-8]
 # where D(T) = D(298.15) * (T / 298.15) * (n(285.15) / n(T))
 # and n = viscosity
 # effect of solute concentration on diffusivity is neglected
@@ -63,8 +74,8 @@ saline_segment:
   solute_mass_fraction: 0.05
 
 recovery:
-  flow_rate: 0.03 # kg/s
-  threshold_solute_mass_fraction: 0.025
+  flow_rate: 0. # kg/s
+  threshold_solute_mass_fraction: 0.
 
 
 # ------------------------------
