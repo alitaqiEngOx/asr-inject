@@ -113,8 +113,14 @@ class Reservoir:
         )
 
         return [
-            0.5 * height_fresh, self.interlayer_thickness,
-            0.5 * height_saline
+            (
+                0.5 * height_fresh +
+                0.5 * self.interlayer_thickness
+            ),
+            (
+                0.5 * self.interlayer_thickness +
+                0.5 * height_saline
+            )
         ]
 
 
