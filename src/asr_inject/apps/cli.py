@@ -47,8 +47,15 @@ def main() -> int:
         main_logger.info(
             "Generating outputs' directory"
         )
+
         outdir = outtree.make_global_outdir(
             Path(args.config).parent, return_name=True
+        )
+
+        # run pipeline
+        pipeline.run(
+            Path(args.config), 
+            outdir=Path(args.config).parent / outdir
         )
 
         # ----------------------------------------
@@ -70,13 +77,8 @@ def main() -> int:
             error=exc
         )
 
-    # run pipeline
-    #pipeline.run(
-    #    Path(args.config), 
-    #    outdir=Path(args.config).parent / outdir_name
-    #)
-
     return 0
+
 
 def parse_args() -> argparse.Namespace:
     """

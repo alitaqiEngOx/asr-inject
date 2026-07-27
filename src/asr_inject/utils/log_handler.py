@@ -58,7 +58,7 @@ def enter_pipeline() -> logging.Logger:
     )
 
     header_logger.info(
-        "\n===== ASR-INJECT =====\n"
+        "\n========== ASR-INJECT ==========\n"
     )
 
     header_logger.info(
@@ -96,7 +96,7 @@ def exit_pipeline(
     # neutral exit (e.g., parser called with `--help` tag)
     if success is None and error is None:
         footer_logger.info(
-            "\n===== BioWave-Extract =====\n"
+            "\n========== ASR-INJECT ==========\n"
         )
 
         return
@@ -108,24 +108,39 @@ def exit_pipeline(
 
     # error repoted -> pipeline MUST fail
     if error is not None:
-        logger.error("Exception occurred")
-        logger.error("Traceback follows:")
+        logger.error("▼▼▼ Exception occurred ▼▼▼\n")
 
-        for line in traceback.format_exception(
-            type(error), error, error.__traceback__,
-        ):
-            for subline in line.rstrip().splitlines():
-                logger.error(subline)
+        exception_logger = create(
+            "exception", header_footer=True
+        )
+
+        exception_logger.error(
+            f"{type(error).__name__}: {error}\n"
+        )
+
+        exception_logger.error("──── TRACEBACK ────\n")
+
+        logger.error(
+            "".join(
+                traceback.format_exception(
+                    type(error),
+                    error,
+                    error.__traceback__,
+                )
+            )
+        )
+
+        exception_logger.error("──── END TRACEBACK ────\n")
 
         logger.info("Pipeline run - ❌ FAILURE")
-        logger.info("Exiting pipeline")
+        logger.info(f"Exiting pipeline")
         logger.info(
-            f"Full time = "
-            f"{round(time.time() - start_time, 3)} s"
+            f"Full time ="
+            f" {round(time.time() - start_time, 3)} s"
         )
 
         footer_logger.info(
-            "\n===== ASR-INJECT =====\n"
+            "\n========== ASR-INJECT ==========\n"
         )
 
         if isinstance(error, SystemExit):
@@ -156,7 +171,7 @@ def exit_pipeline(
     )
 
     footer_logger.info(
-        "\n===== ASR-INJECT =====\n"
+        "\n========== ASR-INJECT ==========\n"
     )
 
     if not success:
