@@ -17,58 +17,64 @@ def main() -> int:
     # start timer
     start_time = time.time()
 
-    # make outputs' directory
-    outdir_name = outtree.make_global_outdir(
-        Path(args.config).parent,
-        return_name=True
-    )
-
     # generate main logger object
     main_logger = log_handler.enter_pipeline()
 
+    try:
+        # ----------------------------------------
+        # 1. PARSE CLI ARGUMENTS
+        # ----------------------------------------
+        try:
+            args = parse_args()
 
+        # parser raises `SystemExit(0)` for `--help`
+        except SystemExit as exc:
+            if exc.code == 0:
+                log_handler.exit_pipeline(
+                    start_time=start_time
+                )
 
+                return 0
 
+            raise
 
+        # ----------------------------------------
+        # 2. PIPELINE
+        # ----------------------------------------
+        main_logger.info("Entering pipeline")
 
-
-
-
-
-    # parse input CLI arguments
-    args = parse_args()
-
-    # make outputs' directory
-    outdir_name = outtree.make_global_outdir(
-        Path(args.config).parent,
-        return_name=True
-    )
-
-    # generate main logger object & log basic info
-    logger = log_handler.generate(
-        "ASR-inject",
-        dir_name=(
-            Path(args.config).parent / outdir_name
+        # make outputs' directory
+        main_logger.info(
+            "Generating outputs' directory"
         )
-    )
+        outdir = outtree.make_global_outdir(
+            Path(args.config).parent, return_name=True
+        )
 
-    logger.info("Welcome to ASR INJECT")
-    logger.info(
-        "Author: A. Taqi; "
-        "alitaqi94.developer@gmail.com"
-    )
-    logger.info("All Rights Reserved\n  |")
+        # ----------------------------------------
+        # 3. SUCCESSFUL EXIT
+        # ----------------------------------------
+        log_handler.exit_pipeline(
+            start_time=start_time, logger=main_logger,
+            success=True
+        )
+
+        return 0
+
+    except (Exception, SystemExit) as exc:
+        # ----------------------------------------
+        # 4. ERROR HANDLING
+        # ----------------------------------------
+        log_handler.exit_pipeline(
+            start_time=start_time, logger=main_logger,
+            error=exc
+        )
 
     # run pipeline
-    pipeline.run(
-        Path(args.config), 
-        outdir=Path(args.config).parent / outdir_name
-    )
-
-    # exit pipeline
-    log_handler.exit_pipeline(
-        logger, success=True
-    )
+    #pipeline.run(
+    #    Path(args.config), 
+    #    outdir=Path(args.config).parent / outdir_name
+    #)
 
     return 0
 

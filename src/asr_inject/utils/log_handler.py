@@ -9,8 +9,7 @@ from pathlib import Path
 
 
 def create(
-        name: str, *, dir_name: Path,
-        header_footer: bool=False
+        name: str, *, header_footer: bool=False
 ) -> logging.Logger:
     """
     Generates a new `logging.Logger` class instance.
@@ -19,10 +18,6 @@ def create(
     ---------
     name: `str`
         name given to the new class instance.
-
-    dir_name: `pathlib.Path`
-        directory into which the logfile is to be 
-        saved.
 
     header_footer: `bool=False`
         if `True`, treats the logger as a 
@@ -47,29 +42,19 @@ def create(
             " %(levelname)s]: %(message)s"
         )
 
-    dir_name.mkdir(
-        parents=True, exist_ok=True
-    )
+    stream_handler = logging.StreamHandler()
 
-    file_handler = logging.FileHandler(
-        str(dir_name / "logfile.log")
-    )
-
-    file_handler.setFormatter(formatter)
-
-    logger.addHandler(file_handler)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
 
     return logger
 
 
-def enter_pipeline(
-        *, logging_dir: Path
-) -> logging.Logger:
+def enter_pipeline() -> logging.Logger:
     """
     """
     header_logger = create(
-        "header", dir_name=logging_dir,
-        header_footer=True
+        "header", header_footer=True
     )
 
     header_logger.info(
@@ -83,11 +68,6 @@ def enter_pipeline(
     header_logger.info(" * All Rights Reserved\n")
 
     return create("main")
-
-
-
-
-
 
 
 def exit_pipeline(
@@ -145,7 +125,7 @@ def exit_pipeline(
         )
 
         footer_logger.info(
-            "\n===== BioWave-Extract =====\n"
+            "\n===== ASR-INJECT =====\n"
         )
 
         if isinstance(error, SystemExit):
@@ -176,7 +156,7 @@ def exit_pipeline(
     )
 
     footer_logger.info(
-        "\n===== BioWave-Extract =====\n"
+        "\n===== ASR-INJECT =====\n"
     )
 
     if not success:
