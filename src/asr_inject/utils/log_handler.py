@@ -3,11 +3,98 @@ licensing script of this repository. """
 
 import logging
 import sys
+import time
+import traceback
 from pathlib import Path
 
 
+def create(
+        name: str, *, dir_name: Path,
+        header_footer: bool=False
+) -> logging.Logger:
+    """
+    Generates a new `logging.Logger` class instance.
+
+    Arguments
+    ---------
+    name: `str`
+        name given to the new class instance.
+
+    dir_name: `pathlib.Path`
+        directory into which the logfile is to be 
+        saved.
+
+    header_footer: `bool=False`
+        if `True`, treats the logger as a 
+        header/footer.
+
+    Returns
+    -------
+    New `logging.logger` class instance.
+    """
+    while len(name) < 10:
+        name += ' '
+
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.DEBUG)
+
+    if header_footer:
+        formatter = logging.Formatter('')
+
+    else:
+        formatter = logging.Formatter(
+            " +| %(name)s [%(asctime)s -"
+            " %(levelname)s]: %(message)s"
+        )
+
+    dir_name.mkdir(
+        parents=True, exist_ok=True
+    )
+
+    file_handler = logging.FileHandler(
+        str(dir_name / "logfile.log")
+    )
+
+    file_handler.setFormatter(formatter)
+
+    logger.addHandler(file_handler)
+
+    return logger
+
+
+def enter_pipeline(
+        *, logging_dir: Path
+) -> logging.Logger:
+    """
+    """
+    header_logger = create(
+        "header", dir_name=logging_dir,
+        header_footer=True
+    )
+
+    header_logger.info(
+        "\n===== ASR-INJECT =====\n"
+    )
+
+    header_logger.info(
+        " * Author: A. Taqi;"
+        " alitaqi94.developer@gmail.com\n"
+    )
+    header_logger.info(" * All Rights Reserved\n")
+
+    return create("main")
+
+
+
+
+
+
+
 def exit_pipeline(
-        logger: logging.Logger, *, success: bool=False
+        *, start_time: float,
+        logger: logging.Logger | None=None,
+        success: bool | None=None,
+        error: BaseException | None=None
 ) -> None:
     """
     Exits the pipeline gracefully.
@@ -22,52 +109,75 @@ def exit_pipeline(
         declares a successful run as it ends the job,
         but declares a failed run otherwise.
     """
-    logger.info("Exiting pipeline")
+    footer_logger = create(
+        "footer", header_footer=True
+    )
 
+    # neutral exit (e.g., parser called with `--help` tag)
+    if success is None and error is None:
+        footer_logger.info(
+            "\n===== BioWave-Extract =====\n"
+        )
+
+        return
+
+    logger = (
+        footer_logger if logger is None
+        else logger
+    )
+
+    # error repoted -> pipeline MUST fail
+    if error is not None:
+        logger.error("Exception occurred")
+        logger.error("Traceback follows:")
+
+        for line in traceback.format_exception(
+            type(error), error, error.__traceback__,
+        ):
+            for subline in line.rstrip().splitlines():
+                logger.error(subline)
+
+        logger.info("Pipeline run - ❌ FAILURE")
+        logger.info("Exiting pipeline")
+        logger.info(
+            f"Full time = "
+            f"{round(time.time() - start_time, 3)} s"
+        )
+
+        footer_logger.info(
+            "\n===== BioWave-Extract =====\n"
+        )
+
+        if isinstance(error, SystemExit):
+            exit_code = (
+                error.code
+                if isinstance(error.code, int)
+                else 1
+            )
+
+            if exit_code == 0:
+                exit_code = 1
+
+            sys.exit(exit_code)
+
+        sys.exit(1)
+
+    # success/failure reported and no error given
     if success:
-        logger.info("Pipeline run - ✅ SUCCESS")
+        logger.info(f"Pipeline run - ✅ SUCCESS")
 
     else:
         logger.info("Pipeline run - ❌ FAILURE")
-        sys.exit()
 
-def generate(
-        name: str, *, dir_name: Path
-) -> logging.Logger:
-    """
-    Generates a new `logging.Logger` class instance.
-
-    Arguments
-    ---------
-    name: `str`
-        name given to the new class instance.
-
-    dir_name: `pathlib.Path`
-        directory into which the logfile is to be 
-        saved.
-
-    Returns
-    -------
-    New `logging.logger` class instance.
-    """
-    logger = logging.getLogger(name)
-    logger.setLevel(logging.DEBUG)
-
-    dir_name.mkdir(
-        parents=True, exist_ok=True
+    logger.info(f"Exiting pipeline")
+    logger.info(
+        f"Full time ="
+        f" {round(time.time() - start_time, 3)} s"
     )
 
-    file_handler = logging.FileHandler(
-        str(dir_name / "logfile.log")
+    footer_logger.info(
+        "\n===== BioWave-Extract =====\n"
     )
 
-    file_handler.setFormatter(
-        logging.Formatter(
-                " +| %(name)s [%(asctime)s - "
-                "%(levelname)s]: %(message)s"
-            )
-    )
-
-    logger.addHandler(file_handler)
-
-    return logger
+    if not success:
+        sys.exit(1)

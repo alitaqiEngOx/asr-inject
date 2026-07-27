@@ -3,6 +3,7 @@ licensing script of this repository. """
 
 import argparse
 import sys
+import time
 from pathlib import Path
 
 from asr_inject.operations import pipeline
@@ -13,6 +14,27 @@ def main() -> int:
     """
     Pipeline entry point.
     """
+    # start timer
+    start_time = time.time()
+
+    # make outputs' directory
+    outdir_name = outtree.make_global_outdir(
+        Path(args.config).parent,
+        return_name=True
+    )
+
+    # generate main logger object
+    main_logger = log_handler.enter_pipeline()
+
+
+
+
+
+
+
+
+
+
     # parse input CLI arguments
     args = parse_args()
 
