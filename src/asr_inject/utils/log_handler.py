@@ -120,7 +120,7 @@ def exit_pipeline(
 
         exception_logger.error("──── TRACEBACK ────\n")
 
-        logger.error(
+        exception_logger.error(
             "".join(
                 traceback.format_exception(
                     type(error),
