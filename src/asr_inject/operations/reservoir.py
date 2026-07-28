@@ -459,6 +459,17 @@ class Reservoir:
                 (1000. / self.Mr_solute)
             )
 
+            # average diffusion coefficients
+            water_concentration_fi = np.mean([
+                water_concentration_fresh,
+                water_concentration_intermediate
+            ])
+
+            water_concentration_is = np.mean([
+                water_concentration_intermediate,
+                water_concentration_saline
+            ])
+
             
             
             
