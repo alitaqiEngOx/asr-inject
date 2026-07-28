@@ -118,7 +118,7 @@ def exit_pipeline(
             f"{type(error).__name__}: {error}\n"
         )
 
-        exception_logger.error("──── TRACEBACK ────\n")
+        exception_logger.error("────── TRACEBACK ──────\n")
 
         exception_logger.error(
             "".join(
