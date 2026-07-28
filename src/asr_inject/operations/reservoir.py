@@ -365,19 +365,58 @@ class Reservoir:
                 1. - water_mass_fraction_fresh
             )
 
-            density_solution = self.compute_density_solution(
+            density_solution_fresh = self.compute_density_solution(
                 solute_mass_fraction_fresh
             )
 
             water_concentration_fresh = (
-                density_solution *
+                density_solution_fresh *
                 water_mass_fraction_fresh *
                 (1000. / self.Mr_water)
             )
 
             solute_concentration_fresh = (
-                density_solution *
+                density_solution_fresh *
                 solute_mass_fraction_fresh *
+                (1000. / self.Mr_solute)
+            )
+
+            # intermediate layer
+            water_fraction_intermediate = (
+                water_moles[1] / (
+                    water_moles[1] + solute_moles[1]
+                )
+            )
+
+            solute_fraction_intermediate = (
+                1. - water_fraction_intermediate
+            )
+
+            water_mass_fraction_intermediate = (
+                (water_fraction_intermediate * self.Mr_water) /
+                (
+                    water_fraction_intermediate * self.Mr_water +
+                    solute_fraction_intermediate * self.Mr_solute
+                )
+            )
+
+            solute_mass_fraction_intermediate = (
+                1. - water_mass_fraction_intermediate
+            )
+
+            density_solution_intermediate = self.compute_density_solution(
+                solute_mass_fraction_intermediate
+            )
+
+            water_concentration_intermediate = (
+                density_solution_intermediate *
+                water_mass_fraction_intermediate *
+                (1000. / self.Mr_water)
+            )
+
+            solute_concentration_intermediate = (
+                density_solution_intermediate *
+                solute_mass_fraction_intermediate *
                 (1000. / self.Mr_solute)
             )
 
