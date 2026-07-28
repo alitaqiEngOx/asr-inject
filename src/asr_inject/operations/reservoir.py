@@ -422,8 +422,8 @@ class Reservoir:
 
             # saline segment
             water_fraction_saline = (
-                water_moles[1] / (
-                    water_moles[1] + solute_moles[1]
+                water_moles[2] / (
+                    water_moles[2] + solute_moles[2]
                 )
             )
 
@@ -443,22 +443,35 @@ class Reservoir:
                 1. - water_mass_fraction_saline
             )
 
-            density_solution = self.compute_density_solution(
+            density_solution_saline = self.compute_density_solution(
                 solute_mass_fraction_saline
             )
 
             water_concentration_saline = (
-                density_solution *
+                density_solution_saline *
                 water_mass_fraction_saline *
                 (1000. / self.Mr_water)
             )
 
             solute_concentration_saline = (
-                density_solution *
+                density_solution_saline *
                 solute_mass_fraction_saline *
                 (1000. / self.Mr_solute)
             )
 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             # average diffusion coefficients
             water_concentration_mean = np.mean([
                 water_concentration_fresh,
