@@ -470,43 +470,68 @@ class Reservoir:
                 water_concentration_saline
             ])
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            # average diffusion coefficients
-            water_concentration_mean = np.mean([
-                water_concentration_fresh,
-                water_concentration_saline
+            solute_concentration_fi = np.mean([
+                solute_concentration_fresh,
+                solute_concentration_intermediate
             ])
 
-            solute_concentration_mean = np.mean([
-                solute_concentration_fresh,
+            solute_concentration_is = np.mean([
+                solute_concentration_intermediate,
                 solute_concentration_saline
             ])
 
-            water_diffusion_coefficient_average = (
-                self.diffusivity_water *
-                water_concentration_mean / (
+            water_diffusion_coeff_fi = (
+                self.diffusivity_water_fresh_segment *
+                water_concentration_fi  / (
                     R * self.temperature
                 )
             )
 
-            solute_diffusion_coefficient_average = (
-                self.diffusivity_solute *
-                solute_concentration_mean / (
+            water_diffusion_coeff_is = (
+                self.diffusivity_water_saline_segment *
+                water_concentration_is  / (
                     R * self.temperature
                 )
             )
+
+            solute_diffusion_coeff_fi = (
+                self.diffusivity_solute_fresh_segment *
+                solute_concentration_fi / (
+                    R * self.temperature
+                )
+            )
+
+            solute_diffusion_coeff_is = (
+                self.diffusivity_solute_saline_segment *
+                solute_concentration_is / (
+                    R * self.temperature
+                )
+            )
+
+            # average diffusion coefficients
+            #water_concentration_mean = np.mean([
+            #    water_concentration_fresh,
+            #    water_concentration_saline
+            #])
+
+            #solute_concentration_mean = np.mean([
+            #    solute_concentration_fresh,
+            #    solute_concentration_saline
+            #])
+
+            #water_diffusion_coefficient_average = (
+            #    self.diffusivity_water *
+            #    water_concentration_mean / (
+            #        R * self.temperature
+            #    )
+            #)
+
+            #solute_diffusion_coefficient_average = (
+            #    self.diffusivity_solute *
+            #    solute_concentration_mean / (
+            #        R * self.temperature
+            #    )
+            #)
 
             # chemical potentials
             water_potential_fresh = (
