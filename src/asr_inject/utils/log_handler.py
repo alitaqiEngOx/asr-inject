@@ -76,30 +76,30 @@ def customise_runtime_warnings(
     ) -> None:
         """
         """
-        logger.warning("")
-        logger.warning("▼▼▼ Runtime warning ▼▼▼")
-        logger.warning("")
+        logger.warning("▼▼▼ Runtime warning ▼▼▼\n")
 
-        logger.warning(
-            f"{category.__name__}: {message}"
+        warning_logger = create(
+            "warning", header_footer=True
         )
 
-        logger.warning("")
-        logger.warning("──── WARNING LOCATION ────")
-        logger.warning(
-            f'File "{filename}", line {lineno}'
+        warning_logger.warning(
+            f"{category.__name__}: {message}\n"
+        )
+
+        warning_logger.warning("────── WARNING LOC ──────\n")
+        warning_logger.warning(
+            f'File "{filename}", line {lineno}\n'
         )
 
         if line is not None:
-            logger.warning(f"    {line.strip()}")
+            logger.warning(f"    {line.strip()}\n")
 
-        logger.warning("──── END WARNING ────")
-        logger.warning("")
+        warning_logger.warning("────── END WARNING ──────\n")
 
-        warnings.showwarning = show_warning
+    warnings.showwarning = show_warning
 
-        # Show RuntimeWarnings whenever they occur
-        warnings.simplefilter("always", RuntimeWarning)
+    # Show RuntimeWarnings whenever they occur
+    warnings.simplefilter("always", RuntimeWarning)
 
 
 def enter_pipeline() -> logging.Logger:
@@ -170,7 +170,7 @@ def exit_pipeline(
             f"{type(error).__name__}: {error}\n"
         )
 
-        exception_logger.error("────── TRACEBACK ──────\n")
+        exception_logger.error("─────── TRACEBACK ───────\n")
 
         exception_logger.error(
             "".join(
@@ -182,7 +182,7 @@ def exit_pipeline(
             )
         )
 
-        exception_logger.error("──── END TRACEBACK ────\n")
+        exception_logger.error("───── END TRACEBACK ─────\n")
 
         logger.info("Pipeline run - ❌ FAILURE")
         logger.info(f"Exiting pipeline")
