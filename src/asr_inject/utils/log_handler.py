@@ -1,12 +1,23 @@
 """ Licensed under the same terms as described in the main 
 licensing script of this repository. """
 
+import contextlib
+import contextvars
 import logging
 import sys
 import time
 import traceback
 import warnings
 from pathlib import Path
+
+
+@contextlib.contextmanager
+def warning_scope(*, logger: logging.Logger):
+    """
+    """
+    token = _warning_logger.set(logger)
+    yield
+    _warning_logger.reset(token)
 
 
 def create(
@@ -49,6 +60,46 @@ def create(
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def customise_runtime_warnings(
+        *, logger: logging.Logger
+) -> None:
+    """
+    """
+    global _default_warning_logger
+    _default_warning_logger = logger
+
+    def show_warning(
+            message, category, filename, lineno, file=None,
+            line=None
+    ) -> None:
+        """
+        """
+        logger.warning("")
+        logger.warning("▼▼▼ Runtime warning ▼▼▼")
+        logger.warning("")
+
+        logger.warning(
+            f"{category.__name__}: {message}"
+        )
+
+        logger.warning("")
+        logger.warning("──── WARNING LOCATION ────")
+        logger.warning(
+            f'File "{filename}", line {lineno}'
+        )
+
+        if line is not None:
+            logger.warning(f"    {line.strip()}")
+
+        logger.warning("──── END WARNING ────")
+        logger.warning("")
+
+        warnings.showwarning = show_warning
+
+        # Show RuntimeWarnings whenever they occur
+        warnings.simplefilter("always", RuntimeWarning)
 
 
 def enter_pipeline() -> logging.Logger:
@@ -179,38 +230,11 @@ def exit_pipeline(
         sys.exit(1)
 
 
-def customise_runtime_warnings(
-        *, logger: logging.Logger
-) -> None:
-    """
-    """
-    def show_warning(
-            message, category, filename, lineno, file=None,
-            line=None
-    ) -> None:
-        """
-        """
-        logger.warning("")
-        logger.warning("▼▼▼ Runtime warning ▼▼▼")
-        logger.warning("")
+_warning_logger: contextvars.ContextVar[
+    logging.Logger | None
+] = contextvars.ContextVar(
+    "warning_logger",
+    default=None,
+)
 
-        logger.warning(
-            f"{category.__name__}: {message}"
-        )
-
-        logger.warning("")
-        logger.warning("──── WARNING LOCATION ────")
-        logger.warning(
-            f'File "{filename}", line {lineno}'
-        )
-
-        if line is not None:
-            logger.warning(f"    {line.strip()}")
-
-        logger.warning("──── END WARNING ────")
-        logger.warning("")
-
-        warnings.showwarning = show_warning
-
-        # Show RuntimeWarnings whenever they occur
-        warnings.simplefilter("always", RuntimeWarning)
+_default_warning_logger: logging.Logger | None=None
