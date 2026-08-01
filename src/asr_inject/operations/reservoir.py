@@ -563,6 +563,15 @@ class Reservoir:
                 )
             )
 
+            J_w_is = (
+                -1. *
+                water_diffusion_coeff_is *
+                self.cs_area * (
+                    water_potential_intermediate -
+                    water_potential_saline
+                ) / self.numerical_separation[1]
+            )
+
             # average diffusion coefficients
             #water_concentration_mean = np.mean([
             #    water_concentration_fresh,
