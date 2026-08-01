@@ -644,44 +644,44 @@ class Reservoir:
             #    )
             #)
 
-            J_s_sf = (
-                -1. *
-                solute_diffusion_coefficient_average *
-                self.cs_area * (
-                    (
-                        solute_potential_saline -
-                        solute_potential_fresh
-                    ) / self.numerical_separation
-                )
-            )
+            #J_s_sf = (
+            #    -1. *
+            #    solute_diffusion_coefficient_average *
+            #    self.cs_area * (
+            #        (
+            #            solute_potential_saline -
+            #            solute_potential_fresh
+            #        ) / self.numerical_separation
+            #    )
+            #)
 
-            J_w_fr = (
-                -1. *
-                np.heaviside(
-                    (
-                        water_mass_fraction_fresh -
-                        (1. - self.max_solute_fraction)
-                    ), 0.
-                ) *
-                self.recovery_gate *
-                self.recovery_rate *
-                water_mass_fraction_fresh /
-                self.Mr_water
-            )
+            #J_w_fr = (
+            #    -1. *
+            #    np.heaviside(
+            #        (
+            #            water_mass_fraction_fresh -
+            #            (1. - self.max_solute_fraction)
+            #        ), 0.
+            #    ) *
+            #    self.recovery_gate *
+            #    self.recovery_rate *
+            #    water_mass_fraction_fresh /
+            #    self.Mr_water
+            #)
 
-            J_s_fr = (
-                -1. *
-                np.heaviside(
-                    (
-                        self.max_solute_fraction -
-                        solute_mass_fraction_fresh
-                    ), 0.
-                ) *
-                self.recovery_gate *
-                self.recovery_rate *
-                solute_mass_fraction_fresh /
-                self.Mr_solute
-            )
+            #J_s_fr = (
+            #    -1. *
+            #    np.heaviside(
+            #        (
+            #            self.max_solute_fraction -
+            #            solute_mass_fraction_fresh
+            #        ), 0.
+            #    ) *
+            #    self.recovery_gate *
+            #    self.recovery_rate *
+            #    solute_mass_fraction_fresh /
+            #    self.Mr_solute
+            #)
 
             return np.asarray([
                 -J_w_sf + J_w_fr, J_w_sf, -J_w_fr,
