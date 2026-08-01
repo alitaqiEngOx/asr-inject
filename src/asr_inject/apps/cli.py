@@ -19,6 +19,9 @@ def main() -> int:
 
     # generate main logger object
     main_logger = log_handler.enter_pipeline()
+    log_handler.customise_runtime_warnings(
+        logger=main_logger
+    )
 
     try:
         # ----------------------------------------
