@@ -5,6 +5,7 @@ import logging
 import sys
 import time
 import traceback
+import warnings
 from pathlib import Path
 
 
@@ -176,3 +177,38 @@ def exit_pipeline(
 
     if not success:
         sys.exit(1)
+
+
+def handle_warning(*, logger: logging.Logger) -> None:
+    """
+    """
+    def show_warning(
+            message, category, filename, lineno, file=None,
+            line=None
+    ) -> None:
+        """
+        """
+        logger.warning("")
+        logger.warning("▼▼▼ Runtime warning ▼▼▼")
+        logger.warning("")
+
+        logger.warning(
+            f"{category.__name__}: {message}"
+        )
+
+        logger.warning("")
+        logger.warning("──── WARNING LOCATION ────")
+        logger.warning(
+            f'File "{filename}", line {lineno}'
+        )
+
+        if line is not None:
+            logger.warning(f"    {line.strip()}")
+
+        logger.warning("──── END WARNING ────")
+        logger.warning("")
+
+        warnings.showwarning = show_warning
+
+        # Show RuntimeWarnings whenever they occur
+        warnings.simplefilter("always", RuntimeWarning)
