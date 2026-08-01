@@ -551,6 +551,18 @@ class Reservoir:
                 )
             )
 
+            # fluxes
+            J_w_fi = (
+                -1. *
+                water_diffusion_coeff_fi *
+                self.cs_area * (
+                    (
+                        water_potential_fresh -
+                        water_potential_intermediate
+                    ) / self.numerical_separation[0]
+                )
+            )
+
             # average diffusion coefficients
             #water_concentration_mean = np.mean([
             #    water_concentration_fresh,
@@ -612,16 +624,16 @@ class Reservoir:
                 )
             )
 
-            J_w_sf = (
-                -1. *
-                water_diffusion_coefficient_average *
-                self.cs_area * (
-                    (
-                        water_potential_saline -
-                        water_potential_fresh
-                    ) / self.numerical_separation
-                )
-            )
+            #J_w_sf = (
+            #    -1. *
+            #    water_diffusion_coefficient_average *
+            #    self.cs_area * (
+            #        (
+            #            water_potential_saline -
+            #            water_potential_fresh
+            #        ) / self.numerical_separation
+            #    )
+            #)
 
             J_s_sf = (
                 -1. *
