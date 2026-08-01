@@ -508,6 +508,28 @@ class Reservoir:
                 )
             )
 
+            # chemical potentials
+            water_potential_fresh = (
+                chemical_potential.compute(
+                    activity=water_fraction_fresh,
+                    temperature=self.temperature
+                )
+            )
+
+            water_potential_intermediate = (
+                chemical_potential.compute(
+                    activity=water_fraction_intermediate,
+                    temperature=self.temperature
+                )
+            )
+
+            water_potential_saline = (
+                chemical_potential.compute(
+                    activity=water_fraction_saline,
+                    temperature=self.temperature
+                )
+            )
+
             # average diffusion coefficients
             #water_concentration_mean = np.mean([
             #    water_concentration_fresh,
@@ -534,19 +556,19 @@ class Reservoir:
             #)
 
             # chemical potentials
-            water_potential_fresh = (
-                chemical_potential.compute(
-                    activity=water_fraction_fresh,
-                    temperature=self.temperature
-                )
-            )
+            #water_potential_fresh = (
+            #    chemical_potential.compute(
+            #        activity=water_fraction_fresh,
+            #        temperature=self.temperature
+            #    )
+            #)
 
-            water_potential_saline = (
-                chemical_potential.compute(
-                    activity=water_fraction_saline,
-                    temperature=self.temperature
-                )
-            )
+            #water_potential_saline = (
+            #    chemical_potential.compute(
+            #        activity=water_fraction_saline,
+            #        temperature=self.temperature
+            #    )
+            #)
 
             solute_potential_fresh = (
                 chemical_potential.compute(
