@@ -567,9 +567,11 @@ class Reservoir:
                 -1. *
                 water_diffusion_coeff_is *
                 self.cs_area * (
-                    water_potential_intermediate -
-                    water_potential_saline
-                ) / self.numerical_separation[1]
+                    (
+                        water_potential_intermediate -
+                        water_potential_saline
+                    ) / self.numerical_separation[1]
+                ) 
             )
 
             J_s_fi = (
@@ -581,6 +583,17 @@ class Reservoir:
                         solute_potential_intermediate
                     ) / self.numerical_separation[0]
                 )
+            )
+
+            J_s_is = (
+                -1. *
+                solute_diffusion_coeff_is *
+                self.cs_area * (
+                    (
+                        solute_potential_intermediate -
+                        solute_potential_saline
+                    ) / self.numerical_separation[1]
+                ) 
             )
 
             # average diffusion coefficients
@@ -638,11 +651,11 @@ class Reservoir:
             #)
 
             # fluxes
-            self.recovery_gate *= (
-                np.heaviside(
-                    water_moles[0] + solute_moles[0] - 0.01, 0.
-                )
-            )
+            #self.recovery_gate *= (
+            #    np.heaviside(
+            #        water_moles[0] + solute_moles[0] - 0.01, 0.
+            #    )
+            #)
 
             #J_w_sf = (
             #    -1. *
