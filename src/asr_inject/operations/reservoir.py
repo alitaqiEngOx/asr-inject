@@ -601,6 +601,8 @@ class Reservoir:
                 J_s_fi, J_s_is - J_s_fi, -J_s_is
             ])
 
+        # initial condition
+
             # average diffusion coefficients
             #water_concentration_mean = np.mean([
             #    water_concentration_fresh,
