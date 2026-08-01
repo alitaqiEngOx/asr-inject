@@ -596,6 +596,11 @@ class Reservoir:
                 ) 
             )
 
+            return np.asarray([
+                J_w_fi, J_w_is - J_w_fi, -J_w_is,
+                J_s_fi, J_s_is - J_s_fi, -J_s_is
+            ])
+
             # average diffusion coefficients
             #water_concentration_mean = np.mean([
             #    water_concentration_fresh,
@@ -707,10 +712,10 @@ class Reservoir:
             #    self.Mr_solute
             #)
 
-            return np.asarray([
-                -J_w_sf + J_w_fr, J_w_sf, -J_w_fr,
-                -J_s_sf + J_s_fr, J_s_sf, -J_s_fr
-            ])
+            #return np.asarray([
+            #    -J_w_sf + J_w_fr, J_w_sf, -J_w_fr,
+            #    -J_s_sf + J_s_fr, J_s_sf, -J_s_fr
+            #])
 
         # initial condition
         initial_moles = np.asarray([
