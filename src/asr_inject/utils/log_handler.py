@@ -179,7 +179,9 @@ def exit_pipeline(
         sys.exit(1)
 
 
-def handle_warning(*, logger: logging.Logger) -> None:
+def customise_runtime_warnings(
+        *, logger: logging.Logger
+) -> None:
     """
     """
     def show_warning(
