@@ -8,7 +8,10 @@ from numpy.typing import NDArray
 from scipy.integrate import odeint
 
 from asr_inject.operations import chemical_potential
+from asr_inject.utils.log_handler import create
 
+
+LOGGER = create("reservoir")
 
 R = 8.314 # J/(mol.K)
 CELSIUS_TO_KELVIN = 273.15
@@ -26,11 +29,11 @@ class Reservoir:
         """
         self.fitting = fitting
 
-        self.Mr_water = config[
+        self.Mr_water = fitting[
             "solution_characteristics"
         ]["Mr_water"]
 
-        self.Mr_solute = config[
+        self.Mr_solute = fitting[
             "solution_characteristics"
         ]["Mr_solute"]
 
@@ -58,9 +61,9 @@ class Reservoir:
             "pressure"
         ] * BAR_TO_PA
 
-        self.volume_fraction_fresh = config["fresh_segment"][
-            "volume_fraction"
-        ]
+        self.volume_fraction_fresh = config[
+            "fresh_segment"
+        ]["volume_fraction"]
 
         self.mass_fraction_solute_fresh_initial = config[
             "fresh_segment"
@@ -70,7 +73,9 @@ class Reservoir:
             "saline_segment"
         ]["solute_mass_fraction"]
 
-        self.recovery_rate = config["recovery"]["flow_rate"]
+        self.recovery_rate = config[
+            "recovery"
+        ]["flow_rate"]
 
         self.max_solute_fraction = config[
             "recovery"
@@ -83,14 +88,18 @@ class Reservoir:
     def mass_fraction_water_fresh_initial(self) -> float:
         """
         """
-        return 1. - self.mass_fraction_solute_fresh_initial
+        return (
+            1. - self.mass_fraction_solute_fresh_initial
+        )
 
 
     @property
     def mass_fraction_water_saline_initial(self) -> float:
         """
         """
-        return 1. - self.mass_fraction_solute_saline_initial
+        return (
+            1. - self.mass_fraction_solute_saline_initial
+        )
 
 
     @property
@@ -278,6 +287,7 @@ class Reservoir:
         exp_term = -energy / (R * self.temperature)
 
         return base * np.exp(exp_term)
+
 
     @property
     def diffusivity_solute_saline_segment(self) -> float:
