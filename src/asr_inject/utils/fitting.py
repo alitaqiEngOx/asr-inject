@@ -100,6 +100,8 @@ def arrhenius_fit(
 ) -> tuple[float, float]:
     """
     """
+    LOGGER.info("applying Arrhenius fit")
+
     x_axis = 1. / (data[:, 0] + CELSIUS_TO_KELVIN)
     y_axis = np.log(data[:, 1])
 
