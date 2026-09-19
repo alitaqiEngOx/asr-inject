@@ -100,44 +100,21 @@ def run(config: Path, *, outdir: Path) -> None:
         }
     }
 
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    #for key, value in config_dict.items():
+    for key, value in config_dict.items():
         # ----------------------------------------
-        # 3. DEFINE/FIT PARAMETERS/COORDINATES
+        # 3. LOOP THROUGH ENTRIES
         # ----------------------------------------
-    #    LOGGER.info(f"fetching data for `{key}`")
+        LOGGER.info(f"working on `{key}`")
 
-        # fit density
-    #    density_data = value.pop("density")
-    #    density_coefficients = density_fit(density_data)
+        res = Reservoir(
+            config=value, fitting=fitting
+        )
 
-        # fit water diffusivity
-        #water_diffusivity_data = config_dict.pop(
-        #"water_diffusivity"
-        #)
 
-        #water_diff_coeff_fresh_segment = arrhenius_fit(
-        #    np.asarray(
-        #        water_diffusivity_data["fresh_segment"],
-        #        dtype=np.float64
-        #    ),
-            #outfile=(
-            #    outdir / "fitting" /
-            #    "water_diffusivity_fresh_segment.png"
-            #)
-        #)
+
+    
+    
+    
     
     
     
@@ -149,85 +126,9 @@ def run(config: Path, *, outdir: Path) -> None:
     
     
 
-    # fit density
-    #density_data = config_dict.pop("density")
-
-    #density_coefficients = density_fit(
-    #    density_data,
-    #    outfile=(
-    #        outdir / "fitting" / "density.png"
-    #    )
+    #res = Reservoir(
+    #    config=config_dict, fitting=fitting
     #)
-
-    # fit water diffusivity
-    #water_diffusivity_data = config_dict.pop(
-    #    "water_diffusivity"
-    #)
-
-    #water_diff_coeff_fresh_segment = arrhenius_fit(
-    #    np.asarray(
-    #        water_diffusivity_data["fresh_segment"],
-    #        dtype=np.float64
-    #    ),
-    #    outfile=(
-    #        outdir / "fitting" /
-    #        "water_diffusivity_fresh_segment.png"
-    #    )
-    #)
-
-    #water_diff_coeff_saline_segment = arrhenius_fit(
-    #        np.asarray(
-    #            water_diffusivity_data["saline_segment"],
-    #            dtype=np.float64
-    #        ),
-    #        outfile=(
-    #            outdir / "fitting" /
-    #            "water_diffusivity_saline_segment.png"
-    #        )
-    #    )
-
-    # fit solute diffusivity
-    #solute_diffusivity_data = config_dict.pop(
-    #    "solute_diffusivity"
-    #)
-
-    #solute_diff_coeff_fresh_segment = arrhenius_fit(
-    #    np.asarray(
-    #        solute_diffusivity_data["fresh_segment"],
-    #        dtype=np.float64
-    #    ),
-    #    outfile=(
-    #        outdir / "fitting" /
-    #        "solute_diffusivity_fresh_segment.png"
-    #    )
-    #)
-
-    #solute_diff_coeff_saline_segment = arrhenius_fit(
-    #        np.asarray(
-    #            solute_diffusivity_data["saline_segment"],
-    #            dtype=np.float64
-    #        ),
-    #        outfile=(
-    #            outdir / "fitting" /
-    #            "solute_diffusivity_saline_segment.png"
-    #        )
-    #    )
-
-    # run simulation
-    #fitting = {
-    #    "density": {
-    #        "temperature": density_coefficients,
-    #        "salinity": density_data["salinity_fitting"]
-    #    },
-    #    "water_diff_fresh_segment": water_diff_coeff_fresh_segment,
-    #    "water_diff_saline_segment": water_diff_coeff_saline_segment,
-    #    "solute_diff_fresh_segment": solute_diff_coeff_fresh_segment,
-    #    "solute_diff_saline_segment": solute_diff_coeff_saline_segment,
-    #}
-
-    res = Reservoir(
-        config=config_dict, fitting=fitting
-    )
 
     output = res.predict(
         n_steps=config_dict["n_steps"],
