@@ -8,7 +8,6 @@ import sys
 import time
 import traceback
 import warnings
-from pathlib import Path
 
 
 @contextlib.contextmanager
@@ -86,7 +85,9 @@ def customise_runtime_warnings(
             f"{category.__name__}: {message}\n"
         )
 
-        warning_logger.warning("────── WARNING LOC ──────\n")
+        warning_logger.warning(
+            "────── WARNING LOC ──────\n"
+        )
         warning_logger.warning(
             f'File "{filename}", line {lineno}\n'
         )
@@ -94,7 +95,9 @@ def customise_runtime_warnings(
         if line is not None:
             logger.warning(f"    {line.strip()}\n")
 
-        warning_logger.warning("────── END WARNING ──────\n")
+        warning_logger.warning(
+            "────── END WARNING ──────\n"
+        )
 
     warnings.showwarning = show_warning
 
