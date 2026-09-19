@@ -113,7 +113,7 @@ def enter_pipeline() -> logging.Logger:
     )
 
     header_logger.info(
-        "\n========== ASR-INJECT ==========\n"
+        "\n============= ASR-INJECT =============\n"
     )
 
     header_logger.info(
@@ -136,10 +136,10 @@ def exit_pipeline(
 
     Arguments
     ---------
-    logger: `logging.Logger`
+    logger: `logging.Logger` (optional)
         logger object to exit the pipeline with.
 
-    success: `bool=False`
+    success: `bool` (optional)
         optional argument which, if `True`, the pipeline
         declares a successful run as it ends the job,
         but declares a failed run otherwise.
@@ -151,7 +151,7 @@ def exit_pipeline(
     # neutral exit (e.g., parser called with `--help` tag)
     if success is None and error is None:
         footer_logger.info(
-            "\n========== ASR-INJECT ==========\n"
+            "\n============= ASR-INJECT =============\n"
         )
 
         return
@@ -173,7 +173,9 @@ def exit_pipeline(
             f"{type(error).__name__}: {error}\n"
         )
 
-        exception_logger.error("─────── TRACEBACK ───────\n")
+        exception_logger.error(
+            "─────── TRACEBACK ───────\n"
+        )
 
         exception_logger.error(
             "".join(
@@ -185,7 +187,9 @@ def exit_pipeline(
             )
         )
 
-        exception_logger.error("───── END TRACEBACK ─────\n")
+        exception_logger.error(
+            "───── END TRACEBACK ─────\n"
+        )
 
         logger.info("Pipeline run - ❌ FAILURE")
         logger.info(f"Exiting pipeline")
@@ -195,7 +199,7 @@ def exit_pipeline(
         )
 
         footer_logger.info(
-            "\n========== ASR-INJECT ==========\n"
+            "\n============= ASR-INJECT =============\n"
         )
 
         if isinstance(error, SystemExit):
@@ -226,7 +230,7 @@ def exit_pipeline(
     )
 
     footer_logger.info(
-        "\n========== ASR-INJECT ==========\n"
+        "\n============= ASR-INJECT =============\n"
     )
 
     if not success:
