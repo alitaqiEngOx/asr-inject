@@ -3,8 +3,6 @@ licensing script of this repository. """
 
 from pathlib import Path
 
-import numpy as np
-
 from asr_inject.operations.reservoir import Reservoir
 from asr_inject.operations.visualise import plot_2d
 from asr_inject.utils.fitting import (
@@ -58,17 +56,11 @@ def run(config: Path, *, outdir: Path) -> None:
     )
 
     water_diff_coeff_fresh_segment = arrhenius_fit(
-        np.asarray(
-            water_diffusivity_data["fresh_segment"],
-            dtype=np.float64
-        )
+        water_diffusivity_data["fresh_segment"]
     )
 
     water_diff_coeff_saline_segment = arrhenius_fit(
-        np.asarray(
-            water_diffusivity_data["saline_segment"],
-            dtype=np.float64
-        )
+        water_diffusivity_data["saline_segment"]
     )
 
     # fit solute diffusivity
@@ -77,17 +69,11 @@ def run(config: Path, *, outdir: Path) -> None:
     )
 
     solute_diff_coeff_fresh_segment = arrhenius_fit(
-        np.asarray(
-            solute_diffusivity_data["fresh_segment"],
-            dtype=np.float64
-        )
+        solute_diffusivity_data["fresh_segment"]
     )
 
     solute_diff_coeff_saline_segment = arrhenius_fit(
-        np.asarray(
-            solute_diffusivity_data["fresh_segment"],
-            dtype=np.float64
-        )
+        solute_diffusivity_data["saline_segment"]
     )
 
 

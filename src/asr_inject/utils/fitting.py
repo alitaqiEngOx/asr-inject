@@ -47,7 +47,7 @@ def density_fit(
 
         except:
             LOGGER.error(
-                f"{outfile} cound not be generated"
+                f"{outfile.name} could not be generated"
             )
 
             raise
@@ -98,11 +98,15 @@ def density_fit(
 
 
 def arrhenius_fit(
-        data: NDArray, *, outfile: str | None=None
+        data_dict: dict[str, Any]
 ) -> tuple[float, float]:
     """
     """
     LOGGER.info("applying Arrhenius fit")
+
+    data = np.asarray(
+        data_dict, dtype=np.float64
+    )
 
     x_axis = 1. / (data[:, 0] + CELSIUS_TO_KELVIN)
     y_axis = np.log(data[:, 1])
@@ -111,8 +115,20 @@ def arrhenius_fit(
     slope, intercept = np.polyfit(x_axis, y_axis, 1)
 
     # plots
-    if outfile is not None:
-        outfile.parent.mkdir(parents=True, exist_ok=True)
+    if "outfile" in data.keys():
+        outfile = Path(data["outfile"])
+
+        try:
+            outfile.parent.mkdir(
+                parents=True, exist_ok=True
+            )
+
+        except:
+            LOGGER.error(
+                f"{outfile.name} could not be generated"
+            )
+
+            raise
 
         plt.scatter(
             x_axis, y_axis,
