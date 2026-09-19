@@ -40,6 +40,11 @@ def run(config: Path, *, outdir: Path) -> None:
     # ----------------------------------------
     LOGGER.info("defining/fitting parameters")
 
+    # solution characteristics
+    solution_characteristics = config_dict.pop(
+        "solution_characteristics"
+    )
+
     # fit density
     density_data = config_dict.pop("density")
     density_coefficients = density_fit(density_data)
@@ -69,6 +74,31 @@ def run(config: Path, *, outdir: Path) -> None:
     solute_diff_coeff_saline_segment = arrhenius_fit(
         solute_diffusivity_data["saline_segment"]
     )
+
+    # fitting dictionary
+    fitting = {
+        "solution_characteristics": (
+            solution_characteristics
+        ),
+        "density": {
+            "temperature": density_coefficients,
+            "salinity": density_data["salinity_fitting"]
+        },
+        "diffusion_coefficients": {
+            "water_fresh_segment": (
+                water_diff_coeff_fresh_segment
+            ),
+            "water_saline_segment": (
+                water_diff_coeff_saline_segment
+            ),
+            "solute_fresh_segment": (
+                solute_diff_coeff_fresh_segment
+            ),
+            "solute_saline_segment": (
+                solute_diff_coeff_saline_segment
+            ),
+        }
+    }
 
 
     
@@ -184,16 +214,16 @@ def run(config: Path, *, outdir: Path) -> None:
     #    )
 
     # run simulation
-    fitting = {
-        "density": {
-            "temperature": density_coefficients,
-            "salinity": density_data["salinity_fitting"]
-        },
-        "water_diff_fresh_segment": water_diff_coeff_fresh_segment,
-        "water_diff_saline_segment": water_diff_coeff_saline_segment,
-        "solute_diff_fresh_segment": solute_diff_coeff_fresh_segment,
-        "solute_diff_saline_segment": solute_diff_coeff_saline_segment,
-    }
+    #fitting = {
+    #    "density": {
+    #        "temperature": density_coefficients,
+    #        "salinity": density_data["salinity_fitting"]
+    #    },
+    #    "water_diff_fresh_segment": water_diff_coeff_fresh_segment,
+    #    "water_diff_saline_segment": water_diff_coeff_saline_segment,
+    #    "solute_diff_fresh_segment": solute_diff_coeff_fresh_segment,
+    #    "solute_diff_saline_segment": solute_diff_coeff_saline_segment,
+    #}
 
     res = Reservoir(
         config=config_dict, fitting=fitting
