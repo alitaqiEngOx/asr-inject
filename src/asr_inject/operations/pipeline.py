@@ -1,9 +1,7 @@
 """ Licensed under the same terms as described in the main 
 licensing script of this repository. """
 
-import yaml
 from pathlib import Path
-from typing import Any
 
 import numpy as np
 
@@ -14,16 +12,17 @@ from asr_inject.utils.fitting import (
 )
 from asr_inject.utils.log_handler import create
 from asr_inject.utils.outtree import make_global_outdir
+from asr_inject.utils._yaml import read
 
 
 LOGGER = create("pipeline")
 
 
-def read_yaml(dir: Path) -> dict[str, Any]:
-    """
-    """
-    with open(f"{dir}", 'r') as file:
-        return yaml.safe_load(file)
+#def read_yaml(dir: Path) -> dict[str, Any]:
+#    """
+#    """
+#    with open(f"{dir}", 'r') as file:
+#        return yaml.safe_load(file)
 
 def run(config: Path, *, outdir: Path) -> None:
     """
@@ -36,6 +35,19 @@ def run(config: Path, *, outdir: Path) -> None:
     outdir = make_global_outdir(
         config.parent, return_name=True
     )
+
+    # ----------------------------------------
+    # 2. READ `.yml` AND LOOP THROUGH ENTRIES
+    # ----------------------------------------
+    config_dict = read(
+        config, global_outdir_name=outdir
+    )
+
+    for key, value in config_dict.items():
+        # ----------------------------------------
+        # 3. DEFINE/FIT PARAMETERS/COORDINATES
+        # ----------------------------------------
+        LOGGER.info(f"fetching data for `{key}`")
     
     
     
@@ -46,12 +58,6 @@ def run(config: Path, *, outdir: Path) -> None:
     
     
     
-    
-    
-    
-    
-    # read `.yml`
-    config_dict = read_yaml(config)
 
     # fit density
     density_data = config_dict.pop("density")
