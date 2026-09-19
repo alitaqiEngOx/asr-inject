@@ -1,87 +1,88 @@
 ### Licensed under the same terms as described in the main 
 # licensing script of this repository. ###
 
-# ------------------------------
-# ---------- FITTINGS ----------
-# ------------------------------
-solution_characteristics:
-  Mr_water: 18.02 # g/mol
-  Mr_solute: 58.44 # g/mol
+job_0:
+  # ------------------------------
+  # ---------- FITTINGS ----------
+  # ------------------------------
+  solution_characteristics:
+    Mr_water: 18.02 # g/mol
+    Mr_solute: 58.44 # g/mol
 
-density:
-  data:
-  # - [degC, kg/m^3]
-    - [0.0, 1000.0]
-    - [100.0, 1000.0]
+  density:
+    data:
+    # - [degC, kg/m^3]
+      - [0.0, 1000.0]
+      - [100.0, 1000.0]
 
-  temperature_fitting_degree: 1 
-# rho(T) = C0 + C1.T^1 + C2.T^2 + ... + Cn.T^n
-# where n = temperature_fitting_degree
-# effect of solute concentration on density is neglected
+    temperature_fitting_degree: 1 
+  # rho(T) = C0 + C1.T^1 + C2.T^2 + ... + Cn.T^n
+  # where n = temperature_fitting_degree
+  # effect of solute concentration on density is neglected
 
-  salinity_fitting:
-    A0: 0.0
-    A1: 0.0
-    #A0: 1296.3 # kg/m^3
-    #A1: -2.0 # kg/(m^3.K)
-# rho(T, S) = rho(T) + S(A0 + T.A1)
+    salinity_fitting:
+      A0: 0.0
+      A1: 0.0
+      #A0: 1296.3 # kg/m^3
+      #A1: -2.0 # kg/(m^3.K)
+  # rho(T, S) = rho(T) + S(A0 + T.A1)
 
-water_diffusivity:
-  fresh_segment:
-  # - [degC, m^2/s]
-    - [0.0, 1.0e-9]
-    - [100.0, 1.0e-9]
+  water_diffusivity:
+    fresh_segment:
+    # - [degC, m^2/s]
+      - [0.0, 1.0e-9]
+      - [100.0, 1.0e-9]
 
-  saline_segment:
-  # - [degC, m^2/s]
-    - [0.0, 1.0e-9]
-    - [100.0, 1.0e-9]
+    saline_segment:
+    # - [degC, m^2/s]
+      - [0.0, 1.0e-9]
+      - [100.0, 1.0e-9]
+    # effect of solute concentration on diffusivity is neglected
+
+  solute_diffusivity:
+    fresh_segment:
+    # - [degC, m^2/s]
+      - [0.0, 5.0e-8]
+      - [100.0, 5.0e-8]
+
+    saline_segment:
+    # - [degC, m^2/s]
+      - [0.0, 5.0e-8]
+      - [100.0, 5.0e-8]
+  # where D(T) = D(298.15) * (T / 298.15) * (n(285.15) / n(T))
+  # and n = viscosity
   # effect of solute concentration on diffusivity is neglected
 
-solute_diffusivity:
+
+  # ------------------------------
+  # ---------- ANALYSES ----------
+  # ------------------------------
+  reservoir_dimensions:
+    length: 5.0 # m
+    width: 5.0 # m
+    height: 5.0 # m
+    interlayer_thickness: 0.1 # m
+    depth: 100.0 # m
+
+  reservoir_conditions:
+    temperature: 50.0 # degC
+    pressure: 10.0 # bara
+
   fresh_segment:
-  # - [degC, m^2/s]
-    - [0.0, 5.0e-8]
-    - [100.0, 5.0e-8]
+    volume_fraction: 0.5
+    solute_mass_fraction: 0.0001
 
   saline_segment:
-  # - [degC, m^2/s]
-    - [0.0, 5.0e-8]
-    - [100.0, 5.0e-8]
-# where D(T) = D(298.15) * (T / 298.15) * (n(285.15) / n(T))
-# and n = viscosity
-# effect of solute concentration on diffusivity is neglected
+    solute_mass_fraction: 0.05
+
+  recovery:
+    flow_rate: 0. # kg/s
+    threshold_solute_mass_fraction: 0.
 
 
-# ------------------------------
-# ---------- ANALYSES ----------
-# ------------------------------
-reservoir_dimensions:
-  length: 5.0 # m
-  width: 5.0 # m
-  height: 5.0 # m
-  interlayer_thickness: 0.1 # m
-  depth: 100.0 # m
-
-reservoir_conditions:
-  temperature: 50.0 # degC
-  pressure: 10.0 # bara
-
-fresh_segment:
-  volume_fraction: 0.5
-  solute_mass_fraction: 0.0001
-
-saline_segment:
-  solute_mass_fraction: 0.05
-
-recovery:
-  flow_rate: 0. # kg/s
-  threshold_solute_mass_fraction: 0.
-
-
-# ------------------------------
-# ---------- NUMERICS ----------
-# ------------------------------
-n_steps: 8000000
-step_size: 0.5
-hmax: null
+  # ------------------------------
+  # ---------- NUMERICS ----------
+  # ------------------------------
+  n_steps: 8000000
+  step_size: 0.5
+  hmax: null

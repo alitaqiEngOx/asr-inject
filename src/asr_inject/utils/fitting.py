@@ -8,9 +8,15 @@ import numpy as np
 from numpy.polynomial.polynomial import polyfit
 from numpy.typing import NDArray
 
+from asr_inject.utils.log_handler import create
+
+
+LOGGER = create("fitting")
+
 
 R = 8.314462618  # J/(molK)
-CELSIUS_TO_KELVIN = 273.15
+CELSIUS_TO_KELVIN = 273.15 # K in 0C
+
 
 def density_fit(
         density_data: dict[str, Any], *,
@@ -18,6 +24,8 @@ def density_fit(
 ) -> NDArray:
     """
     """
+    LOGGER.info("fitting density data")
+
     data = np.asarray(density_data["data"])
     degree = density_data["temperature_fitting_degree"]
     A0 = density_data["salinity_fitting"]["A0"]

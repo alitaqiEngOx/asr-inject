@@ -48,6 +48,15 @@ def run(config: Path, *, outdir: Path) -> None:
         # 3. DEFINE/FIT PARAMETERS/COORDINATES
         # ----------------------------------------
         LOGGER.info(f"fetching data for `{key}`")
+
+        # fit density
+        density_data = value.pop("density")
+
+        density_coefficients = density_fit(density_data)
+        #outfile=(
+        #    outdir / "fitting" / "density.png"
+        #)
+    #)
     
     
     
@@ -60,7 +69,7 @@ def run(config: Path, *, outdir: Path) -> None:
     
 
     # fit density
-    density_data = config_dict.pop("density")
+    #density_data = config_dict.pop("density")
 
     density_coefficients = density_fit(
         density_data,
