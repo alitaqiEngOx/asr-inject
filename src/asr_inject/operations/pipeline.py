@@ -12,6 +12,10 @@ from asr_inject.operations.visualise import plot_2d
 from asr_inject.utils.fitting import (
     arrhenius_fit, density_fit
 )
+from asr_inject.utils.log_handler import create
+
+
+LOGGER = create("pipeline")
 
 
 def read_yaml(dir: Path) -> dict[str, Any]:
@@ -23,6 +27,21 @@ def read_yaml(dir: Path) -> dict[str, Any]:
 def run(config: Path, *, outdir: Path) -> None:
     """
     """
+    LOGGER.info("pipeline running")
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     # read `.yml`
     config_dict = read_yaml(config)
 
