@@ -53,13 +53,13 @@ class Reservoir:
             "reservoir_dimensions"
         ]["interlayer_thickness"]
 
-        self.temperature = config["reservoir_conditions"][
-            "temperature"
-        ] + CELSIUS_TO_KELVIN
+        self.temperature = config[
+            "reservoir_conditions"
+        ]["temperature"] + CELSIUS_TO_KELVIN
 
-        self.pressure = config["reservoir_conditions"][
-            "pressure"
-        ] * BAR_TO_PA
+        self.pressure = config[
+            "reservoir_conditions"
+        ]["pressure"] * BAR_TO_PA
 
         self.volume_fraction_fresh = config[
             "fresh_segment"
@@ -333,7 +333,9 @@ class Reservoir:
         A0 = self.fitting["density"]["salinity"]["A0"]
         A1 = self.fitting["density"]["salinity"]["A1"]
 
-        d_rho = solubility * (A0 + (self.temperature * A1))
+        d_rho = solubility * (
+            A0 + (self.temperature * A1)
+        )
 
         return self.density_pure + d_rho
 
@@ -375,8 +377,10 @@ class Reservoir:
                 1. - water_mass_fraction_fresh
             )
 
-            density_solution_fresh = self.compute_density_solution(
-                solute_mass_fraction_fresh
+            density_solution_fresh = (
+                self.compute_density_solution(
+                    solute_mass_fraction_fresh
+                )
             )
 
             water_concentration_fresh = (
