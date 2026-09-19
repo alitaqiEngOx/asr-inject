@@ -18,7 +18,9 @@ R = 8.314462618  # J/(molK)
 CELSIUS_TO_KELVIN = 273.15 # K in 0C
 
 
-def density_fit(density_data: dict[str, Any]) -> NDArray:
+def density_fit(
+        density_data: dict[str, Any]
+) -> NDArray:
     """
     """
     LOGGER.info("fitting density data")
