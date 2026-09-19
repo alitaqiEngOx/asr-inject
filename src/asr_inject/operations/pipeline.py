@@ -13,6 +13,7 @@ from asr_inject.utils.fitting import (
     arrhenius_fit, density_fit
 )
 from asr_inject.utils.log_handler import create
+from asr_inject.utils.outtree import make_global_outdir
 
 
 LOGGER = create("pipeline")
@@ -28,6 +29,13 @@ def run(config: Path, *, outdir: Path) -> None:
     """
     """
     LOGGER.info("pipeline running")
+
+    # ----------------------------------------
+    # 1. GENERATE OUTPUTS' DIRECTORY
+    # ----------------------------------------
+    outdir = make_global_outdir(
+        config.parent, return_name=True
+    )
     
     
     
