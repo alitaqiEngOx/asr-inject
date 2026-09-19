@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 
 from asr_inject.operations import pipeline
-from asr_inject.utils import log_handler, outtree
+from asr_inject.utils import log_handler
 
 
 def main() -> int:
@@ -46,20 +46,7 @@ def main() -> int:
         # ----------------------------------------
         main_logger.info("Entering pipeline\n")
 
-        # make outputs' directory
-        main_logger.info(
-            "Generating outputs' directory"
-        )
-
-        outdir = outtree.make_global_outdir(
-            Path(args.config).parent, return_name=True
-        )
-
-        # run pipeline
-        pipeline.run(
-            Path(args.config), 
-            outdir=Path(args.config).parent / outdir
-        )
+        pipeline.run(Path(args.config))
 
         # ----------------------------------------
         # 3. SUCCESSFUL EXIT
