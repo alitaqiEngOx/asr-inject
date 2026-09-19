@@ -44,7 +44,7 @@ def main() -> int:
         # ----------------------------------------
         # 2. PIPELINE
         # ----------------------------------------
-        main_logger.info("Entering pipeline")
+        main_logger.info("Entering pipeline\n")
 
         # make outputs' directory
         main_logger.info(
