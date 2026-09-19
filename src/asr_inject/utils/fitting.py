@@ -1,6 +1,7 @@
 """ Licensed under the same terms as described in the main 
 licensing script of this repository. """
 
+from pathlib import Path
 from typing import Any
 
 import matplotlib.pyplot as plt
@@ -13,15 +14,11 @@ from asr_inject.utils.log_handler import create
 
 LOGGER = create("fitting")
 
-
 R = 8.314462618  # J/(molK)
 CELSIUS_TO_KELVIN = 273.15 # K in 0C
 
 
-def density_fit(
-        density_data: dict[str, Any], *,
-        outfile: str | None=None
-) -> NDArray:
+def density_fit(density_data: dict[str, Any]) -> NDArray:
     """
     """
     LOGGER.info("fitting density data")
@@ -38,8 +35,20 @@ def density_fit(
     )
 
     # plots
-    if outfile:
-        outfile.parent.mkdir(parents=True, exist_ok=True)
+    if "outfile" in density_data.keys():
+        outfile = Path(density_data["outfile"])
+
+        try:
+            outfile.parent.mkdir(
+                parents=True, exist_ok=True
+            )
+
+        except:
+            LOGGER.error(
+                f"{outfile} cound not be generated"
+            )
+
+            raise
 
         temp = np.arange(data[0, 0], data[-1, 0], 0.01)
         dens = np.zeros(len(temp))
@@ -84,6 +93,7 @@ def density_fit(
         plt.close()
 
     return np.asarray(coefficients)
+
 
 def arrhenius_fit(
         data: NDArray, *, outfile: str | None=None
