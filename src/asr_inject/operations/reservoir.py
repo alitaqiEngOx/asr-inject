@@ -652,21 +652,34 @@ class Reservoir:
         ])
 
         # numerical solution
+        t = np.arange(n_steps) * step_size
+
         result = odeint(
-            differential, initial_moles,
-            np.arange(n_steps) * step_size,
+            differential, initial_moles, t,
             hmax=(
                 hmax if hmax else 0
             )
         )
 
         # further results
+        times_to_steady_state = []
+
+        # fresh segment
         mass_fraction_solute_fresh = (
             (result[:, 3] * self.Mr_solute)
         ) / (
             (result[:, 0] * self.Mr_water) +
             (result[:, 3] * self.Mr_solute)
         )
+
+        idx = 0
+        while (
+            mass_fraction_solute_fresh[-1] -
+            mass_fraction_solute_fresh[idx] >= 0.0001
+        ):
+            idx += 1
+
+        times_to_steady_state.append(t[idx])
 
         mass_fraction_solute_intermediate = (
             (result[:, 4] * self.Mr_solute)
@@ -675,6 +688,15 @@ class Reservoir:
             (result[:, 4] * self.Mr_solute)
         )
 
+        idx = 0
+        while (
+            mass_fraction_solute_intermediate[-1] -
+            mass_fraction_solute_intermediate[idx] >= 0.0001
+        ):
+            idx += 1
+
+        times_to_steady_state.append(t[idx])
+
         mass_fraction_solute_saline = (
             (result[:, 5] * self.Mr_solute)
         ) / (
@@ -682,10 +704,20 @@ class Reservoir:
             (result[:, 5] * self.Mr_solute)
         )
 
-            
-            
-            
+        idx = 0
+        while (
+            mass_fraction_solute_saline[-1] -
+            mass_fraction_solute_saline[idx] >= 0.0001
+        ):
+            idx += 1
 
+        times_to_steady_state.append(t[idx])
+
+
+
+            
+            
+            
 
 
 
@@ -847,27 +879,27 @@ class Reservoir:
         #    np.max(mass_fraction_solute_fresh) <
         #    self.max_solute_fraction
         #):
-            time_at_limit = None
+            #time_at_limit = None
 
-            idx = 0
-            while (
-                efficiency[-1] - efficiency[idx]
-                >= 0.0001
-            ):
-                idx += 1
+            #idx = 0
+            #while (
+            #    efficiency[-1] - efficiency[idx]
+            #    >= 0.0001
+            #):
+            #    idx += 1
 
-            time_to_full_recovery = (
-                np.arange(n_steps) * step_size
-            )[idx]
+            #time_to_full_recovery = (
+            #    np.arange(n_steps) * step_size
+            #)[idx]
 
-        else:
-            time_at_limit = np.interp(
-                self.max_solute_fraction,
-                mass_fraction_solute_fresh,
-                np.arange(n_steps) * step_size,
-            )
+        #else:
+        #    time_at_limit = np.interp(
+        #        self.max_solute_fraction,
+        #        mass_fraction_solute_fresh,
+        #        np.arange(n_steps) * step_size,
+        #    )
 
-            time_to_full_recovery = None
+        #    time_to_full_recovery = None
 
         return {
             "moles": result,
