@@ -16,7 +16,7 @@ from asr_inject.utils._yaml import read
 LOGGER = create("pipeline")
 
 
-def run(config: Path, *, outdir: Path) -> None:
+def run(config: Path) -> None:
     """
     """
     LOGGER.info("pipeline running")
