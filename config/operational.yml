@@ -1,51 +1,62 @@
 ### Licensed under the same terms as described in the main 
 # licensing script of this repository. ###
 
-job_0:
-  # ------------------------------
-  # ---------- FITTINGS ----------
-  # ------------------------------
-  solution_characteristics:
-    Mr_water: 18.02 # g/mol
-    Mr_solute: 58.44 # g/mol
+# ------------------------------
+# ---------- FITTINGS ----------
+# ------------------------------
+solution_characteristics:
+  Mr_water: 18.02 # g/mol
+  Mr_solute: 58.44 # g/mol
 
-  density:
+density:
+  data:
+  # - [degC, kg/m^3]
+    - [0.0, 1000.0]
+    - [100.0, 1000.0]
+
+  temperature_fitting_degree: 1 
+# rho(T) = C0 + C1.T^1 + C2.T^2 + ... + Cn.T^n
+# where n = temperature_fitting_degree
+# effect of solute concentration on density is neglected
+
+  salinity_fitting:
+    A0: 0.0
+    A1: 0.0
+    #A0: 1296.3 # kg/m^3
+    #A1: -2.0 # kg/(m^3.K)
+# rho(T, S) = rho(T) + S(A0 + T.A1)
+
+  outfile: $GLOBAL_OUTDIR/fitting/density.png
+
+water_diffusivity:
+  fresh_segment:
     data:
-    # - [degC, kg/m^3]
-      - [0.0, 1000.0]
-      - [100.0, 1000.0]
-
-    temperature_fitting_degree: 1 
-  # rho(T) = C0 + C1.T^1 + C2.T^2 + ... + Cn.T^n
-  # where n = temperature_fitting_degree
-  # effect of solute concentration on density is neglected
-
-    salinity_fitting:
-      A0: 0.0
-      A1: 0.0
-      #A0: 1296.3 # kg/m^3
-      #A1: -2.0 # kg/(m^3.K)
-  # rho(T, S) = rho(T) + S(A0 + T.A1)
-
-  water_diffusivity:
-    fresh_segment:
     # - [degC, m^2/s]
       - [0.0, 1.0e-9]
       - [100.0, 1.0e-9]
 
-    saline_segment:
+    outfile: $GLOBAL_OUTDIR/fitting/water_diffusivity_fresh.png
+
+  saline_segment:
+    data:
     # - [degC, m^2/s]
       - [0.0, 1.0e-9]
       - [100.0, 1.0e-9]
     # effect of solute concentration on diffusivity is neglected
 
-  solute_diffusivity:
-    fresh_segment:
+    outfile: $GLOBAL_OUTDIR/fitting/water_diffusivity_saline.png
+
+solute_diffusivity:
+  fresh_segment:
+    data:
     # - [degC, m^2/s]
       - [0.0, 5.0e-8]
       - [100.0, 5.0e-8]
 
-    saline_segment:
+    outfile: $GLOBAL_OUTDIR/fitting/solute_diffusivity_fresh.png
+
+  saline_segment:
+    data:
     # - [degC, m^2/s]
       - [0.0, 5.0e-8]
       - [100.0, 5.0e-8]
@@ -53,10 +64,13 @@ job_0:
   # and n = viscosity
   # effect of solute concentration on diffusivity is neglected
 
+    outfile: $GLOBAL_OUTDIR/fitting/solute_diffusivity_saline.png
 
-  # ------------------------------
-  # ---------- ANALYSES ----------
-  # ------------------------------
+
+# ------------------------------
+# ---------- ANALYSES ----------
+# ------------------------------
+job_0:
   reservoir_dimensions:
     length: 5.0 # m
     width: 5.0 # m
@@ -79,10 +93,7 @@ job_0:
     flow_rate: 0. # kg/s
     threshold_solute_mass_fraction: 0.
 
-
-  # ------------------------------
-  # ---------- NUMERICS ----------
-  # ------------------------------
+  # numerics
   n_steps: 8000000
   step_size: 0.5
   hmax: null
