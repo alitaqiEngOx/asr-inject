@@ -713,6 +713,25 @@ class Reservoir:
 
         times_to_steady_state.append(t[idx])
 
+        # return outcomes
+        return {
+            "moles": result,
+            "mass_fractions": {
+                "solute_fresh" : (
+                    mass_fraction_solute_fresh
+                ),
+                "solute_intermediate": (
+                    mass_fraction_solute_intermediate
+                ),
+                "solute_saline": (
+                    mass_fraction_solute_saline
+                )
+            },
+            "times_to_steady_state": (
+                times_to_steady_state
+            )
+        }
+
 
 
             
@@ -901,14 +920,14 @@ class Reservoir:
 
         #    time_to_full_recovery = None
 
-        return {
-            "moles": result,
-            "mass_fraction_solute_fresh": (
-                mass_fraction_solute_fresh
-            ),
-            "asr_efficiency": efficiency,
-            "time_to_recovery_limit": time_at_limit,
-            "time_to_full_recovery": (
-                time_to_full_recovery
-            )
-        }    
+        #return {
+        #    "moles": result,
+        #    "mass_fraction_solute_fresh": (
+        #        mass_fraction_solute_fresh
+        #    ),
+        #    "asr_efficiency": efficiency,
+        #    "time_to_recovery_limit": time_at_limit,
+        #    "time_to_full_recovery": (
+        #        time_to_full_recovery
+        #    )
+        #}    
