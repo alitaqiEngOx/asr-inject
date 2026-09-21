@@ -212,6 +212,13 @@ class Reservoir:
 
 
     @property
+    def moles_water_intermediate_initial(self) -> float:
+        """
+        """
+        raise NotImplementedError
+
+
+    @property
     def moles_water_saline_initial(self) -> float:
         """
         """
@@ -229,6 +236,13 @@ class Reservoir:
             self.mass_solute_fresh_initial /
             self.Mr_solute
         )
+
+
+    @property
+    def moles_solute_intermediate_initial(self) -> float:
+        """
+        """
+        raise NotImplementedError
 
 
     @property
@@ -354,7 +368,9 @@ class Reservoir:
             water_moles = moles[:3]
             solute_moles = moles[3:]
 
-            # fresh segment
+            # ----------------------------------------
+            # 1. FRESH SEGMENT
+            # ----------------------------------------
             water_fraction_fresh = (
                 water_moles[0] / (
                     water_moles[0] + solute_moles[0]
@@ -395,7 +411,9 @@ class Reservoir:
                 (1000. / self.Mr_solute)
             )
 
-            # intermediate layer
+            # ----------------------------------------
+            # 2. INTERMEDIATE LAYER
+            # ----------------------------------------
             water_fraction_intermediate = (
                 water_moles[1] / (
                     water_moles[1] + solute_moles[1]
@@ -434,7 +452,9 @@ class Reservoir:
                 (1000. / self.Mr_solute)
             )
 
-            # saline segment
+            # ----------------------------------------
+            # 3. SALINE SEGMENT
+            # ----------------------------------------
             water_fraction_saline = (
                 water_moles[2] / (
                     water_moles[2] + solute_moles[2]
@@ -473,7 +493,9 @@ class Reservoir:
                 (1000. / self.Mr_solute)
             )
 
-            # average diffusion coefficients
+            # ----------------------------------------
+            # 4. AVERAGE DIFFUSION COEFFICIENTS
+            # ----------------------------------------
             water_concentration_fi = np.mean([
                 water_concentration_fresh,
                 water_concentration_intermediate
@@ -522,7 +544,9 @@ class Reservoir:
                 )
             )
 
-            # chemical potentials
+            # ----------------------------------------
+            # 5. CHEMICAL POTENTIALS
+            # ----------------------------------------
             water_potential_fresh = (
                 chemical_potential.compute(
                     activity=water_fraction_fresh,
@@ -565,7 +589,9 @@ class Reservoir:
                 )
             )
 
-            # fluxes
+            # ----------------------------------------
+            # 6. FLUXES
+            # ----------------------------------------
             J_w_fi = (
                 -1. *
                 water_diffusion_coeff_fi *
@@ -616,7 +642,23 @@ class Reservoir:
             ])
 
         # initial condition
+        initial_moles = np.asarray([
+            self.moles_water_fresh_initial,
+            self.moles_water_intermediate_initial,
+            self.moles_water_saline_initial,
+            self.moles_solute_fresh_initial,
+            self.moles_solute_intermediate_initial,
+            self.moles_solute_saline_initial
+        ])
 
+            
+            
+            
+            
+            
+            
+            
+            
             # average diffusion coefficients
             #water_concentration_mean = np.mean([
             #    water_concentration_fresh,
@@ -734,14 +776,14 @@ class Reservoir:
             #])
 
         # initial condition
-        initial_moles = np.asarray([
-            self.moles_water_fresh_initial,
-            self.moles_water_saline_initial,
-            0.,
-            self.moles_solute_fresh_initial,
-            self.moles_solute_saline_initial,
-            0.
-        ])
+        #initial_moles = np.asarray([
+        #    self.moles_water_fresh_initial,
+        #    self.moles_water_saline_initial,
+        #    0.,
+        #    self.moles_solute_fresh_initial,
+        #    self.moles_solute_saline_initial,
+        #    0.
+        #])
 
         # numerical solution
         result = odeint(
