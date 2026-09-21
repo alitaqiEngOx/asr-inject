@@ -98,14 +98,14 @@ def density_fit(
 
 
 def arrhenius_fit(
-        data_dict: dict[str, Any]
+        data_dict: dict[str, dict[str, Any]]
 ) -> tuple[float, float]:
     """
     """
     LOGGER.info("applying Arrhenius fit")
 
     data = np.asarray(
-        data_dict, dtype=np.float64
+        data_dict["data"], dtype=np.float64
     )
 
     x_axis = 1. / (data[:, 0] + CELSIUS_TO_KELVIN)
