@@ -651,11 +651,46 @@ class Reservoir:
             self.moles_solute_saline_initial
         ])
 
+        # numerical solution
+        result = odeint(
+            differential, initial_moles,
+            np.arange(n_steps) * step_size,
+            hmax=(
+                hmax if hmax else 0
+            )
+        )
+
+        # further results
+        mass_fraction_solute_fresh = (
+            (result[:, 3] * self.Mr_solute)
+        ) / (
+            (result[:, 0] * self.Mr_water) +
+            (result[:, 3] * self.Mr_solute)
+        )
+
+        mass_fraction_solute_intermediate = (
+            (result[:, 4] * self.Mr_solute)
+        ) / (
+            (result[:, 1] * self.Mr_water) +
+            (result[:, 4] * self.Mr_solute)
+        )
+
+        mass_fraction_solute_saline = (
+            (result[:, 5] * self.Mr_solute)
+        ) / (
+            (result[:, 2] * self.Mr_water) +
+            (result[:, 5] * self.Mr_solute)
+        )
+
             
             
             
-            
-            
+
+
+
+
+
+
             
             
             
@@ -786,32 +821,32 @@ class Reservoir:
         #])
 
         # numerical solution
-        result = odeint(
-            differential, initial_moles,
-            np.arange(n_steps) * step_size,
-            hmax=(
-                hmax if hmax else 0
-            )
-        )
+        #result = odeint(
+        #    differential, initial_moles,
+        #    np.arange(n_steps) * step_size,
+        #    hmax=(
+        #        hmax if hmax else 0
+        #    )
+        #)
 
-        mass_fraction_solute_fresh = (
-            (result[:, 3] * self.Mr_solute)
-        ) / (
-            (result[:, 0] * self.Mr_water) +
-            (result[:, 3] * self.Mr_solute)
-        )
+        #mass_fraction_solute_fresh = (
+        #    (result[:, 3] * self.Mr_solute)
+        #) / (
+        #    (result[:, 0] * self.Mr_water) +
+        #    (result[:, 3] * self.Mr_solute)
+        #)
 
-        efficiency = (
-            (
-                result[:, 2] * self.Mr_water +
-                result[:, -1] * self.Mr_solute
-            ) / self.density_pure
-        ) / self.volume_fresh
+        #efficiency = (
+        #    (
+        #        result[:, 2] * self.Mr_water +
+        #        result[:, -1] * self.Mr_solute
+        #    ) / self.density_pure
+        #) / self.volume_fresh
 
-        if (
-            np.max(mass_fraction_solute_fresh) <
-            self.max_solute_fraction
-        ):
+        #if (
+        #    np.max(mass_fraction_solute_fresh) <
+        #    self.max_solute_fraction
+        #):
             time_at_limit = None
 
             idx = 0
