@@ -37,7 +37,7 @@ def arrhenius_fit(
 
     # plots
     if "outfile" in data_dict.keys():
-        outfile = Path(data["outfile"])
+        outfile = Path(data_dict["outfile"])
 
         try:
             outfile.parent.mkdir(
