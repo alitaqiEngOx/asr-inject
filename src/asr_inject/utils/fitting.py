@@ -18,17 +18,75 @@ R = 8.314462618  # J/(molK)
 CELSIUS_TO_KELVIN = 273.15 # K in 0C
 
 
-def density_fit(
-        density_data: dict[str, Any]
-) -> NDArray:
+def arrhenius_fit(
+        data_dict: dict[str, Any]
+) -> tuple[float, float]:
+    """
+    """
+    LOGGER.info("applying Arrhenius fit")
+
+    data = np.asarray(
+        data_dict["data"], dtype=np.float64
+    )
+
+    x_axis = 1. / (data[:, 0] + CELSIUS_TO_KELVIN)
+    y_axis = np.log(data[:, 1])
+
+    # least-squares' fitting
+    slope, intercept = np.polyfit(x_axis, y_axis, 1)
+
+    # plots
+    if "outfile" in data_dict.keys():
+        outfile = Path(data["outfile"])
+
+        try:
+            outfile.parent.mkdir(
+                parents=True, exist_ok=True
+            )
+
+        except:
+            LOGGER.error(
+                f"{outfile.name} could not be generated"
+            )
+
+            raise
+
+        plt.scatter(
+            x_axis, y_axis,
+            marker='x', c="red", label="real data"
+        )
+
+        plt.plot(
+            np.asarray([x_axis[0], x_axis[-1]]),
+            np.asarray([
+                intercept + slope * x_axis[0],
+                intercept + slope * x_axis[-1]
+            ]),
+            label="linear fit"
+        )
+
+        plt.legend(loc="best")
+        plt.title(str(outfile.stem))
+        plt.xlabel("1/T (K^-1)")
+        plt.ylabel("ln(diff)")
+        plt.savefig(str(outfile))
+        plt.close()
+
+    return np.exp(intercept), -R * slope
+
+
+def density_fit(data_dict: dict[str, Any]) -> NDArray:
     """
     """
     LOGGER.info("fitting density data")
 
-    data = np.asarray(density_data["data"])
-    degree = density_data["temperature_fitting_degree"]
-    A0 = density_data["salinity_fitting"]["A0"]
-    A1 = density_data["salinity_fitting"]["A1"]
+    data = np.asarray(
+        data_dict["data"], dtype=np.float64
+    )
+
+    degree = data_dict["temperature_fitting_degree"]
+    A0 = data_dict["salinity_fitting"]["A0"]
+    A1 = data_dict["salinity_fitting"]["A1"]
 
     # temperature fitting
     coefficients, stats = polyfit(
@@ -37,8 +95,8 @@ def density_fit(
     )
 
     # plots
-    if "outfile" in density_data.keys():
-        outfile = Path(density_data["outfile"])
+    if "outfile" in data_dict.keys():
+        outfile = Path(data_dict["outfile"])
 
         try:
             outfile.parent.mkdir(
@@ -95,60 +153,3 @@ def density_fit(
         plt.close()
 
     return np.asarray(coefficients)
-
-
-def arrhenius_fit(
-        data_dict: dict[str, dict[str, Any]]
-) -> tuple[float, float]:
-    """
-    """
-    LOGGER.info("applying Arrhenius fit")
-
-    data = np.asarray(
-        data_dict["data"], dtype=np.float64
-    )
-
-    x_axis = 1. / (data[:, 0] + CELSIUS_TO_KELVIN)
-    y_axis = np.log(data[:, 1])
-
-    # least-squares' fitting
-    slope, intercept = np.polyfit(x_axis, y_axis, 1)
-
-    # plots
-    if "outfile" in data.keys():
-        outfile = Path(data["outfile"])
-
-        try:
-            outfile.parent.mkdir(
-                parents=True, exist_ok=True
-            )
-
-        except:
-            LOGGER.error(
-                f"{outfile.name} could not be generated"
-            )
-
-            raise
-
-        plt.scatter(
-            x_axis, y_axis,
-            marker='x', c="red", label="real data"
-        )
-
-        plt.plot(
-            np.asarray([x_axis[0], x_axis[-1]]),
-            np.asarray([
-                intercept + slope * x_axis[0],
-                intercept + slope * x_axis[-1]
-            ]),
-            label="linear fit"
-        )
-
-        plt.legend(loc="best")
-        plt.title(str(outfile.stem))
-        plt.xlabel("1/T (K^-1)")
-        plt.ylabel("ln(diff)")
-        plt.savefig(str(outfile))
-        plt.close()
-
-    return np.exp(intercept), -R * slope
