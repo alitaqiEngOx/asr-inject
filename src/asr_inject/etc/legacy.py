@@ -1,7 +1,6 @@
 """ Licensed under the same terms as described in the main 
 licensing script of this repository. """
 
-
             # average diffusion coefficients
             #water_concentration_mean = np.mean([
             #    water_concentration_fresh,
