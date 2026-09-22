@@ -33,8 +33,6 @@ water_diffusivity:
       - [0.0, 1.0e-9]
       - [100.0, 1.0e-9]
 
-    outfile: $GLOBAL_OUTDIR/fitting/water_diffusivity_fresh.png
-
   saline_segment:
     data:
     # - [degC, m^2/s]
@@ -42,16 +40,12 @@ water_diffusivity:
       - [100.0, 1.0e-9]
     # effect of solute concentration on diffusivity is neglected
 
-    outfile: $GLOBAL_OUTDIR/fitting/water_diffusivity_saline.png
-
 solute_diffusivity:
   fresh_segment:
     data:
     # - [degC, m^2/s]
       - [0.0, 5.0e-8]
       - [100.0, 5.0e-8]
-
-    outfile: $GLOBAL_OUTDIR/fitting/solute_diffusivity_fresh.png
 
   saline_segment:
     data:
@@ -61,8 +55,6 @@ solute_diffusivity:
   # where D(T) = D(298.15) * (T / 298.15) * (n(285.15) / n(T))
   # and n = viscosity
   # effect of solute concentration on diffusivity is neglected
-
-    outfile: $GLOBAL_OUTDIR/fitting/solute_diffusivity_saline.png
 
 
 # ------------------------------

@@ -49,7 +49,7 @@ def run(config: Path) -> None:
     density_data = config_dict.pop("density")
     density_coefficients = density_fit(
         density_data,
-        outname=(outdir / "fitting" / "density")
+        outname=(outdir / "fitting" / "density.png")
     )
 
     # fit water diffusivity
@@ -58,11 +58,19 @@ def run(config: Path) -> None:
     )
 
     water_diff_params_fresh_segment = arrhenius_fit(
-        water_diffusivity_data["fresh_segment"]
+        water_diffusivity_data["fresh_segment"],
+        outname=(
+            outdir / "fitting" /
+            "water_diffusivity_fresh.png"
+        )
     )
 
     water_diff_params_saline_segment = arrhenius_fit(
-        water_diffusivity_data["saline_segment"]
+        water_diffusivity_data["saline_segment"],
+        outname=(
+            outdir / "fitting" /
+            "water_diffusivity_saline.png"
+        )
     )
 
     # fit solute diffusivity
@@ -71,11 +79,19 @@ def run(config: Path) -> None:
     )
 
     solute_diff_params_fresh_segment = arrhenius_fit(
-        solute_diffusivity_data["fresh_segment"]
+        solute_diffusivity_data["fresh_segment"],
+        outname=(
+            outdir / "fitting" /
+            "solute_diffusivity_fresh.png"
+        )
     )
 
     solute_diff_params_saline_segment = arrhenius_fit(
-        solute_diffusivity_data["saline_segment"]
+        solute_diffusivity_data["saline_segment"],
+        outname=(
+            outdir / "fitting" /
+            "solute_diffusivity_saline.png"
+        )
     )
 
     # fitting dictionary

@@ -19,7 +19,8 @@ CELSIUS_TO_KELVIN = 273.15 # K in 0C
 
 
 def arrhenius_fit(
-        data_dict: dict[str, Any]
+        data_dict: dict[str, Any], *,
+        outname: Path | None=None
 ) -> tuple[float, float]:
     """
     """
@@ -36,17 +37,15 @@ def arrhenius_fit(
     slope, intercept = np.polyfit(x_axis, y_axis, 1)
 
     # plots
-    if "outfile" in data_dict.keys():
-        outfile = Path(data_dict["outfile"])
-
+    if outname is not None:
         try:
-            outfile.parent.mkdir(
+            outname.parent.mkdir(
                 parents=True, exist_ok=True
             )
 
         except:
             LOGGER.error(
-                f"{outfile.name} could not be generated"
+                f"`{outname.parent}` could not be generated"
             )
 
             raise
@@ -66,10 +65,10 @@ def arrhenius_fit(
         )
 
         plt.legend(loc="best")
-        plt.title(str(outfile.stem))
+        plt.title(str(outname.stem))
         plt.xlabel("1/T (K^-1)")
         plt.ylabel("ln(diff)")
-        plt.savefig(str(outfile))
+        plt.savefig(str(outname))
         plt.close()
 
     return np.exp(intercept), -R * slope
