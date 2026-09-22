@@ -37,21 +37,57 @@ class Reservoir:
             "solution_characteristics"
         ]["Mr_solute"]
 
-        self.length = config["reservoir_dimensions"][
-            "length"
-        ]
-
-        self.width = config["reservoir_dimensions"][
-            "width"
-        ]
-
-        self.height = config["reservoir_dimensions"][
-            "height"
-        ]
-
-        self.interlayer_thickness = config[
+        self.length_fresh_layer = config[
             "reservoir_dimensions"
-        ]["interlayer_thickness"]
+        ]["fresh_layer"]["length"]
+
+        self.width_fresh_layer = config[
+            "reservoir_dimensions"
+        ]["fresh_layer"]["width"]
+
+        self.height_fresh_layer = config[
+            "reservoir_dimensions"
+        ]["fresh_layer"]["height"]
+
+        self.length_intermediate_layer = config[
+            "reservoir_dimensions"
+        ]["intermediate_layer"]["length"]
+
+        self.width_intermediate_layer = config[
+            "reservoir_dimensions"
+        ]["intermediate_layer"]["width"]
+
+        self.height_intermediate_layer = config[
+            "reservoir_dimensions"
+        ]["intermediate_layer"]["height"]
+
+        self.length_saline_layer = config[
+            "reservoir_dimensions"
+        ]["saline_layer"]["length"]
+
+        self.width_saline_layer = config[
+            "reservoir_dimensions"
+        ]["saline_layer"]["width"]
+
+        self.height_saline_layer = config[
+            "reservoir_dimensions"
+        ]["saline_layer"]["height"]
+
+        #self.length = config[
+        #    "reservoir_dimensions"
+        #]["length"]
+
+        #self.width = config[
+        #    "reservoir_dimensions"
+        #]["width"]
+
+        #self.height = config[
+        #    "reservoir_dimensions"
+        #]["height"]
+
+        #self.interlayer_thickness = config[
+        #    "reservoir_dimensions"
+        #]["interlayer_thickness"]
 
         self.temperature = config[
             "reservoir_conditions"

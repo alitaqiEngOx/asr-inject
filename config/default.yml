@@ -112,11 +112,20 @@ solute_diffusivity:
 # ===============================
 job_0:
   reservoir_dimensions:
-    length: 5.0 # m
-    width: 5.0 # m
-    height: 5.0 # m
-    interlayer_thickness: 0.1 # m
-    depth: 100.0 # m
+    fresh_layer:
+      length: 5.0 # m
+      width: 5.0 # m
+      height: 5.0 # m
+
+    intermediate_layer:
+      length: 5.0 # m
+      width: 5.0 # m
+      height: 5.0 # m
+
+    saline_layer:
+      length: 5.0 # m
+      width: 5.0 # m
+      height: 5.0 # m
 
   reservoir_conditions:
     temperature: 50.0 # degC
