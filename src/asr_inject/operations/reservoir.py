@@ -469,14 +469,6 @@ class Reservoir:
         return base * np.exp(exp_term)
 
 
-
-
-
-
-
-
-
-
     @property
     def density_pure(self) -> float:
         """
