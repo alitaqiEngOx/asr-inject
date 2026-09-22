@@ -758,8 +758,39 @@ class Reservoir:
         times_to_steady_state_water.append(t[idx])
 
         # intermediate segment
+        mass_fraction_water_intermediate = (
+            (result[:, 1] * self.Mr_water)
+        ) / (
+            (result[:, 1] * self.Mr_water) +
+            (result[:, 4] * self.Mr_solute)
+        )
+
+        idx = 0
+        while (
+            mass_fraction_water_intermediate[-1] -
+            mass_fraction_water_intermediate[idx] >=
+            0.0001
+        ):
+            idx += 1
+
+        times_to_steady_state_water.append(t[idx])
 
         # saline segment
+        mass_fraction_water_saline = (
+            (result[:, 2] * self.Mr_water)
+        ) / (
+            (result[:, 2] * self.Mr_water) +
+            (result[:, 5] * self.Mr_solute)
+        )
+
+        idx = 0
+        while (
+            mass_fraction_water_saline[-1] -
+            mass_fraction_water_saline[idx] >= 0.0001
+        ):
+            idx += 1
+
+        times_to_steady_state_water.append(t[idx])
 
         # times to steady state (solute)
         times_to_steady_state_solute = []
@@ -781,6 +812,7 @@ class Reservoir:
 
         times_to_steady_state_solute.append(t[idx])
 
+        # intermediate segment
         mass_fraction_solute_intermediate = (
             (result[:, 4] * self.Mr_solute)
         ) / (
@@ -798,6 +830,7 @@ class Reservoir:
 
         times_to_steady_state_solute.append(t[idx])
 
+        # saline segment
         mass_fraction_solute_saline = (
             (result[:, 5] * self.Mr_solute)
         ) / (
