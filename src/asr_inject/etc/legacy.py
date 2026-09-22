@@ -186,4 +186,48 @@ licensing script of this repository. """
         #    "time_to_full_recovery": (
         #        time_to_full_recovery
         #    )
-        #}    
+        #}
+
+        #self.length = config[
+        #    "reservoir_dimensions"
+        #]["length"]
+
+        #self.width = config[
+        #    "reservoir_dimensions"
+        #]["width"]
+
+        #self.height = config[
+        #    "reservoir_dimensions"
+        #]["height"]
+
+        #self.interlayer_thickness = config[
+        #    "reservoir_dimensions"
+        #]["interlayer_thickness"]
+
+        #self.volume_fraction_fresh = config[
+        #    "fresh_segment"
+        #]["volume_fraction"]
+
+                #self.mass_fraction_solute_fresh_initial = config[
+        #    "fresh_segment"
+        #]["solute_mass_fraction"]
+
+        #self.mass_fraction_solute_saline_initial = config[
+        #    "saline_segment"
+        #]["solute_mass_fraction"]
+
+        #self.recovery_rate = config[
+        #    "recovery"
+        #]["flow_rate"]
+
+        #self.max_solute_fraction = config[
+        #    "recovery"
+        #]["threshold_solute_mass_fraction"]
+
+        #self.recovery_gate = 1.
+
+    #@property
+    #def volume_fraction_saline(self) -> float:
+    #    """
+    #    """
+    #    return 1. - self.volume_fraction_fresh
