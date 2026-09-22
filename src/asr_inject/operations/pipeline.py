@@ -58,10 +58,6 @@ def run(config: Path) -> None:
         water_diffusivity_data["fresh_segment"]
     )
 
-    #water_diff_params_intermediate_segment = arrhenius_fit(
-    #    water_diffusivity_data["intermediate_segment"]
-    #)
-
     water_diff_params_saline_segment = arrhenius_fit(
         water_diffusivity_data["saline_segment"]
     )
@@ -74,10 +70,6 @@ def run(config: Path) -> None:
     solute_diff_params_fresh_segment = arrhenius_fit(
         solute_diffusivity_data["fresh_segment"]
     )
-
-    #solute_diff_params_intermediate_segment = arrhenius_fit(
-    #    solute_diffusivity_data["intermediate_segment"]
-    #)
 
     solute_diff_params_saline_segment = arrhenius_fit(
         solute_diffusivity_data["saline_segment"]
@@ -96,18 +88,12 @@ def run(config: Path) -> None:
             "water_fresh_segment": (
                 water_diff_params_fresh_segment
             ),
-            #"water_intermediate_segment": (
-            #    water_diff_params_intermediate_segment
-            #),
             "water_saline_segment": (
                 water_diff_params_saline_segment
             ),
             "solute_fresh_segment": (
                 solute_diff_params_fresh_segment
             ),
-            #"solute_intermediate_segment": (
-            #    solute_diff_params_intermediate_segment
-            #),
             "solute_saline_segment": (
                 solute_diff_params_saline_segment
             ),

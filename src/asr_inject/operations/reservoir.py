@@ -380,25 +380,6 @@ class Reservoir:
         return base * np.exp(exp_term)
 
 
-    #@property
-    #def diffusivity_water_intermediate_segment(
-    #    self
-    #) -> float:
-    #    """
-    #    """
-    #    base = self.fitting[
-    #        "diffusivity_parameters"
-    #    ]["water_intermediate_segment"][0]
-
-    #    energy = self.fitting[
-    #        "diffusivity_parameters"
-    #    ]["water_intermediate_segment"][1]
-
-    #    exp_term = -energy / (R * self.temperature)
-
-    #    return base * np.exp(exp_term)
-
-
     @property
     def diffusivity_water_saline_segment(self) -> float:
         """
@@ -431,25 +412,6 @@ class Reservoir:
         exp_term = -energy / (R * self.temperature)
 
         return base * np.exp(exp_term)
-
-
-    #@property
-    #def diffusivity_solute_intermediate_segment(
-    #    self
-    #) -> float:
-    #    """
-    #    """
-    #    base = self.fitting[
-    #        "diffusivity_parameters"
-    #    ]["solute_intermediate_segment"][0]
-
-    #    energy = self.fitting[
-    #        "diffusivity_parameters"
-    #    ]["solute_intermediate_segment"][1]
-
-    #    exp_term = -energy / (R * self.temperature)
-
-    #    return base * np.exp(exp_term)
 
 
     @property
