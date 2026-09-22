@@ -168,18 +168,24 @@ class Reservoir:
         ]
 
 
-    @property
-    def volume_fraction_saline(self) -> float:
-        """
-        """
-        return 1. - self.volume_fraction_fresh
+    #@property
+    #def volume_fraction_saline(self) -> float:
+    #    """
+    #    """
+    #    return 1. - self.volume_fraction_fresh
 
 
     @property
     def volume(self) -> float:
         """
         """
-        return self.length * self.width * self.height
+        return (
+            self.length * self.width * (
+                self.height_fresh_segment +
+                self.height_intermediate_segment +
+                self.height_saline_segment
+            )
+        )
 
 
     @property
