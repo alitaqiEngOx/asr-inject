@@ -105,9 +105,11 @@ class Reservoir:
             "initial_solute_mass_fractions"
         ]["fresh_segment"]
 
-        self.mass_fraction_solute_intermediate_initial = config[
-            "initial_solute_mass_fractions"
-        ]["intermediate_segment"]
+        self.mass_fraction_solute_intermediate_initial = (
+            config[
+                "initial_solute_mass_fractions"
+            ]["intermediate_segment"]
+        )
 
         self.mass_fraction_solute_saline_initial = config[
             "initial_solute_mass_fractions"
