@@ -120,7 +120,7 @@ def plot_2d(
     )
 
     time = max(
-        results["times_to_steady_state"]
+        results["times_to_steady_state"]["solute"]
     ) / DAY_TO_SEC
 
     plt.plot(

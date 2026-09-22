@@ -737,8 +737,8 @@ class Reservoir:
             )
         )
 
-        # further results
-        times_to_steady_state = []
+        # times to steady state (solute)
+        times_to_steady_state_solute = []
 
         # fresh segment
         mass_fraction_solute_fresh = (
@@ -755,7 +755,7 @@ class Reservoir:
         ):
             idx += 1
 
-        times_to_steady_state.append(t[idx])
+        times_to_steady_state_solute.append(t[idx])
 
         mass_fraction_solute_intermediate = (
             (result[:, 4] * self.Mr_solute)
@@ -772,7 +772,7 @@ class Reservoir:
         ):
             idx += 1
 
-        times_to_steady_state.append(t[idx])
+        times_to_steady_state_solute.append(t[idx])
 
         mass_fraction_solute_saline = (
             (result[:, 5] * self.Mr_solute)
@@ -788,7 +788,7 @@ class Reservoir:
         ):
             idx += 1
 
-        times_to_steady_state.append(t[idx])
+        times_to_steady_state_solute.append(t[idx])
 
         # return outcomes
         return {
@@ -804,7 +804,8 @@ class Reservoir:
                     mass_fraction_solute_saline
                 )
             },
-            "times_to_steady_state": (
-                times_to_steady_state
-            )
+            "times_to_steady_state": {
+                "water": None,
+                "solute": times_to_steady_state_solute
+            }
         }
