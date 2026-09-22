@@ -411,22 +411,17 @@ class Reservoir:
         return base * np.exp(exp_term)
 
 
-
-
-
-
-
-
     @property
     def diffusivity_solute_fresh_segment(self) -> float:
         """
         """
         base = self.fitting[
-            "solute_diff_fresh_segment"
-        ][0]
+            "diffusivity_parameters"
+        ]["solute_fresh_segment"][0]
+
         energy = self.fitting[
-            "solute_diff_fresh_segment"
-        ][1]
+            "diffusivity_parameters"
+        ]["solute_fresh_segment"][1]
 
         exp_term = -energy / (R * self.temperature)
 
@@ -437,7 +432,17 @@ class Reservoir:
     def diffusivity_solute_intermediate_segment(self) -> float:
         """
         """
-        raise NotImplementedError
+        base = self.fitting[
+            "diffusivity_parameters"
+        ]["solute_intermediate_segment"][0]
+
+        energy = self.fitting[
+            "diffusivity_parameters"
+        ]["solute_intermediate_segment"][1]
+
+        exp_term = -energy / (R * self.temperature)
+
+        return base * np.exp(exp_term)
 
 
     @property
@@ -445,15 +450,24 @@ class Reservoir:
         """
         """
         base = self.fitting[
-            "solute_diff_saline_segment"
-        ][0]
+            "diffusivity_parameters"
+        ]["solute_saline_segment"][0]
+
         energy = self.fitting[
-            "solute_diff_saline_segment"
-        ][1]
+            "diffusivity_parameters"
+        ]["solute_saline_segment"][1]
 
         exp_term = -energy / (R * self.temperature)
 
         return base * np.exp(exp_term)
+
+
+
+
+
+
+
+
 
 
     @property
