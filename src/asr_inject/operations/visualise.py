@@ -78,6 +78,19 @@ def plot_2d(
         label="saline segment"
     )
 
+    time = max(
+        results["times_to_steady_state"]["water"]
+    ) / DAY_TO_SEC
+
+    plt.plot(
+        np.asarray([time, time]),
+        np.asarray([
+            np.min(water_mass), np.max(water_mass)
+        ]),
+        "k--",
+        label="time to steady state"
+    )
+
     filename = "water_mass"
     plt.legend(loc="best")
     plt.title(filename)
