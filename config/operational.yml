@@ -37,14 +37,6 @@ water_diffusivity:
 
     outfile: $GLOBAL_OUTDIR/fitting/water_diffusivity_fresh.png
 
-  intermediate_segment:
-    data:
-    # - [degC, m^2/s]
-      - [0.0, 1.0e-9]
-      - [100.0, 1.0e-9]
-
-    outfile: $GLOBAL_OUTDIR/fitting/water_diffusivity_intermediate.png
-
   saline_segment:
     data:
     # - [degC, m^2/s]
