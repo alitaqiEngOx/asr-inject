@@ -8,9 +8,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numpy.typing import NDArray
 
+from asr_inject.utils.log_handler import create
+
+
+LOGGER = create("visualise")
 
 DAY_TO_SEC = 86400.
 k_TO_SI = 1000.
+
 
 def plot_2d(
         results: dict[str, NDArray], *,
