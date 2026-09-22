@@ -54,15 +54,15 @@ def run(config: Path) -> None:
         "water_diffusivity"
     )
 
-    water_diff_coeff_fresh_segment = arrhenius_fit(
+    water_diff_params_fresh_segment = arrhenius_fit(
         water_diffusivity_data["fresh_segment"]
     )
 
-    water_diffusivity_intermediate_segment = arrhenius_fit(
+    water_diff_params_intermediate_segment = arrhenius_fit(
         water_diffusivity_data["intermediate_segment"]
     )
 
-    water_diff_coeff_saline_segment = arrhenius_fit(
+    water_diff_params_saline_segment = arrhenius_fit(
         water_diffusivity_data["saline_segment"]
     )
 
@@ -71,11 +71,15 @@ def run(config: Path) -> None:
         "solute_diffusivity"
     )
 
-    solute_diff_coeff_fresh_segment = arrhenius_fit(
+    solute_diff_params_fresh_segment = arrhenius_fit(
         solute_diffusivity_data["fresh_segment"]
     )
 
-    solute_diff_coeff_saline_segment = arrhenius_fit(
+    solute_diff_params_intermediate_segment = arrhenius_fit(
+        solute_diffusivity_data["intermediate_segment"]
+    )
+
+    solute_diff_params_saline_segment = arrhenius_fit(
         solute_diffusivity_data["saline_segment"]
     )
 
@@ -88,21 +92,24 @@ def run(config: Path) -> None:
             "temperature": density_coefficients,
             "salinity": density_data["salinity_fitting"]
         },
-        "diffusion_coefficients": {
+        "diffusivity_parameters": {
             "water_fresh_segment": (
-                water_diff_coeff_fresh_segment
+                water_diff_params_fresh_segment
             ),
             "water_intermediate_segment": (
-                water_diffusivity_intermediate_segment
+                water_diff_params_intermediate_segment
             ),
             "water_saline_segment": (
-                water_diff_coeff_saline_segment
+                water_diff_params_saline_segment
             ),
             "solute_fresh_segment": (
-                solute_diff_coeff_fresh_segment
+                solute_diff_params_fresh_segment
+            ),
+            "solute_intermediate_segment": (
+                solute_diff_params_intermediate_segment
             ),
             "solute_saline_segment": (
-                solute_diff_coeff_saline_segment
+                solute_diff_params_saline_segment
             ),
         }
     }
