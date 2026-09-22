@@ -51,18 +51,6 @@ def plot_2d(
         k_TO_SI
     )
 
-    #if results["time_to_recovery_limit"]:
-    #    limiting = (
-    #        results["time_to_recovery_limit"] / DAY_TO_SEC
-    #    )
-    #    limit_label = "recovery limit"
-
-    #else:
-    #    limiting = (
-    #        results["time_to_full_recovery"] / DAY_TO_SEC
-    #    )
-    #    limit_label = "full recovery"
-
     plt.plot(
         (
             np.arange(config["n_steps"]) *
@@ -89,15 +77,6 @@ def plot_2d(
         water_mass[:, 2],
         label="saline segment"
     )
-
-    #plt.plot(
-    #    (
-    #        np.arange(config["n_steps"]) *
-    #        config["step_size"] / DAY_TO_SEC
-    #    ),
-    #    water_mass[:, 2],
-    #    label="recovered"
-    #)
 
     filename = "water_mass"
     plt.legend(loc="best")
@@ -152,7 +131,35 @@ def plot_2d(
         "k--",
         label="time to steady state"
     )
-        
+
+    filename = "solute_mass"
+    plt.legend(loc="best")
+    plt.title(filename)
+    plt.xlabel("time (days)")
+    plt.ylabel("mass (kg)")
+    plt.savefig(f"{outdir / f"{filename}.png"}")
+    plt.close()
+
+    #if results["time_to_recovery_limit"]:
+    #    limiting = (
+    #        results["time_to_recovery_limit"] / DAY_TO_SEC
+    #    )
+    #    limit_label = "recovery limit"
+
+    #else:
+    #    limiting = (
+    #        results["time_to_full_recovery"] / DAY_TO_SEC
+    #    )
+    #    limit_label = "full recovery"
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    water_mass[:, 2],
+    #    label="recovered"
+    #)
 
     #plt.plot(
     #    (
@@ -171,14 +178,6 @@ def plot_2d(
     #    "k--",
     #    label=limit_label
     #)
-
-    filename = "solute_mass"
-    plt.legend(loc="best")
-    plt.title(filename)
-    plt.xlabel("time (days)")
-    plt.ylabel("mass (kg)")
-    plt.savefig(f"{outdir / f"{filename}.png"}")
-    plt.close()
 
     # mass fraction of fresh segment
     #mass_fraction = results["mass_fraction_solute_fresh"]
