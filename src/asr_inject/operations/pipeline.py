@@ -58,6 +58,10 @@ def run(config: Path) -> None:
         water_diffusivity_data["fresh_segment"]
     )
 
+    water_diffusivity_intermediate_segment = arrhenius_fit(
+        water_diffusivity_data["intermediate_segment"]
+    )
+
     water_diff_coeff_saline_segment = arrhenius_fit(
         water_diffusivity_data["saline_segment"]
     )
@@ -87,6 +91,9 @@ def run(config: Path) -> None:
         "diffusion_coefficients": {
             "water_fresh_segment": (
                 water_diff_coeff_fresh_segment
+            ),
+            "water_intermediate_segment": (
+                water_diffusivity_intermediate_segment
             ),
             "water_saline_segment": (
                 water_diff_coeff_saline_segment

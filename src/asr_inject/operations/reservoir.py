@@ -360,16 +360,6 @@ class Reservoir:
         )
 
 
-
-
-
-
-
-
-
-
-
-
     @property
     def diffusivity_water_fresh_segment(self) -> float:
         """
@@ -384,6 +374,13 @@ class Reservoir:
         exp_term = -energy / (R * self.temperature)
 
         return base * np.exp(exp_term)
+
+
+    @property
+    def diffusivity_water_intermediate_segment(self) -> float:
+        """
+        """
+        raise NotImplementedError
 
 
     @property
@@ -416,6 +413,13 @@ class Reservoir:
         exp_term = -energy / (R * self.temperature)
 
         return base * np.exp(exp_term)
+
+
+    @property
+    def diffusivity_solute_intermediate_segment(self) -> float:
+        """
+        """
+        raise NotImplementedError
 
 
     @property
