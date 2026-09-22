@@ -233,25 +233,44 @@ class Reservoir:
         """
         """
         return (
-            self.density_pure * self.volume_fresh *
+            self.density_pure *
+            self.volume_fresh_segment *
+            self.fresh_segment_void_fraction *
             self.mass_fraction_water_fresh_initial
         )
 
 
-    
-    
-    
-    
-    
-    
+    @property
+    def mass_water_intermediate_initial(self) -> float:
+        """
+        """
+        return (
+            self.density_pure *
+            self.volume_intermediate_segment *
+            self.intermediate_segment_void_fraction *
+            self.mass_fraction_water_intermediate_initial
+        )
+
+
     @property
     def mass_water_saline_initial(self) -> float:
         """
         """
         return (
-            self.density_pure * self.volume_saline *
+            self.density_pure *
+            self.volume_saline_segment *
+            self.saline_segment_void_fraction *
             self.mass_fraction_water_saline_initial
         )
+
+
+    
+    
+    
+    
+    
+    
+
 
 
     @property
