@@ -156,22 +156,14 @@ class Reservoir:
     def numerical_separation(self) -> list[float]:
         """
         """
-        height_fresh = (
-            self.height * self.volume_fraction_fresh
-        )
-
-        height_saline = (
-            self.height * self.volume_fraction_saline
-        )
-
         return [
             (
-                0.5 * height_fresh +
-                0.5 * self.interlayer_thickness
+                0.5 * self.height_fresh_segment +
+                0.5 * self.height_intermediate_segment
             ),
             (
-                0.5 * self.interlayer_thickness +
-                0.5 * height_saline
+                0.5 * self.height_intermediate_segment +
+                0.5 * self.height_saline_segment
             )
         ]
 
