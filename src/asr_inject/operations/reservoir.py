@@ -140,11 +140,14 @@ class Reservoir:
 
 
     @property
-    def mass_fraction_water_intermediate_initial(self) -> float:
+    def mass_fraction_water_intermediate_initial(
+        self
+    ) -> float:
         """
         """
         return (
-            1. - self.mass_fraction_solute_intermediate_initial
+            1. -
+            self.mass_fraction_solute_intermediate_initial
         )
 
 
@@ -378,7 +381,9 @@ class Reservoir:
 
 
     @property
-    def diffusivity_water_intermediate_segment(self) -> float:
+    def diffusivity_water_intermediate_segment(
+        self
+    ) -> float:
         """
         """
         base = self.fitting[
@@ -429,7 +434,9 @@ class Reservoir:
 
 
     @property
-    def diffusivity_solute_intermediate_segment(self) -> float:
+    def diffusivity_solute_intermediate_segment(
+        self
+    ) -> float:
         """
         """
         base = self.fitting[
@@ -576,10 +583,15 @@ class Reservoir:
             )
 
             water_mass_fraction_intermediate = (
-                (water_fraction_intermediate * self.Mr_water) /
                 (
-                    water_fraction_intermediate * self.Mr_water +
-                    solute_fraction_intermediate * self.Mr_solute
+                    water_fraction_intermediate *
+                    self.Mr_water
+                ) /
+                (
+                    water_fraction_intermediate *
+                    self.Mr_water +
+                    solute_fraction_intermediate *
+                    self.Mr_solute
                 )
             )
 
@@ -587,8 +599,10 @@ class Reservoir:
                 1. - water_mass_fraction_intermediate
             )
 
-            density_solution_intermediate = self.compute_density_solution(
-                solute_mass_fraction_intermediate
+            density_solution_intermediate = (
+                self.compute_density_solution(
+                    solute_mass_fraction_intermediate
+                )
             )
 
             water_concentration_intermediate = (
@@ -628,8 +642,10 @@ class Reservoir:
                 1. - water_mass_fraction_saline
             )
 
-            density_solution_saline = self.compute_density_solution(
-                solute_mass_fraction_saline
+            density_solution_saline = (
+                self.compute_density_solution(
+                    solute_mass_fraction_saline
+                )
             )
 
             water_concentration_saline = (
@@ -842,7 +858,8 @@ class Reservoir:
         idx = 0
         while (
             mass_fraction_solute_intermediate[-1] -
-            mass_fraction_solute_intermediate[idx] >= 0.0001
+            mass_fraction_solute_intermediate[idx] >=
+            0.0001
         ):
             idx += 1
 
