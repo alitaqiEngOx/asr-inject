@@ -144,6 +144,15 @@ class Reservoir:
 
 
     @property
+    def mass_fraction_water_intermediate_initial(self) -> float:
+        """
+        """
+        return (
+            1. - self.mass_fraction_solute_intermediate_initial
+        )
+
+
+    @property
     def mass_fraction_water_saline_initial(self) -> float:
         """
         """
