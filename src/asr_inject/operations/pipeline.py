@@ -25,14 +25,14 @@ def run(config: Path) -> None:
     # 1. GENERATE OUTPUTS' DIRECTORY
     # ----------------------------------------
     outdir = make_global_outdir(
-        config.parent, return_name=True
+        config.parent, return_path=True
     )
 
     # ----------------------------------------
     # 2. READ `.yml` AND LOOP THROUGH ENTRIES
     # ----------------------------------------
     config_dict = read(
-        config, global_outdir_name=outdir
+        config, global_outdir_name=outdir.name
     )
 
     # ----------------------------------------
@@ -117,6 +117,11 @@ def run(config: Path) -> None:
                 value["hmax"] if "hmax" in value.keys()
                 else None
             )
+        )
+
+        plot_2d(
+            output, config=value, fitting=fitting,
+            outdir=(outdir / f"{key}")
         )
 
 

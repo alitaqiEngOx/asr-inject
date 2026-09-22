@@ -11,7 +11,7 @@ LOGGER = create("outtree")
 
 
 def make_global_outdir(
-        parent_dir: Path, *, return_name: bool=False
+        parent_dir: Path, *, return_path: bool=False
 ) -> str | None:
     """
     """
@@ -25,5 +25,5 @@ def make_global_outdir(
 
     outdir.mkdir(parents=True, exist_ok=True)
 
-    if return_name:
-        return outdir.name
+    if return_path:
+        return outdir
