@@ -176,30 +176,44 @@ class Reservoir:
 
 
     @property
-    def volume(self) -> float:
+    def volume_fresh_segment(self) -> float:
         """
         """
         return (
-            self.length * self.width * (
-                self.height_fresh_segment +
-                self.height_intermediate_segment +
-                self.height_saline_segment
-            )
+            self.length * self.width *
+            self.height_fresh_segment
         )
 
 
     @property
-    def volume_fresh(self) -> float:
+    def volume_intermediate_segment(self) -> float:
         """
         """
-        return self.volume * self.volume_fraction_fresh
+        return (
+            self.length * self.width *
+            self.height_intermediate_segment
+        )
 
 
     @property
-    def volume_saline(self) -> float:
+    def volume_saline_segment(self) -> float:
         """
         """
-        return self.volume * self.volume_fraction_saline
+        return (
+            self.length * self.width *
+            self.height_saline_segment
+        )
+
+
+    @property
+    def volume(self) -> float:
+        """
+        """
+        return (
+            self.volume_fresh_segment +
+            self.volume_intermediate_segment +
+            self.volume_saline_segment
+        )
 
 
     @property
@@ -212,6 +226,12 @@ class Reservoir:
         )
 
 
+    
+    
+    
+    
+    
+    
     @property
     def mass_water_saline_initial(self) -> float:
         """
