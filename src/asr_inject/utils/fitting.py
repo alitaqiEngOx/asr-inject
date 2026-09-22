@@ -75,7 +75,10 @@ def arrhenius_fit(
     return np.exp(intercept), -R * slope
 
 
-def density_fit(data_dict: dict[str, Any]) -> NDArray:
+def density_fit(
+        data_dict: dict[str, Any], *,
+        outname: Path | None=None
+) -> NDArray:
     """
     """
     LOGGER.info("fitting density data")
@@ -95,17 +98,15 @@ def density_fit(data_dict: dict[str, Any]) -> NDArray:
     )
 
     # plots
-    if "outfile" in data_dict.keys():
-        outfile = Path(data_dict["outfile"])
-
+    if outname is not None:
         try:
-            outfile.parent.mkdir(
+            outname.parent.mkdir(
                 parents=True, exist_ok=True
             )
 
         except:
             LOGGER.error(
-                f"{outfile.name} could not be generated"
+                f"`{outname.parent}` could not be generated"
             )
 
             raise
@@ -146,10 +147,10 @@ def density_fit(data_dict: dict[str, Any]) -> NDArray:
             )
 
         plt.legend(loc="best")
-        plt.title(str(outfile.stem))
+        plt.title(str(outname.stem))
         plt.xlabel("T (degC)")
         plt.ylabel("dens (kg/m^3)")
-        plt.savefig(str(outfile))
+        plt.savefig(str(outname))
         plt.close()
 
     return np.asarray(coefficients)

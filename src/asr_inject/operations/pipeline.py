@@ -47,7 +47,10 @@ def run(config: Path) -> None:
 
     # fit density
     density_data = config_dict.pop("density")
-    density_coefficients = density_fit(density_data)
+    density_coefficients = density_fit(
+        density_data,
+        outname=(outdir / "fitting" / "density")
+    )
 
     # fit water diffusivity
     water_diffusivity_data = config_dict.pop(

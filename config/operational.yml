@@ -26,8 +26,6 @@ density:
     #A1: -2.0 # kg/(m^3.K)
 # rho(T, S) = rho(T) + S(A0 + T.A1)
 
-  outfile: $GLOBAL_OUTDIR/fitting/density.png
-
 water_diffusivity:
   fresh_segment:
     data:

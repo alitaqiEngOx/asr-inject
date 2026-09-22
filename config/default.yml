@@ -43,8 +43,6 @@ density:
     A1: -2.0 # kg/(m^3.K)
 # rho(T, S) = rho(T) + S(A0 + T.A1)
 
-  outfile: $GLOBAL_OUTDIR/fitting/density.png
-
 water_diffusivity:
 # -> Easteal, 1989, J. Chem. Soc., Faraday Trans. 1, 85
   fresh_segment:
