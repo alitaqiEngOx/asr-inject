@@ -91,12 +91,10 @@ job_0:
     temperature: 50.0 # degC
     pressure: 10.0 # bara
 
-  fresh_segment:
-    volume_fraction: 0.5
-    solute_mass_fraction: 0.0001
-
-  saline_segment:
-    solute_mass_fraction: 0.05
+  initial_solute_mass_fractions:
+    fresh_segment: 0.05
+    intermediate_segment: 0.1
+    saline_segment: 0.5
 
   recovery:
     flow_rate: 0. # kg/s

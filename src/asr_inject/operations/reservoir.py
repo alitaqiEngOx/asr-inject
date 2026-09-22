@@ -41,37 +41,37 @@ class Reservoir:
             "reservoir_dimensions"
         ]["fresh_layer"]["length"]
 
-        self.width_fresh_layer = config[
+        self.width_fresh_segment = config[
             "reservoir_dimensions"
-        ]["fresh_layer"]["width"]
+        ]["fresh_segment"]["width"]
 
-        self.height_fresh_layer = config[
+        self.height_fresh_segment = config[
             "reservoir_dimensions"
-        ]["fresh_layer"]["height"]
+        ]["fresh_segment"]["height"]
 
-        self.length_intermediate_layer = config[
+        self.length_intermediate_segment = config[
             "reservoir_dimensions"
-        ]["intermediate_layer"]["length"]
+        ]["intermediate_segment"]["length"]
 
-        self.width_intermediate_layer = config[
+        self.width_intermediate_segment = config[
             "reservoir_dimensions"
-        ]["intermediate_layer"]["width"]
+        ]["intermediate_segment"]["width"]
 
-        self.height_intermediate_layer = config[
+        self.height_intermediate_segment = config[
             "reservoir_dimensions"
-        ]["intermediate_layer"]["height"]
+        ]["intermediate_segment"]["height"]
 
-        self.length_saline_layer = config[
+        self.length_saline_segment = config[
             "reservoir_dimensions"
-        ]["saline_layer"]["length"]
+        ]["saline_segment"]["length"]
 
-        self.width_saline_layer = config[
+        self.width_saline_segment = config[
             "reservoir_dimensions"
-        ]["saline_layer"]["width"]
+        ]["saline_segment"]["width"]
 
-        self.height_saline_layer = config[
+        self.height_saline_segment = config[
             "reservoir_dimensions"
-        ]["saline_layer"]["height"]
+        ]["saline_segment"]["height"]
 
         #self.length = config[
         #    "reservoir_dimensions"
@@ -97,17 +97,29 @@ class Reservoir:
             "reservoir_conditions"
         ]["pressure"] * BAR_TO_PA
 
-        self.volume_fraction_fresh = config[
-            "fresh_segment"
-        ]["volume_fraction"]
+        #self.volume_fraction_fresh = config[
+        #    "fresh_segment"
+        #]["volume_fraction"]
 
         self.mass_fraction_solute_fresh_initial = config[
-            "fresh_segment"
-        ]["solute_mass_fraction"]
+            "initial_solute_mass_fractions"
+        ]["fresh_segment"]
+
+        self.mass_fraction_solute_intermediate_initial = config[
+            "initial_solute_mass_fractions"
+        ]["intermediate_segment"]
 
         self.mass_fraction_solute_saline_initial = config[
-            "saline_segment"
-        ]["solute_mass_fraction"]
+            "initial_solute_mass_fractions"
+        ]["saline_segment"]
+
+        #self.mass_fraction_solute_fresh_initial = config[
+        #    "fresh_segment"
+        #]["solute_mass_fraction"]
+
+        #self.mass_fraction_solute_saline_initial = config[
+        #    "saline_segment"
+        #]["solute_mass_fraction"]
 
         self.recovery_rate = config[
             "recovery"

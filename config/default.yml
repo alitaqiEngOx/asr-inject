@@ -112,17 +112,17 @@ solute_diffusivity:
 # ===============================
 job_0:
   reservoir_dimensions:
-    fresh_layer:
+    fresh_segment:
       length: 5.0 # m
       width: 5.0 # m
       height: 5.0 # m
 
-    intermediate_layer:
+    intermediate_segment:
       length: 5.0 # m
       width: 5.0 # m
       height: 5.0 # m
 
-    saline_layer:
+    saline_segment:
       length: 5.0 # m
       width: 5.0 # m
       height: 5.0 # m
@@ -131,12 +131,20 @@ job_0:
     temperature: 50.0 # degC
     pressure: 10.0 # bara
 
-  fresh_segment:
-    volume_fraction: 0.5
-    solute_mass_fraction: 0.0001
+  initial_solute_mass_fractions:
+    fresh_segment: 0.05
+    intermediate_segment: 0.1
+    saline_segment: 0.5
 
-  saline_segment:
-    solute_mass_fraction: 0.05
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   recovery:
     flow_rate: 0.05 # kg/s
