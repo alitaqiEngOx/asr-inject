@@ -121,15 +121,15 @@ class Reservoir:
         #    "saline_segment"
         #]["solute_mass_fraction"]
 
-        self.recovery_rate = config[
-            "recovery"
-        ]["flow_rate"]
+        #self.recovery_rate = config[
+        #    "recovery"
+        #]["flow_rate"]
 
-        self.max_solute_fraction = config[
-            "recovery"
-        ]["threshold_solute_mass_fraction"]
+        #self.max_solute_fraction = config[
+        #    "recovery"
+        #]["threshold_solute_mass_fraction"]
 
-        self.recovery_gate = 1.
+        #self.recovery_gate = 1.
 
 
     @property

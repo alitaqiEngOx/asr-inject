@@ -135,20 +135,6 @@ job_0:
     fresh_segment: 0.05
     intermediate_segment: 0.1
     saline_segment: 0.5
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  recovery:
-    flow_rate: 0.05 # kg/s
-    threshold_solute_mass_fraction: 0.05
   
   # numerics
   n_steps: 10000000

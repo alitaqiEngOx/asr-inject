@@ -96,10 +96,6 @@ job_0:
     intermediate_segment: 0.1
     saline_segment: 0.5
 
-  recovery:
-    flow_rate: 0. # kg/s
-    threshold_solute_mass_fraction: 0.
-
   # numerics
   n_steps: 8000000
   step_size: 0.5
