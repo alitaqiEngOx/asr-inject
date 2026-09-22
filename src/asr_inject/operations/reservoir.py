@@ -317,7 +317,7 @@ class Reservoir:
     def moles_water_intermediate_initial(self) -> float:
         """
         """
-        raise (
+        return (
             self.mass_water_intermediate_initial /
             self.Mr_water
         )
@@ -347,7 +347,7 @@ class Reservoir:
     def moles_solute_intermediate_initial(self) -> float:
         """
         """
-        raise (
+        return (
             self.mass_solute_intermediate_initial /
             self.Mr_solute
         )

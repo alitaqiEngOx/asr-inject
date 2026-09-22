@@ -58,9 +58,9 @@ def run(config: Path) -> None:
         water_diffusivity_data["fresh_segment"]
     )
 
-    water_diff_params_intermediate_segment = arrhenius_fit(
-        water_diffusivity_data["intermediate_segment"]
-    )
+    #water_diff_params_intermediate_segment = arrhenius_fit(
+    #    water_diffusivity_data["intermediate_segment"]
+    #)
 
     water_diff_params_saline_segment = arrhenius_fit(
         water_diffusivity_data["saline_segment"]
@@ -75,9 +75,9 @@ def run(config: Path) -> None:
         solute_diffusivity_data["fresh_segment"]
     )
 
-    solute_diff_params_intermediate_segment = arrhenius_fit(
-        solute_diffusivity_data["intermediate_segment"]
-    )
+    #solute_diff_params_intermediate_segment = arrhenius_fit(
+    #    solute_diffusivity_data["intermediate_segment"]
+    #)
 
     solute_diff_params_saline_segment = arrhenius_fit(
         solute_diffusivity_data["saline_segment"]
@@ -96,18 +96,18 @@ def run(config: Path) -> None:
             "water_fresh_segment": (
                 water_diff_params_fresh_segment
             ),
-            "water_intermediate_segment": (
-                water_diff_params_intermediate_segment
-            ),
+            #"water_intermediate_segment": (
+            #    water_diff_params_intermediate_segment
+            #),
             "water_saline_segment": (
                 water_diff_params_saline_segment
             ),
             "solute_fresh_segment": (
                 solute_diff_params_fresh_segment
             ),
-            "solute_intermediate_segment": (
-                solute_diff_params_intermediate_segment
-            ),
+            #"solute_intermediate_segment": (
+            #    solute_diff_params_intermediate_segment
+            #),
             "solute_saline_segment": (
                 solute_diff_params_saline_segment
             ),
@@ -163,27 +163,27 @@ def run(config: Path) -> None:
     #    )
     #)
 
-    plot_2d(
-        output, config=config_dict,
-        outdir=(outdir / "results")
-    )
+    #plot_2d(
+    #    output, config=config_dict,
+    #    outdir=(outdir / "results")
+    #)
 
     # temporary prints
-    print(
-        "final efficiency: "
-        f"{output['asr_efficiency'][-1]}"
-    )
+    #print(
+    #    "final efficiency: "
+    #    f"{output['asr_efficiency'][-1]}"
+    #)
 
-    if output['time_to_recovery_limit']:
-        print(
-            "time to recovery limit: "
-            f"{output['time_to_recovery_limit'] / 86400.} "
-            "days"
-        )
+    #if output['time_to_recovery_limit']:
+    #    print(
+    #        "time to recovery limit: "
+    #        f"{output['time_to_recovery_limit'] / 86400.} "
+    #        "days"
+    #    )
 
-    else:
-        print(
-            "time to full recovery: "
-            f"{output['time_to_full_recovery'] / 86400.} "
-            "days"
-        )
+    #else:
+    #    print(
+    #        "time to full recovery: "
+    #        f"{output['time_to_full_recovery'] / 86400.} "
+    #        "days"
+    #    )
