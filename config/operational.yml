@@ -79,6 +79,11 @@ job_0:
       intermediate_segment: 0.5 # m
       saline_segment: 5.0 # m
 
+  reservoir_porosity:
+    fresh_segment_void_fraction: 0.5
+    intermediate_segment_void_fraction: 0.25
+    saline_segment_void_fraction: 0.2
+
   reservoir_conditions:
     temperature: 50.0 # degC
     pressure: 10.0 # bara

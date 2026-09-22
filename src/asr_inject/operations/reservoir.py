@@ -73,6 +73,18 @@ class Reservoir:
         #    "reservoir_dimensions"
         #]["interlayer_thickness"]
 
+        self.fresh_segment_void_fraction = config[
+            "reservoir_porosity"
+        ]["fresh_segment_void_fraction"]
+
+        self.intermediate_segment_void_fraction = config[
+            "reservoir_porosity"
+        ]["intermediate_segment_void_fraction"]
+
+        self.saline_segment_void_fraction = config[
+            "reservoir_porosity"
+        ]["saline_segment_void_fraction"]
+
         self.temperature = config[
             "reservoir_conditions"
         ]["temperature"] + CELSIUS_TO_KELVIN
