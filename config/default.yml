@@ -112,20 +112,12 @@ solute_diffusivity:
 # ===============================
 job_0:
   reservoir_dimensions:
-    fresh_segment:
-      length: 5.0 # m
-      width: 5.0 # m
-      height: 5.0 # m
-
-    intermediate_segment:
-      length: 5.0 # m
-      width: 5.0 # m
-      height: 5.0 # m
-
-    saline_segment:
-      length: 5.0 # m
-      width: 5.0 # m
-      height: 5.0 # m
+    length: 5.0 # m
+    width: 5.0 # m
+    height:
+      fresh_segment: 5.0 # m
+      intermediate_segment: 0.5 # m
+      saline_segment: 5.0 # m
 
   reservoir_conditions:
     temperature: 50.0 # degC

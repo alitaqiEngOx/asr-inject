@@ -37,41 +37,25 @@ class Reservoir:
             "solution_characteristics"
         ]["Mr_solute"]
 
-        self.length_fresh_layer = config[
+        self.length = config[
             "reservoir_dimensions"
-        ]["fresh_layer"]["length"]
+        ]["length"]
 
-        self.width_fresh_segment = config[
+        self.width = config[
             "reservoir_dimensions"
-        ]["fresh_segment"]["width"]
+        ]["length"]
 
         self.height_fresh_segment = config[
             "reservoir_dimensions"
-        ]["fresh_segment"]["height"]
-
-        self.length_intermediate_segment = config[
-            "reservoir_dimensions"
-        ]["intermediate_segment"]["length"]
-
-        self.width_intermediate_segment = config[
-            "reservoir_dimensions"
-        ]["intermediate_segment"]["width"]
+        ]["height"]["fresh_segment"]
 
         self.height_intermediate_segment = config[
             "reservoir_dimensions"
-        ]["intermediate_segment"]["height"]
-
-        self.length_saline_segment = config[
-            "reservoir_dimensions"
-        ]["saline_segment"]["length"]
-
-        self.width_saline_segment = config[
-            "reservoir_dimensions"
-        ]["saline_segment"]["width"]
+        ]["height"]["intermediate_segment"]
 
         self.height_saline_segment = config[
             "reservoir_dimensions"
-        ]["saline_segment"]["height"]
+        ]["height"]["saline_segment"]
 
         #self.length = config[
         #    "reservoir_dimensions"
