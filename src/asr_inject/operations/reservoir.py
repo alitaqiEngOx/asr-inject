@@ -314,7 +314,10 @@ class Reservoir:
     def moles_water_intermediate_initial(self) -> float:
         """
         """
-        raise NotImplementedError
+        raise (
+            self.mass_water_intermediate_initial /
+            self.Mr_water
+        )
 
 
     @property
@@ -341,7 +344,10 @@ class Reservoir:
     def moles_solute_intermediate_initial(self) -> float:
         """
         """
-        raise NotImplementedError
+        raise (
+            self.mass_solute_intermediate_initial /
+            self.Mr_solute
+        )
 
 
     @property
@@ -352,6 +358,16 @@ class Reservoir:
             self.mass_solute_saline_initial /
             self.Mr_solute
         )
+
+
+
+
+
+
+
+
+
+
 
 
     @property
