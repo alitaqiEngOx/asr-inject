@@ -99,15 +99,6 @@ def plot_2d(
     #    label="recovered"
     #)
 
-    #plt.plot(
-    #    np.asarray([limiting, limiting]),
-    #    np.asarray([
-    #        np.min(water_mass), np.max(water_mass)
-    #    ]),
-    #    "k--",
-    #)
-    #    label=limit_label
-
     filename = "water_mass"
     plt.legend(loc="best")
     plt.title(filename)
@@ -117,28 +108,51 @@ def plot_2d(
     plt.close()
 
     # solute moles
-    #solute_mass = results["moles"][:, 3:] * (
-    #    config["solution_characteristics"]["Mr_solute"] /
-    #    k_TO_SI
-    #)
+    solute_mass = results["moles"][:, 3:] * (
+        fitting["solution_characteristics"]["Mr_solute"] /
+        k_TO_SI
+    )
 
-    #plt.plot(
-    #    (
-    #        np.arange(config["n_steps"]) *
-    #        config["step_size"] / DAY_TO_SEC
-    #    ),
-    #    solute_mass[:, 0],
-    #    label="fresh segment"
-    #)
+    plt.plot(
+        (
+            np.arange(config["n_steps"]) *
+            config["step_size"] / DAY_TO_SEC
+        ),
+        solute_mass[:, 0],
+        label="fresh segment"
+    )
 
-    #plt.plot(
-    #    (
-    #        np.arange(config["n_steps"]) *
-    #        config["step_size"] / DAY_TO_SEC
-    #    ),
-    #    solute_mass[:, 1],
-    #    label="saline segment"
-    #)
+    plt.plot(
+        (
+            np.arange(config["n_steps"]) *
+            config["step_size"] / DAY_TO_SEC
+        ),
+        solute_mass[:, 1],
+        label="intermediate segment"
+    )
+
+    plt.plot(
+        (
+            np.arange(config["n_steps"]) *
+            config["step_size"] / DAY_TO_SEC
+        ),
+        solute_mass[:, 2],
+        label="saline segment"
+    )
+
+    time = max(
+        results["times_to_steady_state"]
+    ) / DAY_TO_SEC
+
+    plt.plot(
+        np.asarray([time, time]),
+        np.asarray([
+            np.min(solute_mass), np.max(solute_mass)
+        ]),
+        "k--",
+        label="time to steady state"
+    )
+        
 
     #plt.plot(
     #    (
@@ -158,13 +172,13 @@ def plot_2d(
     #    label=limit_label
     #)
 
-    #filename = "solute_mass"
-    #plt.legend(loc="best")
-    #plt.title(filename)
-    #plt.xlabel("time (days)")
-    #plt.ylabel("mass (kg)")
-    #plt.savefig(f"{outdir / f"{filename}.png"}")
-    #plt.close()
+    filename = "solute_mass"
+    plt.legend(loc="best")
+    plt.title(filename)
+    plt.xlabel("time (days)")
+    plt.ylabel("mass (kg)")
+    plt.savefig(f"{outdir / f"{filename}.png"}")
+    plt.close()
 
     # mass fraction of fresh segment
     #mass_fraction = results["mass_fraction_solute_fresh"]
