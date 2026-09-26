@@ -862,7 +862,11 @@ class Reservoir:
                 )
             },
             "times_to_steady_state": {
-                "water": times_to_steady_state_water,
-                "solute": times_to_steady_state_solute
+                "water": (
+                    np.asarray(times_to_steady_state_water)
+                ),
+                "solute": (
+                    np.asarray(times_to_steady_state_solute)
+                )
             }
         }

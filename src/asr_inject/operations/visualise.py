@@ -39,7 +39,7 @@ def plot_2d(
         *, outname: Path,
         y_domain_labels: list[str] | None=None, 
         axis_labels: list[str] | None=None,
-        times_to_steady_state: list[float] | None=None
+        times_to_steady_state: NDArray | None=None
         #results: dict[str, NDArray], *,
         #config: dict[str, Any], 
         #fitting: dict[str, Any],
@@ -50,7 +50,7 @@ def plot_2d(
     # make outdir
     outname.parent.mkdir(parents=True, exist_ok=True)
 
-    for idx in range(len(y_domains.shape[1])):
+    for idx in range(y_domains.shape[1]):
         plt.plot(
             x_domain, y_domains[:, idx],
             label=(
@@ -60,7 +60,7 @@ def plot_2d(
         )
 
     if times_to_steady_state is not None:
-        time = max(times_to_steady_state)
+        time = np.max(times_to_steady_state)
 
     plt.plot(
         np.asarray([time, time]),
@@ -69,7 +69,6 @@ def plot_2d(
         ]),
         "k--", label="time to steady state"
     )
-
 
     plt.title(outname.stem)
 
@@ -80,7 +79,7 @@ def plot_2d(
         plt.xlabel(axis_labels[0])
         plt.ylabel(axis_labels[1])
 
-    plt.savefig(outname.name)
+    plt.savefig(outname)
     plt.close()
 
     
@@ -137,13 +136,13 @@ def plot_2d(
     #    label="time to steady state"
     #)
 
-    filename = "water_mass"
-    plt.legend(loc="best")
-    plt.title(outname.stem)
-    plt.xlabel("time (days)")
-    plt.ylabel("mass (kg)")
-    plt.savefig(outname.name)
-    plt.close()
+    #filename = "water_mass"
+    #plt.legend(loc="best")
+    #plt.title(outname.stem)
+    #plt.xlabel("time (days)")
+    #plt.ylabel("mass (kg)")
+    #plt.savefig(outname.name)
+    #plt.close()
 
     # solute moles
     #solute_mass = results["moles"][:, 3:] * (

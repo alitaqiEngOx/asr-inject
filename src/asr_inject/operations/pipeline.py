@@ -3,6 +3,8 @@ licensing script of this repository. """
 
 from pathlib import Path
 
+import numpy as np
+
 from asr_inject.operations.reservoir import Reservoir
 from asr_inject.operations.visualise import plot_2d
 from asr_inject.utils.fitting import (
@@ -144,10 +146,65 @@ def run(config: Path) -> None:
         )
 
         # show outputs in 2D plots
-        plot_2d(
-            output, config=value, fitting=fitting,
-            outdir=(outdir / f"{key}")
+        x_domain = (
+            np.arange(value["n_steps"]) *
+            value["step_size"] / DAY_TO_SEC
         )
+
+        y_domain_labels = [
+            "fresh_segment", "transition_layer",
+            "saline_segment"
+        ]
+
+        axis_labels = [
+            "time (days)", "mass (kg)"
+        ]
+
+        for species in ["water", "solute"]:
+            if species == "water":
+                moles = output["moles"][:, :3]
+
+            else:
+                moles = output["moles"][:, 3:]
+
+            y_domains = (
+                moles *
+                fitting[
+                    "solution_characteristics"
+                ][f"Mr_{species}"] / k_TO_SI
+            )
+
+            plot_2d(
+                x_domain, y_domains,
+                outname=(
+                    outdir / f"{key}" /
+                    f"{species}_mass.png"
+                ),
+                y_domain_labels=y_domain_labels,
+                axis_labels=axis_labels,
+                times_to_steady_state=(
+                    output[
+                        "times_to_steady_state"
+                    ][f"{species}"] / DAY_TO_SEC
+                )
+            )
+
+        
+        
+        
+
+
+        
+        
+
+        
+        
+        
+        
+        #plot_2d(
+        #    output, config=value, fitting=fitting,
+        #    outdir=(outdir / f"{key}")
+        #)
 
 
 
