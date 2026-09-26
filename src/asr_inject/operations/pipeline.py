@@ -15,6 +15,9 @@ from asr_inject.utils._yaml import read
 
 LOGGER = create("pipeline")
 
+DAY_TO_SEC = 86400.
+k_TO_SI = 1000.
+
 
 def run(config: Path) -> None:
     """
@@ -125,10 +128,12 @@ def run(config: Path) -> None:
         # ----------------------------------------
         LOGGER.info(f"working on `{key}`")
 
+        # define/load reservoir data in memory
         res = Reservoir(
             config=value, fitting=fitting
         )
 
+        # compute outputs
         output = res.predict(
             n_steps=value["n_steps"],
             step_size=value["step_size"],
@@ -138,6 +143,7 @@ def run(config: Path) -> None:
             )
         )
 
+        # show outputs in 2D plots
         plot_2d(
             output, config=value, fitting=fitting,
             outdir=(outdir / f"{key}")

@@ -35,123 +35,169 @@ k_TO_SI = 1000.
         #}
 
 def plot_2d(
-        results: dict[str, NDArray], *,
-        config: dict[str, Any], 
-        fitting: dict[str, Any],
-        outdir: Path
+        x_domain: NDArray, y_domains: NDArray,
+        *, outname: Path,
+        y_domain_labels: list[str] | None=None, 
+        axis_labels: list[str] | None=None,
+        times_to_steady_state: list[float] | None=None
+        #results: dict[str, NDArray], *,
+        #config: dict[str, Any], 
+        #fitting: dict[str, Any],
+        #outdir: Path
 ) -> None:
     """
     """
     # make outdir
-    outdir.mkdir(parents=True, exist_ok=True)
+    outname.parent.mkdir(parents=True, exist_ok=True)
 
-    # water moles
-    water_mass = results["moles"][:, :3] * (
-        fitting["solution_characteristics"]["Mr_water"] /
-        k_TO_SI
-    )
+    for idx in range(len(y_domains.shape[1])):
+        plt.plot(
+            x_domain, y_domains[:, idx],
+            label=(
+                y_domain_labels[idx]
+                if y_domain_labels else ''
+            )
+        )
 
-    plt.plot(
-        (
-            np.arange(config["n_steps"]) *
-            config["step_size"] / DAY_TO_SEC
-        ),
-        water_mass[:, 0],
-        label="fresh segment"
-    )
-
-    plt.plot(
-        (
-            np.arange(config["n_steps"]) *
-            config["step_size"] / DAY_TO_SEC
-        ),
-        water_mass[:, 1],
-        label="intermediate segment"
-    )
-
-    plt.plot(
-        (
-            np.arange(config["n_steps"]) *
-            config["step_size"] / DAY_TO_SEC
-        ),
-        water_mass[:, 2],
-        label="saline segment"
-    )
-
-    time = max(
-        results["times_to_steady_state"]["water"]
-    ) / DAY_TO_SEC
+    if times_to_steady_state is not None:
+        time = max(times_to_steady_state)
 
     plt.plot(
         np.asarray([time, time]),
         np.asarray([
-            np.min(water_mass), np.max(water_mass)
+            np.min(y_domains), np.max(y_domains)
         ]),
-        "k--",
-        label="time to steady state"
+        "k--", label="time to steady state"
     )
+
+
+    plt.title(outname.stem)
+
+    if y_domain_labels is not None:
+        plt.legend(loc="best")
+
+    if axis_labels is not None:
+        plt.xlabel(axis_labels[0])
+        plt.ylabel(axis_labels[1])
+
+    plt.savefig(outname.name)
+    plt.close()
+
+    
+    
+    
+    
+    
+    
+    
+    
+    # water moles
+    #water_mass = results["moles"][:, :3] * (
+    #    fitting["solution_characteristics"]["Mr_water"] /
+    #    k_TO_SI
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    water_mass[:, 0],
+    #    label="fresh segment"
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    water_mass[:, 1],
+    #    label="intermediate segment"
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    water_mass[:, 2],
+    #    label="saline segment"
+    #)
+
+    #time = max(
+    #    results["times_to_steady_state"]["water"]
+    #) / DAY_TO_SEC
+
+    #plt.plot(
+    #    np.asarray([time, time]),
+    #    np.asarray([
+    #        np.min(water_mass), np.max(water_mass)
+    #    ]),
+    #    "k--",
+    #    label="time to steady state"
+    #)
 
     filename = "water_mass"
     plt.legend(loc="best")
-    plt.title(filename)
+    plt.title(outname.stem)
     plt.xlabel("time (days)")
     plt.ylabel("mass (kg)")
-    plt.savefig(f"{outdir / f"{filename}.png"}")
+    plt.savefig(outname.name)
     plt.close()
 
     # solute moles
-    solute_mass = results["moles"][:, 3:] * (
-        fitting["solution_characteristics"]["Mr_solute"] /
-        k_TO_SI
-    )
+    #solute_mass = results["moles"][:, 3:] * (
+    #    fitting["solution_characteristics"]["Mr_solute"] /
+    #    k_TO_SI
+    #)
 
-    plt.plot(
-        (
-            np.arange(config["n_steps"]) *
-            config["step_size"] / DAY_TO_SEC
-        ),
-        solute_mass[:, 0],
-        label="fresh segment"
-    )
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    solute_mass[:, 0],
+    #    label="fresh segment"
+    #)
 
-    plt.plot(
-        (
-            np.arange(config["n_steps"]) *
-            config["step_size"] / DAY_TO_SEC
-        ),
-        solute_mass[:, 1],
-        label="intermediate segment"
-    )
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    solute_mass[:, 1],
+    #    label="intermediate segment"
+    #)
 
-    plt.plot(
-        (
-            np.arange(config["n_steps"]) *
-            config["step_size"] / DAY_TO_SEC
-        ),
-        solute_mass[:, 2],
-        label="saline segment"
-    )
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    solute_mass[:, 2],
+    #    label="saline segment"
+    #)
 
-    time = max(
-        results["times_to_steady_state"]["solute"]
-    ) / DAY_TO_SEC
+    #time = max(
+    #    results["times_to_steady_state"]["solute"]
+    #) / DAY_TO_SEC
 
-    plt.plot(
-        np.asarray([time, time]),
-        np.asarray([
-            np.min(solute_mass), np.max(solute_mass)
-        ]),
-        "k--",
-        label="time to steady state"
-    )
+    #plt.plot(
+    #    np.asarray([time, time]),
+    #    np.asarray([
+    #        np.min(solute_mass), np.max(solute_mass)
+    #    ]),
+    #    "k--",
+    #    label="time to steady state"
+    #)
 
-    filename = "solute_mass"
-    plt.legend(loc="best")
-    plt.title(filename)
-    plt.xlabel("time (days)")
-    plt.ylabel("mass (kg)")
-    plt.savefig(f"{outdir / f"{filename}.png"}")
-    plt.close()
+    #filename = "solute_mass"
+    #plt.legend(loc="best")
+    #plt.title(filename)
+    #plt.xlabel("time (days)")
+    #plt.ylabel("mass (kg)")
+    #plt.savefig(f"{outdir / f"{filename}.png"}")
+    #plt.close()
 
     #if results["time_to_recovery_limit"]:
     #    limiting = (
