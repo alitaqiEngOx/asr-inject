@@ -231,3 +231,220 @@ licensing script of this repository. """
     #    """
     #    """
     #    return 1. - self.volume_fraction_fresh
+
+
+    # water moles
+    #water_mass = results["moles"][:, :3] * (
+    #    fitting["solution_characteristics"]["Mr_water"] /
+    #    k_TO_SI
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    water_mass[:, 0],
+    #    label="fresh segment"
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    water_mass[:, 1],
+    #    label="intermediate segment"
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    water_mass[:, 2],
+    #    label="saline segment"
+    #)
+
+    #time = max(
+    #    results["times_to_steady_state"]["water"]
+    #) / DAY_TO_SEC
+
+    #plt.plot(
+    #    np.asarray([time, time]),
+    #    np.asarray([
+    #        np.min(water_mass), np.max(water_mass)
+    #    ]),
+    #    "k--",
+    #    label="time to steady state"
+    #)
+
+    #filename = "water_mass"
+    #plt.legend(loc="best")
+    #plt.title(outname.stem)
+    #plt.xlabel("time (days)")
+    #plt.ylabel("mass (kg)")
+    #plt.savefig(outname.name)
+    #plt.close()
+
+    # solute moles
+    #solute_mass = results["moles"][:, 3:] * (
+    #    fitting["solution_characteristics"]["Mr_solute"] /
+    #    k_TO_SI
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    solute_mass[:, 0],
+    #    label="fresh segment"
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    solute_mass[:, 1],
+    #    label="intermediate segment"
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    solute_mass[:, 2],
+    #    label="saline segment"
+    #)
+
+    #time = max(
+    #    results["times_to_steady_state"]["solute"]
+    #) / DAY_TO_SEC
+
+    #plt.plot(
+    #    np.asarray([time, time]),
+    #    np.asarray([
+    #        np.min(solute_mass), np.max(solute_mass)
+    #    ]),
+    #    "k--",
+    #    label="time to steady state"
+    #)
+
+    #filename = "solute_mass"
+    #plt.legend(loc="best")
+    #plt.title(filename)
+    #plt.xlabel("time (days)")
+    #plt.ylabel("mass (kg)")
+    #plt.savefig(f"{outdir / f"{filename}.png"}")
+    #plt.close()
+
+    #if results["time_to_recovery_limit"]:
+    #    limiting = (
+    #        results["time_to_recovery_limit"] / DAY_TO_SEC
+    #    )
+    #    limit_label = "recovery limit"
+
+    #else:
+    #    limiting = (
+    #        results["time_to_full_recovery"] / DAY_TO_SEC
+    #    )
+    #    limit_label = "full recovery"
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    water_mass[:, 2],
+    #    label="recovered"
+    #)
+
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    solute_mass[:, 2],
+    #    label="recovered"
+    #)
+
+    #plt.plot(
+    #    np.asarray([limiting, limiting]),
+    #    np.asarray([
+    #        np.min(solute_mass), np.max(solute_mass)
+    #    ]),
+    #    "k--",
+    #    label=limit_label
+    #)
+
+    # mass fraction of fresh segment
+    #mass_fraction = results["mass_fraction_solute_fresh"]
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    mass_fraction
+    #)
+
+    #plt.plot(
+    #    np.asarray([limiting, limiting]),
+    #    np.asarray([
+    #        mass_fraction[0], mass_fraction[-1]
+    #    ]),
+    #    "k--",
+    #    label=limit_label
+    #)
+
+    #if results["time_to_recovery_limit"]:
+    #    plt.plot(
+    #            np.arange(config["n_steps"]) *
+    #        (
+    #            config["step_size"] / DAY_TO_SEC
+    #        ),
+    #        (
+    #            np.zeros(config["n_steps"]) +
+    #            config["recovery"][
+    #                "threshold_solute_mass_fraction"
+    #            ]
+    #        ),
+    #        "k--"
+    #    )
+
+    #filename = "recovery_purity"
+
+    #plt.legend(loc="best")
+    #plt.title(filename)
+    #plt.xlabel("time (days)")
+    #plt.ylabel("solute mass fraction in fresh segment")
+    #plt.savefig(f"{outdir / f"{filename}.png"}")
+    #plt.close()
+
+    # asr efficiency
+    #plt.plot(
+    #    (
+    #        np.arange(config["n_steps"]) *
+    #        config["step_size"] / DAY_TO_SEC
+    #    ),
+    #    results["asr_efficiency"] * 100.
+    #)
+
+    #plt.plot(
+    #    np.asarray([limiting, limiting]),
+    #    np.asarray([0., 100.]),
+    #    "k--",
+    #    label=limit_label
+    #)
+
+    #filename = "asr_efficiency"
+
+    #plt.legend(loc="best")
+    #plt.title(filename)
+    #plt.xlabel("time (days)")
+    #plt.ylabel("efficiency (%)")
+    #plt.ylim(-5., 105.)
+    #plt.savefig(f"{outdir / f"{filename}.png"}")
+    #plt.close()

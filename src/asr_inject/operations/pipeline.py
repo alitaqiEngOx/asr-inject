@@ -189,58 +189,6 @@ def run(config: Path) -> None:
                 )
             )
 
-        
-        
-        
-
-
-        
-        
-
-        
-        
-        
-        
-        #plot_2d(
-        #    output, config=value, fitting=fitting,
-        #    outdir=(outdir / f"{key}")
-        #)
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    #res = Reservoir(
-    #    config=config_dict, fitting=fitting
-    #)
-
-    #output = res.predict(
-    #    n_steps=config_dict["n_steps"],
-    #    step_size=config_dict["step_size"],
-    #    hmax=(
-    #        config_dict["hmax"]
-    #        if "hmax" in config_dict.keys()
-    #        else None
-    #    )
-    #)
-
-    #plot_2d(
-    #    output, config=config_dict,
-    #    outdir=(outdir / "results")
-    #)
-
     # temporary prints
     #print(
     #    "final efficiency: "
