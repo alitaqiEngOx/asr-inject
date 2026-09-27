@@ -28,7 +28,7 @@ class Reservoir:
         """
         """
         LOGGER.info(
-            "loading `Reservoir` object into memory"
+            "loading object into memory"
         )
 
         self.fitting = fitting
