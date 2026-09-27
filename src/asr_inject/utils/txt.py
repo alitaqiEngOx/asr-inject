@@ -14,3 +14,14 @@ def dump(
     now = datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
     )
+
+    lines = [
+        "============= ASR-INJECT =============\n\n",
+        (
+            "* Author: A. Taqi; "
+            "alitaqi94.developer@gmail.com\n"
+        ),
+        "* All Rights Reserved\n\n\n",
+        f"### Outputs for: `{path.name}` ###\n",
+        f"### Date/time generated: {now} ###\n\n\n",
+    ]
