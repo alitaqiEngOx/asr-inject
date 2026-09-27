@@ -34,3 +34,14 @@ def dump(
 
     for key, value in data.items():
         pass
+
+    lines.append(
+        "──────────── END ────────────\n\n\n"
+    )
+
+    lines.append(
+        "============= ASR-INJECT ============="
+    )
+
+    with open(f"{outname}", 'w') as file:
+        file.writelines(lines)
