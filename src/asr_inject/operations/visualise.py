@@ -22,6 +22,8 @@ def plot_2d(
 ) -> None:
     """
     """
+    LOGGER.info(f"generating `{outname.name}`")
+
     # make outdir
     outname.parent.mkdir(parents=True, exist_ok=True)
 

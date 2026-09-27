@@ -146,6 +146,10 @@ def run(config: Path) -> None:
         )
 
         # show outputs in 2D plots
+        LOGGER.info(
+            "preparing results for visualisation"
+        )
+
         x_domain = (
             np.arange(value["n_steps"]) *
             value["step_size"] / DAY_TO_SEC
@@ -188,6 +192,10 @@ def run(config: Path) -> None:
                     ][f"{species}"] / DAY_TO_SEC
                 )
             )
+
+        LOGGER.info(f"completed tasks for `{key}`")
+
+    LOGGER.info("completed all tasks\n")
 
     # temporary prints
     #print(

@@ -27,9 +27,7 @@ class Reservoir:
     ) -> None:
         """
         """
-        LOGGER.info(
-            "loading object into memory"
-        )
+        LOGGER.info("loading object into memory")
 
         self.fitting = fitting
 
@@ -722,9 +720,7 @@ class Reservoir:
             ])
 
         # initial condition
-        LOGGER.info(
-            "defining initial condition"
-        )
+        LOGGER.info("defining initial condition")
 
         initial_moles = np.asarray([
             self.moles_water_fresh_initial,
