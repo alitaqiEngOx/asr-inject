@@ -194,8 +194,6 @@ def run(config: Path) -> None:
                 )
             )
 
-        LOGGER.info(f"completed tasks for `{key}`")
-
         # generate written outcomes
         txt_data = {}
 
@@ -204,6 +202,8 @@ def run(config: Path) -> None:
                 outdir / f"{key}" / "text.txt"
             )
         )
+
+        LOGGER.info(f"completed tasks for `{key}`")
 
     LOGGER.info("completed all tasks\n")
 
