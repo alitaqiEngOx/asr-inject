@@ -23,9 +23,10 @@ def dump(
         "%Y-%m-%d %H:%M:%S"
     )
 
-    key_width = max(
-        [len(key) for key in data.keys()]
-    )
+    key_lengths = [len(key) for key in data.keys()]
+    key_lengths.append(len("PARAMETER"))
+
+    max_key_length = max(key_lengths)
 
     lines = [
         "============= ASR-INJECT =============\n\n",
@@ -36,11 +37,13 @@ def dump(
         "* All Rights Reserved\n\n\n",
         f"### File name: `{outname.name}` ###\n",
         f"### Date/time generated: {now} ###\n\n\n",
-        f"{'PARAMETER':<{key_width}}   VALUE\n\n"
+        f"{'PARAMETER':<{max_key_length}}   VALUE\n\n"
     ]
 
     for key, value in data.items():
-        pass
+        lines.append(
+            f"{key:<{max_key_length}} : {value}\n\n"
+        )
 
     lines.append(
         "──────────── END ────────────\n\n\n"
