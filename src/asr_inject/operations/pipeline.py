@@ -206,11 +206,15 @@ def run(config: Path) -> None:
                 ]["Mr_water"] / k_TO_SI
             ) + " kg",
 
+            "time to steady state - water fresh segment" : None,
+
             "final water moles transition zone" : str(
                 output["moles"][-1, 1] * fitting[
                     "solution_characteristics"
                 ]["Mr_water"] / k_TO_SI
             ) + " kg",
+
+            "time to steady state - water transition zone" : None,
 
             "final water moles saline segment" : str(
                 output["moles"][-1, 2] * fitting[
@@ -218,11 +222,31 @@ def run(config: Path) -> None:
                 ]["Mr_water"] / k_TO_SI
             ) + " kg",
 
-            "final solute moles fresh segment" : None,
+            "time to steady state - water saline segment" : None,
 
-            "final solute moles transition zone" : None,
+            "final solute moles fresh segment" : str(
+                output["moles"][-1, 3] * fitting[
+                    "solution_characteristics"
+                ]["Mr_solute"] / k_TO_SI
+            ) + " kg",
 
-            "final solute moles saline segment" : None,
+            "time to steady state - solute fresh segment" : None,
+
+            "final solute moles transition zone" : str(
+                output["moles"][-1, 4] * fitting[
+                    "solution_characteristics"
+                ]["Mr_solute"] / k_TO_SI
+            ) + " kg",
+
+            "time to steady state - solute transition zone" : None,
+
+            "final solute moles saline segment" : str(
+                output["moles"][-1, 5] * fitting[
+                    "solution_characteristics"
+                ]["Mr_solute"] / k_TO_SI
+            ) + " kg",
+
+            "time to steady state - solute saline segment" : None,
         }
 
         dump(
