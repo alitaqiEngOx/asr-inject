@@ -29,7 +29,7 @@ def dump(
     max_key_length = max(key_lengths)
 
     lines = [
-        "============= ASR-INJECT =============\n\n",
+        "\n============= ASR-INJECT =============\n\n",
         (
             "* Author: A. Taqi; "
             "alitaqi94.developer@gmail.com\n"
@@ -40,10 +40,13 @@ def dump(
         f"{'PARAMETER':<{max_key_length}}   VALUE\n\n"
     ]
 
-    for key, value in data.items():
-        lines.append(
-            f"{key:<{max_key_length}} : {value}\n\n"
-        )
+    for idx, (key, value) in enumerate(data.items()):
+        line = f"{key:<{max_key_length}} : {value}\n"
+
+        if idx % 2 != 0:
+            line += "\n"
+
+        lines.append(line)
 
     lines.append(
         "──────────── END ────────────\n\n\n"
