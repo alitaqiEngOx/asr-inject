@@ -195,7 +195,9 @@ def run(config: Path) -> None:
             )
 
         # generate written outcomes
-        txt_data = {}
+        txt_data = {
+            ""
+        }
 
         dump(
             txt_data, outname=(
