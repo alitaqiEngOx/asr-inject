@@ -195,13 +195,17 @@ def run(config: Path) -> None:
             )
 
         # generate written outcomes
+        LOGGER.info(
+            "preparing written results for exportation"
+        )
+
         txt_data = {
-            ""
+            "None": None
         }
 
         dump(
             txt_data, outname=(
-                outdir / f"{key}" / "text.txt"
+                outdir / f"{key}" / "outputs.txt"
             )
         )
 

@@ -5,6 +5,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from asr_inject.utils.log_handler import create
+
+
+LOGGER = create("txt")
+
 
 def dump(
         data: dict[str, Any], *,
@@ -12,12 +17,14 @@ def dump(
 ) -> None:
     """
     """
+    LOGGER.info(f"generating `{outname.name}`")
+
     now = datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
     )
 
     key_width = max(
-        len(key) for key, _ in data
+        [len(key) for key in data.keys()]
     )
 
     lines = [
