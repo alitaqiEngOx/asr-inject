@@ -200,7 +200,29 @@ def run(config: Path) -> None:
         )
 
         txt_data = {
-            "None": None
+            "final water moles fresh segment" : str(
+                output["moles"][-1, 0] * fitting[
+                    "solution_characteristics"
+                ]["Mr_water"] / k_TO_SI
+            ) + " kg",
+
+            "final water moles transition zone" : str(
+                output["moles"][-1, 1] * fitting[
+                    "solution_characteristics"
+                ]["Mr_water"] / k_TO_SI
+            ) + " kg",
+
+            "final water moles saline segment" : str(
+                output["moles"][-1, 2] * fitting[
+                    "solution_characteristics"
+                ]["Mr_water"] / k_TO_SI
+            ) + " kg",
+
+            "final solute moles fresh segment" : None,
+
+            "final solute moles transition zone" : None,
+
+            "final solute moles saline segment" : None,
         }
 
         dump(
