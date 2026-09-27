@@ -7,8 +7,8 @@ from typing import Any
 
 
 def dump(
-        path: Path, *, outname: Path,
-        data: dict[str, Any]
+        data: dict[str, Any], *,
+        outname: Path
 ) -> None:
     """
     """
@@ -27,7 +27,7 @@ def dump(
             "alitaqi94.developer@gmail.com\n"
         ),
         "* All Rights Reserved\n\n\n",
-        f"### Outputs for: `{path.name}` ###\n",
+        f"### Outputs: `{outname.name}` ###\n",
         f"### Date/time generated: {now} ###\n\n\n",
         f"{'PARAMETER':<{key_width}}   VALUE\n\n"
     ]

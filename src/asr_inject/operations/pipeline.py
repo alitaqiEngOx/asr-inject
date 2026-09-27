@@ -12,6 +12,7 @@ from asr_inject.utils.fitting import (
 )
 from asr_inject.utils.log_handler import create
 from asr_inject.utils.outtree import make_global_outdir
+from asr_inject.utils.txt import dump
 from asr_inject.utils._yaml import read
 
 
@@ -194,6 +195,15 @@ def run(config: Path) -> None:
             )
 
         LOGGER.info(f"completed tasks for `{key}`")
+
+        # generate written outcomes
+        txt_data = {}
+
+        dump(
+            txt_data, outname=(
+                outdir / f"{key}" / "text.txt"
+            )
+        )
 
     LOGGER.info("completed all tasks\n")
 
