@@ -34,7 +34,7 @@ def dump(
             "alitaqi94.developer@gmail.com\n"
         ),
         "* All Rights Reserved\n\n\n",
-        f"### Outputs: `{outname.name}` ###\n",
+        f"### File name: `{outname.name}` ###\n",
         f"### Date/time generated: {now} ###\n\n\n",
         f"{'PARAMETER':<{key_width}}   VALUE\n\n"
     ]
