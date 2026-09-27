@@ -27,6 +27,10 @@ class Reservoir:
     ) -> None:
         """
         """
+        LOGGER.info(
+            "loading `Reservoir` object into memory"
+        )
+
         self.fitting = fitting
 
         self.Mr_water = fitting[
@@ -718,6 +722,10 @@ class Reservoir:
             ])
 
         # initial condition
+        LOGGER.info(
+            "defining initial condition"
+        )
+
         initial_moles = np.asarray([
             self.moles_water_fresh_initial,
             self.moles_water_intermediate_initial,
@@ -728,6 +736,11 @@ class Reservoir:
         ])
 
         # numerical solution
+
+        LOGGER.info(
+            "predicting temporal numerical solution"
+        )
+
         t = np.arange(n_steps) * step_size
 
         result = odeint(
@@ -738,6 +751,10 @@ class Reservoir:
         )
 
         # times to steady state (water)
+        LOGGER.info(
+            "determining times to steady state"
+        )
+
         times_to_steady_state_water = []
 
         # fresh segment
@@ -848,6 +865,8 @@ class Reservoir:
         times_to_steady_state_solute.append(t[idx])
 
         # return outcomes
+        LOGGER.info("done; returning outcomes")
+
         return {
             "moles": result,
             "mass_fractions": {
