@@ -206,7 +206,11 @@ def run(config: Path) -> None:
                 ]["Mr_water"] / k_TO_SI
             ) + " kg",
 
-            "time to steady state - water fresh segment" : None,
+            "time to steady state - water fresh segment" : str(
+                output[
+                    "times_to_steady_state"
+                ]["water"][0] / DAY_TO_SEC
+            ) + " days",
 
             "final water moles transition zone" : str(
                 output["moles"][-1, 1] * fitting[
@@ -214,7 +218,11 @@ def run(config: Path) -> None:
                 ]["Mr_water"] / k_TO_SI
             ) + " kg",
 
-            "time to steady state - water transition zone" : None,
+            "time to steady state - water transition zone" : str(
+                output[
+                    "times_to_steady_state"
+                ]["water"][1] / DAY_TO_SEC
+            ) + " days",
 
             "final water moles saline segment" : str(
                 output["moles"][-1, 2] * fitting[
@@ -222,7 +230,11 @@ def run(config: Path) -> None:
                 ]["Mr_water"] / k_TO_SI
             ) + " kg",
 
-            "time to steady state - water saline segment" : None,
+            "time to steady state - water saline segment" : str(
+                output[
+                    "times_to_steady_state"
+                ]["water"][2] / DAY_TO_SEC
+            ) + " days",
 
             "final solute moles fresh segment" : str(
                 output["moles"][-1, 3] * fitting[
@@ -230,7 +242,11 @@ def run(config: Path) -> None:
                 ]["Mr_solute"] / k_TO_SI
             ) + " kg",
 
-            "time to steady state - solute fresh segment" : None,
+            "time to steady state - solute fresh segment" : str(
+                output[
+                    "times_to_steady_state"
+                ]["solute"][0] / DAY_TO_SEC
+            ) + " days",
 
             "final solute moles transition zone" : str(
                 output["moles"][-1, 4] * fitting[
@@ -238,7 +254,11 @@ def run(config: Path) -> None:
                 ]["Mr_solute"] / k_TO_SI
             ) + " kg",
 
-            "time to steady state - solute transition zone" : None,
+            "time to steady state - solute transition zone" : str(
+                output[
+                    "times_to_steady_state"
+                ]["solute"][1] / DAY_TO_SEC
+            ) + " days",
 
             "final solute moles saline segment" : str(
                 output["moles"][-1, 5] * fitting[
@@ -246,7 +266,11 @@ def run(config: Path) -> None:
                 ]["Mr_solute"] / k_TO_SI
             ) + " kg",
 
-            "time to steady state - solute saline segment" : None,
+            "time to steady state - solute saline segment" : str(
+                output[
+                    "times_to_steady_state"
+                ]["solute"][2] / DAY_TO_SEC
+            ) + " days",
         }
 
         dump(

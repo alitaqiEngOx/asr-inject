@@ -761,12 +761,15 @@ class Reservoir:
             (result[:, 3] * self.Mr_solute)
         )
 
-        idx = 0
+        idx = -1
         while (
-            mass_fraction_water_fresh[-1] -
-            mass_fraction_water_fresh[idx] >= 0.0001
-        ):
-            idx += 1
+            (result[-1, 0] - result[idx, 0]) /
+             result[-1, 0]
+        ) <= 0.01:
+            if -idx == result.shape[0]:
+                break
+
+            idx -= 1
 
         times_to_steady_state_water.append(t[idx])
 
@@ -778,13 +781,15 @@ class Reservoir:
             (result[:, 4] * self.Mr_solute)
         )
 
-        idx = 0
+        idx = -1
         while (
-            mass_fraction_water_intermediate[-1] -
-            mass_fraction_water_intermediate[idx] >=
-            0.0001
-        ):
-            idx += 1
+            (result[-1, 1] - result[idx, 1]) /
+             result[-1, 1]
+        ) <= 0.01:
+            if -idx == result.shape[0]:
+                break
+
+            idx -= 1
 
         times_to_steady_state_water.append(t[idx])
 
@@ -796,12 +801,15 @@ class Reservoir:
             (result[:, 5] * self.Mr_solute)
         )
 
-        idx = 0
+        idx = -1
         while (
-            mass_fraction_water_saline[-1] -
-            mass_fraction_water_saline[idx] >= 0.0001
-        ):
-            idx += 1
+            (result[-1, 2] - result[idx, 2]) /
+             result[-1, 2]
+        ) <= 0.01:
+            if -idx == result.shape[0]:
+                break
+
+            idx -= 1
 
         times_to_steady_state_water.append(t[idx])
 
@@ -816,12 +824,15 @@ class Reservoir:
             (result[:, 3] * self.Mr_solute)
         )
 
-        idx = 0
+        idx = -1
         while (
-            mass_fraction_solute_fresh[-1] -
-            mass_fraction_solute_fresh[idx] >= 0.0001
-        ):
-            idx += 1
+            (result[-1, 3] - result[idx, 3]) /
+             result[-1, 3]
+        ) <= 0.01:
+            if -idx == result.shape[0]:
+                break
+
+            idx -= 1
 
         times_to_steady_state_solute.append(t[idx])
 
@@ -833,13 +844,15 @@ class Reservoir:
             (result[:, 4] * self.Mr_solute)
         )
 
-        idx = 0
+        idx = -1
         while (
-            mass_fraction_solute_intermediate[-1] -
-            mass_fraction_solute_intermediate[idx] >=
-            0.0001
-        ):
-            idx += 1
+            (result[-1, 4] - result[idx, 4]) /
+             result[-1, 4]
+        ) <= 0.01:
+            if -idx == result.shape[0]:
+                break
+
+            idx -= 1
 
         times_to_steady_state_solute.append(t[idx])
 
@@ -851,12 +864,15 @@ class Reservoir:
             (result[:, 5] * self.Mr_solute)
         )
 
-        idx = 0
+        idx = -1
         while (
-            mass_fraction_solute_saline[-1] -
-            mass_fraction_solute_saline[idx] >= 0.0001
-        ):
-            idx += 1
+            (result[-1, 5] - result[idx, 5]) /
+             result[-1, 5]
+        ) <= 0.01:
+            if -idx == result.shape[0]:
+                break
+
+            idx -= 1
 
         times_to_steady_state_solute.append(t[idx])
 
